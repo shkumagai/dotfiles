@@ -1,0 +1,49 @@
+# Pathes
+#-------
+
+# Environment variables
+NEW_PATH=`echo $PATH | sed -e "s/\/usr\/local\/bin\://"`
+export PATH=/opt/local/bin:/opt/local/sbin:$NEW_PATH
+export MANPATH=/opt/local/man:$MANPATH
+PERL5LIB=/usr/local/lib
+
+
+# Aliases
+#--------
+
+# for Java6
+alias java='java -Dfile.encoding=UTF-8'
+alias javac='javac -J-Dfile.encoding=UTF-8'
+
+# custom commands
+alias cmigemo='/usr/local/bin/cmigemo'
+alias growlnotify='/usr/local/bin/growlnotify'
+
+
+# Completion
+#-----------
+
+# enable to completion when use sudo
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
+
+# Proxies
+#--------
+
+# nothing
+
+
+# Python
+#-------
+
+BUILDOUT_HOME=$HOME/work/buildout
+export PATH=$BUILDOUT_HOME/bin:$PATH
+
+
+# Ruby
+#-----
+
+# nothing
+
+
+#__END__
