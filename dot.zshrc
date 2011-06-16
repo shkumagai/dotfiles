@@ -52,8 +52,11 @@ export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
 
 # Aliases
 #--------
-if [ 'Linux' = $(uname -s) ]; then
+system=$(uname -s)
+if [ 'Linux' = "$system" ]; then
   alias ls='ls --color=auto'
+elif [ 'SunOS' = "$system" ]; then
+  # nothing to do
 else
   alias ls='ls -G'
 fi
