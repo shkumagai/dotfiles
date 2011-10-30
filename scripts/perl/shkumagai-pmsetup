@@ -1,0 +1,290 @@
+#!/usr/bin/env perl
+# -*- mode: perl; coding: utf-8 -*-
+#
+# Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
+#
+# original:
+#   Tatsuhiko Miyagawa
+#   http://bultnews.net/lib/utils/pmsetup/
+
+use strict;
+use warnings;
+
+use ExtUtils::MakeMaker qw(prompt);
+use FileHandle;
+use File::Path qw(mkpath);
+use File::Spec;
+use YAML;
+
+our $path = File::Spec->catfile($ENV{HOME}, "/.pmsetuprc");
+our $config = eval { YAML::LoadFile($path) } || {};
+our $save;
+
+our $modname = shift or die "Usage: $0 module\n";
+our @pkg = split /::/, $modname;
+
+sub mk_module_dir {
+    my ($modname, @pkg) = @_;
+
+    # cddir workdir
+    -d $config->{workdir} or mkdir $config->{workdir};
+    chdir $config->{workdir};
+
+    # mkdir Foo-Bar
+    my $moddir = join ('-', @pkg);
+    mkdir $moddir, 0777;
+    chdir $moddir;
+}
+
+sub mk_makefile_pl {
+    my ($modname, @pkg) = @_;
+
+    # Makefile.PL
+    my $path = join ('/', @pkg) . '.pm';
+    my $mk = FileHandle->new('>Makefile.PL') or die $!;
+    $mk->print(<<MK);
+use ExtUtils::MakeMaker;
+WriteMakefile (
+    'NAME'         => '$modname',
+    'VERSION_FROM' => 'lib/$path', # finds \$VERSION
+    'PREREQ_PM'    => {
+        Test::More => 0.32,
+    },
+);
+MK
+    ;
+}
+
+sub mk_lib_dir_t_dir {
+    my @pkg = @_;
+
+    # lib/Foo & t/
+    my $libdir = 'lib/' . join ('/', @pkg[0..$#pkg-1]);
+    mkpath([ $libdir, 't' ], 1, 0777);
+    return $libdir;
+}
+
+sub mk_compile_t{
+    my $modname = shift;
+
+    # test suite for module compile
+    my $compile = FileHandle->new('>t/00_compile.t') or die $!;
+    $compile->print(<<COMPILE);
+use strict;
+use Test::More tests => 1;
+
+BEGIN { use_ok '$modname' };
+diag("$modname version \$${modname}::VERSION");
+COMPILE
+    ;
+}
+
+sub mk_module_t {
+    my ($modname, @pkg) = @_;
+
+    # test suite for module functions
+    my $modtest = FileHandle->new(">t/01_$pkg[$#pkg].t") or die $!;
+    $modtest->print(<<MODTEST);
+use $modname;
+use Test::More;
+
+# actual tests implement here.
+plan skip_all => "Module was need to implements.";
+
+MODTEST
+    ;
+}
+
+sub mk_pod_coverage_t {
+    # test suite for pod coverage
+    my $coverage = FileHandle->new(">t/96_pod-covergae.t") or die $!;
+    $coverage->print(<<'COVERAGE');
+use Test::More;
+eval "use Test::Pod::Coverage 1.00";
+plan skip_all => "Test::Pod::Coverage 1.00 is required for testing POD Coverage" if $@;
+all_pod_coverage_ok();
+COVERAGE
+    ;
+}
+
+sub mk_podspell_t {
+    my $podspell = FileHandle->new("t/97_podspell.t") or die $!;
+    $podspell->print(<<SPELL);
+use Test::More;
+eval q{ use Test::Spelling };
+plan skip_all => "Test::Spelling is not installed." if \$\@;
+add_stopwords(map { split /[\\s\\:\\-]/ } <DATA>);
+$ENV{LANG} = 'C';
+all_pod_files_spelling_ok('lib');
+__DATA__
+$config->{author}
+$modname
+SPELL
+    ;
+}
+
+sub mk_perlcritic_t {
+    # test suite for perlcritic
+    my $critics = FileHandle->new(">t/98_perlcritic.t") or die $!;
+    $critics->print(<<'CRITIC');
+use strict;
+use Test::More;
+eval { use Test::Perl::Critic -profile => 't/perlcriticrc' };
+plan skip_all => "Test::Perl::Critic is not installed." if $@;
+all_critic_ok('lib');
+CRITIC
+    ;
+}
+
+sub mk_perlcriticrc {
+    # rc file for perlcritic
+    my $criticrc = FileHandle->new(">t/perlcriticrc") or die $!;
+    $criticrc->print(<<CRITICRC);
+[TestingAndDebugging::ProhibitNoStrict]
+allow=refs
+CRITICRC
+    ;
+}
+
+sub mk_pod_t {
+
+    # test suite for pod
+    my $pod = FileHandle->new(">t/99_pod.t") or die $!;
+    $pod->print(<<'POD');
+use Test::More;
+eval "use Test::Pod 1.00";
+plan skip_all => "Test::Pod required for testing POD." if $@;
+all_pod_files_ok();
+POD
+    ;
+}
+
+sub mk_changes {
+    my $modname = shift;
+
+    my $localtime = localtime;
+    my $changes = FileHandle->new("> Changes") or die $!;
+    $changes->print(<<CHANGES);
+Revision history for Perl extension $modname
+
+0.01  $localtime
+        - original version
+CHANGES
+    ;
+}
+
+sub mk_module_template {
+    my ($libdir, $modname, @pkg) = @_;
+    my $module = FileHandle->new(">$libdir/$pkg[$#pkg].pm") or die $!;
+    $module->print(<<MODULE);
+package $modname;
+
+use strict;
+use warnings;
+use Carp;
+
+use version; our \$VERSION = qv('0.01');
+
+1;
+__END__
+
+=head1 NAME
+
+$modname - [One line description for extension module]
+
+=head1 SYNOPSIS
+
+  use $modname;
+
+=head1 DESCRIPTION
+
+$modname is ...
+
+=head1 AUTHOR
+
+$config->{author} E<lt>$config->{email}E<gt>
+
+=head1 
+
+=head1 SEE ALSO
+
+=cut
+MODULE
+    ;
+}
+
+sub mk_manifest {
+    my $mani = FileHandle->new(">MANIFEST.SKIP") or die $!;
+    $mani->print(<<'MANIFEST');
+\bRCS\b
+\bCVS\b
+^MANIFEST\.
+^Makefile$
+~$
+\.old$
+^blib/
+^pm_to_blib
+^MakeMaker-\d
+\.gz$
+\.cvsignore
+^\.svn/
+MANIFEST
+    ;
+}
+
+sub prepare_make {
+    do "Makefile.PL";
+    !system 'make test' or die $?;
+    !system 'make manifest' or die $?;
+    !system 'make distclean' or die $?;
+}
+
+sub main {
+
+    # check configurations
+    while (! $config->{author}) {
+        $config->{author} = prompt("Your name: ", '');
+        $save++;
+    }
+
+    while (! $config->{email}) {
+        $config->{email} = prompt("Your email: ", '');
+        $save++;
+    }
+
+    while (! $config->{workdir}) {
+        $config->{workdir} = prompt("Your workdir: ", '');
+        $save++;
+    }
+
+    mk_module_dir($modname, @pkg);
+    mk_makefile_pl($modname, @pkg);
+
+    my $libdir = mk_lib_dir_t_dir(@pkg);
+
+    # make test suites
+    mk_compile_t($modname);
+    mk_module_t($modname, @pkg);
+    mk_perlcritic_t($modname);
+    mk_perlcriticrc;
+    mk_pod_coverage_t($modname);
+    mk_pod_t($modname);
+
+    # make templates
+    mk_module_template($libdir, $modname, @pkg);
+    mk_changes($modname);
+    mk_manifest($modname);
+
+    # build, test and clean
+    prepare_make();
+}
+
+END {
+    YAML::DumpFile($path, $config) if $save;
+}
+
+main if (__FILE__ eq $0);
+
+__END__
+
+# vim: ts=4 sw=4 et ft=perl:
