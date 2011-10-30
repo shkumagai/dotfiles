@@ -3,8 +3,11 @@
 
 # Environment variables
 NEW_PATH=`echo $PATH | sed -e "s/\/usr\/local\/bin\://"`
-export PATH=/opt/local/bin:/opt/local/sbin:$NEW_PATH
-export MANPATH=/opt/local/man:$MANPATH
+TEXLIVE_HOME=/usr/local/texlive/2011
+
+export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/universal-darwin:$NEW_PATH
+export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 PERL5LIB=/usr/local/lib
 
 
@@ -39,11 +42,14 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 BUILDOUT_HOME=$HOME/work/buildout
 export PATH=$BUILDOUT_HOME/bin:$PATH
 
+export WORKON=$HOME/.virtualenvs
+source /opt/local/Library/Frameworks/Python.framework/Versions/2.6/bin/virtualenvwrapper.sh
+
 
 # Ruby
 #-----
 
-# nothing
+[[ -s "/Users/skumagai/.rvm/scripts/rvm" ]] && source "/Users/skumagai/.rvm/scripts/rvm"
 
 
 #__END__

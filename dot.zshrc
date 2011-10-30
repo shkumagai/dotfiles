@@ -53,13 +53,17 @@ export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
 # Aliases
 #--------
 system=$(uname -s)
-if [ 'Linux' = "$system" ]; then
+case ${system} in
+'Linux')
   alias ls='ls --color=auto'
-elif [ 'SunOS' = "$system" ]; then
-  # nothing to do
-else
+  ;;
+'Darwin')
   alias ls='ls -G'
-fi
+  ;;
+'SunOS')
+  # nothing to do
+  ;;
+esac
 alias ll='ls -l'
 alias lf='ls -lF'
 
@@ -70,15 +74,25 @@ alias -g V="| vim -R -"
 #--------
 autoload -U colors
 colors
+
+
+hg_branch() {
+    hg branch 2> /dev/null | awk '{printf "(hg:%s)", $1}'
+}
+
+git_branch() {
+    git branch 2> /dev/null | awk '{printf "(git:%s)", $2}'
+}
+
 case ${UID} in
 0)
-  PROMPT="%B%{${fg[red]}%}[%T %m:/]#%{${reset_color}%}%b "
+  PROMPT="%B%{${fg[red]}%}[%T %m:/] %{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[red]}%}#%{${reset_color}%}%b "
   PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
   RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
   SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
   ;;
 *)
-  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%%%{${reset_color}%} "
+  PROMPT="%{${fg[cyan]}%}[%T %n@%m] %{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[cyan]}%}%%%{${reset_color}%} "
   PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
   RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
@@ -187,7 +201,6 @@ setopt long_list_jobs
 # for Subversion
 #---------------
 export SVN_EDITOR=/usr/bin/vim
-
 
 #------------------------------
 # site customize
