@@ -21,7 +21,7 @@ alias javac='javac -J-Dfile.encoding=UTF-8'
 # custom commands
 alias cmigemo='/usr/local/bin/cmigemo'
 alias growlnotify='/usr/local/bin/growlnotify'
-
+alias emacs='/usr/local/bin/emacs'
 
 # Completion
 #-----------
