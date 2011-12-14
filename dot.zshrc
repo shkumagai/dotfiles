@@ -81,18 +81,18 @@ hg_branch() {
 }
 
 git_branch() {
-    git branch 2> /dev/null | awk '{printf "(git:%s)", $2}'
+    git branch 2> /dev/null | grep "^\*" | awk '{printf "(git:%s)", $2}'
 }
 
 case ${UID} in
 0)
-  PROMPT="%B%{${fg[red]}%}[%T %m:/] %{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[red]}%}#%{${reset_color}%}%b "
+  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[red]}%} #%{${reset_color}%}%b "
   PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
   RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
   SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
   ;;
 *)
-  PROMPT="%{${fg[cyan]}%}[%T %n@%m] %{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[cyan]}%}%%%{${reset_color}%} "
+  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[cyan]}%} %%%{${reset_color}%} "
   PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
   RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
