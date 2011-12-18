@@ -2,7 +2,7 @@
 " An example for vimrc
 "
 " Maintainer   : Shoji KUMAGAI <shoji.kumagai@mail.rakuten.co.jp>
-" Last updated : Sat Nov 26 02:45:00 JST 2011
+" Last updated : Sun Dec 18 22:22:20 JST 2011
 "
 " To use this, copy to your home directory.
 "==============================================================================
@@ -51,8 +51,8 @@ set showcmd
 set laststatus=2
 set showmatch
 set matchtime=2
-colorscheme wombat
 set background=dark
+colorscheme solarized
 syntax on
 set hlsearch
 highlight Comment ctermfg=DarkCyan
@@ -92,8 +92,8 @@ set fileencodings+=,ucs-2le,ucs-2
 "==============================================================================
 
 if has("autocmd")
-	filetype plugin indent on
-	autocmd BufReadPost *
+    filetype plugin indent on
+    autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal g'\"" |
         \ endif
@@ -140,9 +140,6 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 30
-
-hi IndentGuidesOdd ctermbg=gray
-hi IndentGuidesEven ctermbg=darkgray
 
 
 "__END__
