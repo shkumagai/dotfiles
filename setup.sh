@@ -47,7 +47,7 @@ make_symlink_local()
   make_symlink $1 '.local'
 }
 
-for f in `find . -depth 1 -type f`
+for f in `find . -maxdepth 1 -type f`
 do
   name="${f##?*/}" # triming
   arch=$(uname -s | tr '[:upper:]' '[:lower:]')
