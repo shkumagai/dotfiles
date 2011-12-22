@@ -1,7 +1,10 @@
+Flask==0.8
 Jinja2==2.6
 PIL==1.1.7
 Pygments==1.4
+SQLAlchemy==0.7.4
 Sphinx==1.1.2
+Werkzeug==0.8.2
 Whoosh==2.3.2
 blockdiag==1.1.1
 distribute==0.6.19
