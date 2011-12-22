@@ -47,7 +47,7 @@ source /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualen
 # Ruby
 #-----
 
-#[[ -s "/Users/skumagai/.rvm/scripts/rvm" ]] && source "/Users/skumagai/.rvm/scripts/rvm"
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
 #__END__
