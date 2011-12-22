@@ -3,7 +3,7 @@
 # setup.sh -- setting up dotfiles to home directory.
 #
 # :author: Shoji KUMAGAI
-# :since: 
+# :since: Fri Dec 23 01:56:01 JST 2011
 
 # usage
 # -----
@@ -20,7 +20,7 @@
 # sysmem. In the case above, `xxx.darwin` is used to configuration of
 # application like Shell (ex. bash, zsh), VCS (ex. mercurial, git), and so
 # on. Of course, dotfiles should be designed in which it has interfaces to
-# include the system inherent configuration.  
+# include the system inherent configuration.
 
 # Here is a sample code for zshrc:
 #
