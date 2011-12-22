@@ -1,0 +1,14 @@
+[ui]
+username=Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
+
+[extensions]
+graphlog =
+color =
+record =
+mq =
+
+[color]
+mode = auto
+
+[diff]
+git = True

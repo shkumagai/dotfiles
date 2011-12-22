@@ -1,0 +1,18 @@
+[user]
+    name = Shoji KUMAGAI
+    email = take.this.2.your.grave@gmail.com
+
+[core]
+    excludesfile = /Users/skumagai/.gitignore_global
+    editor = /usr/bin/vim -c \"set fenc=utf-8\"
+
+[color]
+    ui = auto
+
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    df = diff
+    lg = log -p
+    st = status
