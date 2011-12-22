@@ -75,24 +75,25 @@ alias -g V="| vim -R -"
 autoload -U colors
 colors
 
-
-hg_branch() {
-    hg branch 2> /dev/null | awk '{printf "(hg:%s)", $1}'
-}
-
-git_branch() {
-    git branch 2> /dev/null | grep "^\*" | awk '{printf "(git:%s)", $2}'
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg bzr
+zstyle ':vcs_info:*' formats '(%s:%b)'
+zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
+precmd () {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
 case ${UID} in
 0)
-  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[red]}%} #%{${reset_color}%}%b "
+  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}%1(v|%1v|)%{${fg[red]}%} #%{${reset_color}%}%b "
   PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
   RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
   SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
   ;;
 *)
-  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}\$(git_branch)\$(hg_branch)%{${fg[cyan]}%} %%%{${reset_color}%} "
+  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}%1(v|%1v|)%{${fg[cyan]}%} %%%{${reset_color}%} "
   PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
   RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
