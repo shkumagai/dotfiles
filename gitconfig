@@ -3,7 +3,7 @@
     email = take.this.2.your.grave@gmail.com
 
 [core]
-    excludesfile = /Users/skumagai/.gitignore_global
+    excludesfile = ~/.gitignore
     editor = /usr/bin/vim -c \"set fenc=utf-8\"
 
 [color]
