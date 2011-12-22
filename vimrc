@@ -2,10 +2,44 @@
 " An example for vimrc
 "
 " Maintainer   : Shoji KUMAGAI <shoji.kumagai@mail.rakuten.co.jp>
-" Last updated : Sun Dec 18 22:22:20 JST 2011
+" Last updated : Thu Dec 22 20:56:10 JST 2011
 "
 " To use this, copy to your home directory.
 "==============================================================================
+
+"==============================================================================
+" Vim scripts
+"==============================================================================
+
+"----------------------------------------------------------
+" neobundle.vim
+"----------------------------------------------------------
+" If you don't have neobundle.vim, follow the steps below
+" to install.
+"
+" mkdir ~/.bundle
+" cd ~/.bundle
+" git git://github.com/Shougo/neobundle.vim.git
+if has('vim_starting')
+    set runtimepath+=~/.bundle/neobundle.vim
+    filetype off
+    call neobundle#rc(expand('~/.bundle'))
+    filetype plugin on
+    filetype indent on
+endif
+
+" List up below plugins which you wanna use it.
+NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
+NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
+
+"----------------------------------------------------------
+" indent-guide
+"----------------------------------------------------------
+let g:indent_guides_auto_colors = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 30
+
 
 "==============================================================================
 " Global
@@ -106,40 +140,6 @@ endif
 
 set hidden
 set shortmess+=I
-
-
-"==============================================================================
-" Vim scripts
-"==============================================================================
-
-"----------------------------------------------------------
-" neobundle.vim
-"----------------------------------------------------------
-" If you don't have neobundle.vim, follow the steps below
-" to install.
-"
-" mkdir ~/.bundle
-" cd ~/.bundle
-" git git://github.com/Shougo/neobundle.vim.git
-if has('vim_starting')
-    set runtimepath+=~/.bundle/neobundle.vim
-    filetype off
-    call neobundle#rc(expand('~/.bundle'))
-    filetype plugin on
-    filetype indent on
-endif
-
-" List up below plugins which you wanna use it.
-NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
-
-
-"----------------------------------------------------------
-" indent-guide
-"----------------------------------------------------------
-let g:indent_guides_auto_colors = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_color_change_percent = 30
 
 
 "__END__
