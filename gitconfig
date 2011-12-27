@@ -4,7 +4,8 @@
 
 [core]
     excludesfile = ~/.gitignore
-    editor = /usr/bin/vim -c \"set fenc=utf-8\"
+    editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
+    whitespace = trailing-space,space-before-tab
 
 [color]
     ui = auto
