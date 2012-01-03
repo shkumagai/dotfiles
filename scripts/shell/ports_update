@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+echo 'Update start.'
+
+sudo port selfupdate && \
+sudo port upgrade outdated && \
+port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;' && \
+echo -n 'Update complete at ' && date
