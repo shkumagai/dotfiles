@@ -80,7 +80,8 @@ set noincsearch
 set title
 set number
 set ruler
-set nolist
+set list
+set listchars=tab:>-,trail:-,eol:↩,extends:>,precedes:<,nbsp:%
 set showcmd
 set laststatus=2
 set showmatch
