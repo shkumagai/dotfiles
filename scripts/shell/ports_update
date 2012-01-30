@@ -11,16 +11,16 @@ clr_echo ()
 {
   msg=${1}
   color=${2:-$(echo $org)}
-  echo -n "\033[${color}m${msg}\033[${org}m"
+  echo -e "\033[${color}m${msg}\033[${org}m"
 }
 
 # main
 
-echo 'Update start.' $brown
+clr_echo 'Update start.' $brown
 sudo port selfupdate
 
-outdated_items=$(sudo port outdated)
-if [ $#outdated_items ]; then
+outdated=$(sudo port outdated 2> /dev/null)
+if [ $#outdated -ne 0 ]; then
   clr_echo 'Upgrade available:' $green
   echo $outdated_items
   sudo port upgrade outdated
@@ -29,6 +29,6 @@ if [ $#outdated_items ]; then
   port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;'
 fi
 
-clr_echo 'Update complete.' && date
-
+clr_echo 'Update complete.' $brown
+date
 # END
