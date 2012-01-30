@@ -1,8 +1,34 @@
 #!/bin/zsh
 
-echo 'Update start.'
+readonly red='0;31'
+readonly green='0;32'
+readonly brown='0;33'
+readonly blue='0;34'
+readonly gray='0;37'
+readonly org='0;0'
 
-sudo port selfupdate && \
-sudo port upgrade outdated && \
-port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;' && \
-echo -n 'Update complete at ' && date
+clr_echo ()
+{
+  msg=${1}
+  color=${2:-$(echo $org)}
+  echo -n "\033[${color}m${msg}\033[${org}m"
+}
+
+# main
+
+echo 'Update start.' $brown
+sudo port selfupdate
+
+outdated_items=$(sudo port outdated)
+if [ $#outdated_items ]; then
+  clr_echo 'Upgrade available:' $green
+  echo $outdated_items
+  sudo port upgrade outdated
+
+  clr_echo 'Uninstall outdated items.' $green
+  port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;'
+fi
+
+clr_echo 'Update complete.' && date
+
+# END
