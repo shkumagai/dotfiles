@@ -16,4 +16,6 @@
     co = checkout
     df = diff
     lg = log -p
+    glog = log --graph
+    glo1 = log --graph --oneline
     st = status
