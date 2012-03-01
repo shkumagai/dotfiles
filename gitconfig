@@ -17,5 +17,5 @@
     df = diff
     lg = log -p
     glog = log --graph
-    glo1 = log --graph --oneline
+    glo1 = log --graph --format=\"%C(yellow)%h%Creset %Cblue%ci%Creset %s\"
     st = status
