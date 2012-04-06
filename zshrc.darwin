@@ -39,7 +39,8 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 # Erlang
 #-------
 
-PATH=/opt/local/erlang/R15B/bin:$PATH
+ERLANG_VERSION=R15B01
+PATH=/opt/local/erlang/${ERLANG_VERSION}/bin:$PATH
 export PATH
 
 # Python
