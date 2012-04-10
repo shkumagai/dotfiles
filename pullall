@@ -1,9 +1,0 @@
-#!/bin/bash
-
-for d in `find . -type d -maxdepth 1 -mindepth 1`; do
-  repo=$(echo ${d} | sed -e "s/.\///g")
-  echo "${repo}"
-  cd ${repo}
-  git pull
-  cd ..
-done
