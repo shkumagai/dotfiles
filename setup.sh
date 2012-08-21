@@ -58,6 +58,7 @@ do
   fi
   if [[ "${f##?*config}" = "" ]]; then
     make_symlink $name
+    [[ -f "$name.local" ]] && make_symlink_local $name.local
   fi
   if [[ "${f##?*ignore}" = "" ]]; then
     make_symlink $name
