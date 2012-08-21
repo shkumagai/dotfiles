@@ -15,8 +15,9 @@ PERL5LIB=/usr/local/lib
 #--------
 
 # for Java6
-alias java='java -Dfile.encoding=UTF-8'
-alias javac='javac -J-Dfile.encoding=UTF-8'
+# Since Mountain Lion (OSX), Java (TM) had NOT pre-installed :(
+#alias java='java -Dfile.encoding=UTF-8'
+#alias javac='javac -J-Dfile.encoding=UTF-8'
 
 # custom commands
 alias cmigemo='/usr/local/bin/cmigemo'
