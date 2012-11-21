@@ -16,8 +16,10 @@
     df = diff
     lg = log -p
     glog = log --graph
-    glo1 = log --graph --format=\"%C(yellow)%h%Creset %Cblue%ci%Creset %s\"
+    glo1 = log --graph --format=\"%C(yellow)%h%Creset %s\"
     st = status
 
 [push]
     default = current
+[credential]
+    helper = osxkeychain
