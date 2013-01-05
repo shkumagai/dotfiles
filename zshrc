@@ -48,8 +48,12 @@ esac
 #-------
 PATH=$HOME/bin:$PATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
-export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
-
+system=$(uname -s)
+case ${system} in
+'Linux')
+  export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
+  ;;
+esac
 
 # Aliases
 #--------
