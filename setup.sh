@@ -98,6 +98,30 @@ make_symlink_local()
   make_symlink $1 '.local'
 }
 
+create_gitconfig_local()
+{
+  if [ ! -f "gitconfig.local" -o $FORCE_UPDATE -eq 1 ]; then
+    echo -n "Your email address?: "
+    read mail_addr
+    debug "received: [${mail_addr}]"
+
+    echo -n "Github oauth-token (if you know)?: "
+    read oauth_token
+    debug "received: [${oauth_token}]"
+
+    cat <<_EOT_ > gitconfig.local
+[user]
+    name = Shoji KUMAGAI
+    email = ${mail_addr}
+
+[github]
+    user = shkumagai
+    oauth-token = ${oauth_token}
+_EOT_
+
+  fi
+}
+
 run()
 {
   if [ $# -eq 0 ]; then
@@ -109,6 +133,8 @@ run()
 
   arch=$(lc `uname -s`)
   debug "arch #=> $arch"
+
+  create_gitconfig_local
 
   for f in $files
   do
