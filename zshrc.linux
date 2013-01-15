@@ -1,0 +1,63 @@
+# Pathes
+#-------
+
+# Environment variables
+TEXLIVE_HOME=/usr/local/texlive/2011
+
+export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/universal-darwin:$NEW_PATH
+export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
+PERL5LIB=/usr/local/lib
+
+export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
+
+
+# Aliases
+#--------
+
+alias ls='ls --color=auto'
+
+# # custom commands
+# alias cmigemo='/usr/local/bin/cmigemo'
+# alias emacs='/usr/local/bin/emacs'
+
+
+# Completion
+#-----------
+
+# enable to completion when use sudo
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
+
+# Proxies
+#--------
+
+# nothing
+
+# Erlang
+#-------
+
+ERLANG_VERSION=R15B01
+PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
+export PATH
+
+# Python
+#-------
+
+export WORKON=$HOME/.virtualenvs
+source /usr/local/lib/python/2.7/bin/virtualenvwrapper.sh
+
+
+# Ruby
+#-----
+
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh
