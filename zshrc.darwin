@@ -14,6 +14,8 @@ PERL5LIB=/usr/local/lib
 # Aliases
 #--------
 
+alias ls='ls -G'
+
 # for Java6
 # Since Mountain Lion (OSX), Java (TM) had NOT pre-installed :(
 #alias java='java -Dfile.encoding=UTF-8'
@@ -57,4 +59,10 @@ source /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualen
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
-#__END__
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh

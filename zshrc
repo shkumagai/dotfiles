@@ -48,31 +48,6 @@ esac
 #-------
 PATH=$HOME/bin:$PATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
-system=$(uname -s)
-case ${system} in
-'Linux')
-  export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
-  ;;
-esac
-
-# Aliases
-#--------
-system=$(uname -s)
-case ${system} in
-'Linux')
-  alias ls='ls --color=auto'
-  ;;
-'Darwin')
-  alias ls='ls -G'
-  ;;
-'SunOS')
-  # nothing to do
-  ;;
-esac
-alias ll='ls -l'
-alias lf='ls -lF'
-
-alias -g V="| vim -R -"
 
 
 # Prompts
@@ -204,14 +179,29 @@ limit coredumpsize 102400
 # replace 'jobs' to 'jobs -l' with internal command
 setopt long_list_jobs
 
+
 # for Subversion
 #---------------
 export SVN_EDITOR=/usr/bin/vim
 
-#------------------------------
-# site customize
-#------------------------------
+
+# Site customize
+#---------------
 
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
 
-#__END__
+
+# Aliases
+#--------
+alias ll='ls -l'
+alias lf='ls -lF'
+
+alias -g V="| vim -R -"
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh
