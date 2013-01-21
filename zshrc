@@ -79,6 +79,7 @@ case ${UID} in
   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
   ;;
 esac
+setopt transient_rprompt
 
 
 # Automation
