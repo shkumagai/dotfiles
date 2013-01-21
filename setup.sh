@@ -125,7 +125,7 @@ _EOT_
 run()
 {
   if [ $# -eq 0 ]; then
-    files=$(find . -maxdepth 1 -type f)
+    files=$(find . -maxdepth 1 -type f ! -name ".*")
   else
     files="$@"
   fi
