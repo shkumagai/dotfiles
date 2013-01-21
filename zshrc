@@ -167,9 +167,6 @@ setopt nolistbeep
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# run 'ls' when exec 'cd'
-function chpwd() { ls }
-
 # unable Ctrl+s, Ctrl+q
 setopt no_flow_control
 
@@ -193,10 +190,14 @@ export SVN_EDITOR=/usr/bin/vim
 
 # Aliases
 #--------
+
 alias ll='ls -l'
 alias lf='ls -lF'
 
 alias -g V="| vim -R -"
+
+# run 'ls' when exec 'cd'
+function chpwd() { ls }
 
 # Local variables:
 # mode: shell-script
