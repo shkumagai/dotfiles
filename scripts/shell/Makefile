@@ -3,7 +3,7 @@
 # :author: Shoji KUMAGAI
 
 BASEDIR = $(PWD)
-file = ports_update pullall
+FILE = pullall ports_update
 
 .PHONY: help link clean
 
@@ -12,9 +12,11 @@ help:
 	@echo "  link  to make symbolic link."
 	@echo "  clean to remove symbolic link."
 
-clean: $(file)
-	@rm -rf $(HOME)/bin/$(file)
+clean: $(FILE)
+	$(foreach file, $^,\
+	  rm -rf $(HOME)/bin/$(file);)
 
-link: $(file)
-	ln -s $(PWD)/$(file) $(HOME)/bin/$(file)
+link: $(FILE)
+	$(foreach file, $^,\
+	  ln -is $(PWD)/$(file) $(HOME)/bin/$(file);)
 
