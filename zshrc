@@ -4,7 +4,7 @@
 # functions, options, key bindings, etc.
 #
 
-fpath=(~/comp ${fpath})
+fpath=(~/comp/zsh ${fpath})
 autoload -U compinit && compinit
 
 #allow tab completion in the middle of a word
