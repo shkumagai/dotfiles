@@ -42,7 +42,10 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 # Erlang
 #-------
 
-ERLANG_VERSION=R15B02
+#ERLANG_VERSION=R15B01
+#ERLANG_VERSION=R15B02
+ERLANG_VERSION=R15B03-1
+#ERLANG_VERSION=R16A
 PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
 export PATH
 
