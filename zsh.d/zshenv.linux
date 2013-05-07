@@ -1,0 +1,48 @@
+#
+# .zshenv
+#
+
+
+# Pathes
+#-------
+export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
+
+
+# Aliases
+#--------
+alias ls='ls --color=auto'
+
+
+# Additional Commands
+#--------------------
+alias cmigemo='/usr/local/bin/cmigemo'
+alias emacs='/usr/local/bin/emacs'
+
+
+# Erlang
+#-------
+
+ERLANG_VERSION=R15B01
+PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
+export PATH
+
+# Python
+#-------
+
+export WORKON=$HOME/.virtualenvs
+source /usr/local/lib/python/2.7/bin/virtualenvwrapper.sh
+
+
+# Ruby (rbenv)
+#-------------
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh

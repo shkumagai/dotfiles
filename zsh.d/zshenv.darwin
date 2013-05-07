@@ -1,0 +1,52 @@
+#
+# .zshenv
+#
+
+
+# Pathes
+#-------
+PATH=$(echo $PATH | sed -e "s/\/usr\/local\/bin\://")
+
+
+# Aliases
+#--------
+alias ls='ls -G'
+
+
+# Additional Commands
+#--------------------
+alias cmigemo='/usr/local/bin/cmigemo'
+alias growlnotify='/usr/local/bin/growlnotify'
+alias emacs='/usr/local/bin/emacs'
+
+
+# Erlang
+#-------
+#ERLANG_VERSION=R15B01
+ERLANG_VERSION=R15B02
+#ERLANG_VERSION=R15B03-1
+#ERLANG_VERSION=R16A
+#ERLANG_VERSION=R16B
+PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
+export PATH
+
+
+# Python
+#-------
+export WORKON=$HOME/.virtualenvs
+source /opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenvwrapper.sh
+
+
+# Ruby (rbenv)
+#-------------
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh

@@ -1,0 +1,156 @@
+# .zshrc is sourced in interactive shells.
+# It should contain commands to set up aliases,
+# functions, options, key bindings, etc.
+
+fpath=(~/comp/zsh ${fpath})
+autoload -U compinit && compinit
+
+#allow tab completion in the middle of a word
+setopt COMPLETE_IN_WORD
+
+
+#===========================================================
+# Customize
+#===========================================================
+
+# Prompts
+#--------
+autoload -U colors
+colors
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg bzr
+zstyle ':vcs_info:*' formats '(%s:%b)'
+zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
+precmd () {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+case ${UID} in
+0)
+  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}%1(v|%1v|)%{${fg[red]}%} #%{${reset_color}%}%b "
+  PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
+  RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
+  SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
+  ;;
+*)
+  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}%1(v|%1v|)%{${fg[cyan]}%} %%%{${reset_color}%} "
+  PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
+  RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
+  SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+  ;;
+esac
+setopt transient_rprompt
+
+
+# Automation
+#-----------
+
+setopt auto_cd
+setopt auto_pushd
+
+setopt auto_list
+setopt pushd_ignore_dups
+setopt list_packed
+setopt no_list_types
+
+setopt correct
+setopt auto_menu
+
+setopt auto_param_keys
+setopt auto_param_slash
+
+# resume process if it has suspended as same name
+setopt auto_resume
+
+
+# History
+#--------
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt append_history
+setopt extended_history
+setopt share_history
+
+setopt hist_ignore_dups
+#setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+#setopt hist_ignore_space
+setopt hist_verify
+
+
+# Completion
+#-----------
+
+LISTMAX=0
+
+setopt print_eight_bit
+setopt magic_equal_subst
+setopt mark_dirs
+
+# enable to cursor selection in completion list selection
+zstyle ':completion:*default' menu select=1
+
+# enable to completion when use sudo
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
+# expands '=command' to its path name
+setopt equals
+
+# treat '#', '~', '^' as Regexp in filename
+setopt extended_glob
+
+# sort numerical order in file name expansion
+setopt numeric_glob_sort
+
+
+# Visuals
+#--------
+
+# enable to show 'CR' when it not exist on end of line
+unsetopt promptcr
+
+# enable to use colorlize
+setopt prompt_subst
+
+# Directory: Cyan
+export LS_COLORS='di=01;36'
+
+# enable colorlize file list completion like 'ls'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+
+# Others
+#-------
+
+# without BEEP
+setopt no_beep
+setopt nolistbeep
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# unable Ctrl+s, Ctrl+q
+setopt no_flow_control
+
+# set limitation for core dump size
+limit coredumpsize 102400
+
+# replace 'jobs' to 'jobs -l' with internal command
+setopt long_list_jobs
+
+# run 'ls' when exec 'cd'
+function chpwd() { ls }
+
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: sw=2 ts=2 et filetype=sh
