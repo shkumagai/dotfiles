@@ -5,6 +5,18 @@
 
 # Pathes
 #-------
+TEXLIVE_HOME=/usr/local/texlive/2011
+
+export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/universal-darwin:$PATH
+export PATH=$HOME/bin:$PATH
+
+export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
+
+export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
+export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+
+export PERL5LIB=/usr/local/lib
+
 export LD_LIBRARY_PATH=/usr/lib:/usr/lib32:/lib:/usr/local/lib
 
 
