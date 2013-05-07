@@ -69,28 +69,33 @@ lc() {
   echo -n $( echo ${1} | tr "[:upper:]" "[:lower:]" )
 }
 
+symlink()
+{
+  debug "ln $*"
+  ln $*
+}
+
 make_symlink()
 {
   debug "  args: [$*]"
   file=$1
   suffix=$2
-  [ "$file" = "" ] && exit 0
+  [[ "$file" = "" ]] && exit 0
 
   from="$SRC/$file"
 
-  if [ "$suffix" != "" ]; then
+  if [[ "$suffix" != "" ]]; then
     to="$DEST/.${file%.?*}$suffix"
   else
     to="$DEST/.${file}"
   fi
 
-  if [ $FORCE_UPDATE -eq 1 ]; then
+  if [[ $FORCE_UPDATE -eq 1 ]]; then
     LN_OPTS="-fs"
   else
     LN_OPTS="-is"
   fi
-  debug "ln $LN_OPTS $from $to"
-  ln $LN_OPTS "$from" "$to"
+  symlink $LN_OPTS $from $to
 }
 
 make_symlink_local()
@@ -125,7 +130,7 @@ _EOT_
 run()
 {
   if [ $# -eq 0 ]; then
-    files=$(find . -maxdepth 1 -type f ! -name ".*")
+    files=$(find . -maxdepth 1 ! -name ".*")
   else
     files="$@"
   fi
@@ -134,23 +139,31 @@ run()
   arch=$(lc `uname -s`)
   debug "arch #=> $arch"
 
-  create_gitconfig_local
+  # create_gitconfig_local
 
   for f in $files
   do
     name="${f##?*/}" # triming
     debug "name #=> $name"
 
-    if [ "${f##?*rc}" = "" ]; then
+    if [[ "${f##?*env}" = "" ]]; then
       make_symlink $name
-      [ -f "$name.$arch" ] && make_symlink_local $name.$arch
+      [ -f "$SRC/zsh.d/$name.$arch" ] && symlink "-fs" "$SRC/zsh.d/$name.$arch" "$SRC/zsh.d/$name"
     fi
-    if [ "${f##?*config}" = "" ]; then
+    if [[ "${f##?*rc}" = "" ]]; then
+      make_symlink $name
+      # [ -f "$name.$arch" ] && make_symlink_local $name.$arch
+      [ -f "$SRC/zsh.d/$name.$arch" ] && symlink "-fs" "$SRC/zsh.d/$name.$arch" "$SRC/zsh.d/$name"
+    fi
+    if [[ "${f##?*config}" = "" ]]; then
       make_symlink $name
       [ -f "$name.local" ] && make_symlink_local $name.local
     fi
-    if [ "${f##?*ignore}" = "" ]; then
+    if [[ "${f##?*ignore}" = "" ]]; then
       make_symlink $name
+    fi
+    if [[ "${f##?*.d}" = "" ]]; then
+      make_symlink ${name}/
     fi
   done
 }
