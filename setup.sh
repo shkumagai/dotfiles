@@ -19,15 +19,15 @@ files=( gitconfig \
         zshenv \
         zsh.d \
 )
+# echo "files: ${files[@]}"
 
-zshfiles=( zshenv )
-
-echo "files: ${files[@]}"
-echo "zshfiles: ${zshfiles[@]}"
+zshfiles=( zshenv \
+)
+# echo "zshfiles: ${zshfiles[@]}"
 
 for file in ${files[@]}; do
   # echo "ln -sf $SRC/$file $DST/.$file"
-  [[ -s $DST/.$file ]] && rm $DST/.$file
+  [[ -h $DST/.$file ]] && rm $DST/.$file
   ln -s $SRC/$file $DST/.$file
   ls -l $DST/.$file
 done
