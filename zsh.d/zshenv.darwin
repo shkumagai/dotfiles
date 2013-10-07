@@ -32,17 +32,6 @@ alias growlnotify='/usr/local/bin/growlnotify'
 alias emacs='/usr/local/bin/emacs'
 
 
-# Erlang
-#-------
-#ERLANG_VERSION=R15B01
-ERLANG_VERSION=R15B02
-#ERLANG_VERSION=R15B03-1
-#ERLANG_VERSION=R16A
-#ERLANG_VERSION=R16B
-PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
-export PATH
-
-
 # Python
 #-------
 export WORKON=$HOME/.virtualenvs

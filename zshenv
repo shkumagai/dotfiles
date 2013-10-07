@@ -26,9 +26,28 @@ alias -g V="| vim -R -"
 export SVN_EDITOR=/usr/bin/vim
 
 
+# Erlang
+#-------
+typeset -a ERLANG_VERSION
+ERLANG_VERSION=(R15B01
+                R15B02
+                R15B03-1
+                R16A
+                R16B
+)
+PATH=/opt/local/erlang/${ERLANG_VERSION[2]}/bin:$PATH
+export PATH
+
+
 # Git
 #----
 export GIT_MERGE_AUTOEDIT=no
+
+
+# Golang
+#-------
+export GOROOT=$HOME/golang
+export PATH=$PATH:$GOROOT/bin
 
 
 # Local variables:

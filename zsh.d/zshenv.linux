@@ -31,16 +31,8 @@ alias cmigemo='/usr/local/bin/cmigemo'
 alias emacs='/usr/local/bin/emacs'
 
 
-# Erlang
-#-------
-
-ERLANG_VERSION=R15B01
-PATH=/opt/accense/erlang/${ERLANG_VERSION}/bin:$PATH
-export PATH
-
 # Python
 #-------
-
 export WORKON=$HOME/.virtualenvs
 source /usr/local/lib/python/2.7/bin/virtualenvwrapper.sh
 
