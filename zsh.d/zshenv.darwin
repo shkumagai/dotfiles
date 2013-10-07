@@ -44,6 +44,11 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 
+# Golang
+#-------
+export GOROOT=/opt/local/go
+export GOPATH=$HOME/golang
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2

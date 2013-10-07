@@ -44,12 +44,6 @@ export PATH
 export GIT_MERGE_AUTOEDIT=no
 
 
-# Golang
-#-------
-export GOROOT=$HOME/golang
-export PATH=$PATH:$GOROOT/bin
-
-
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
