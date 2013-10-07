@@ -1,0 +1,479 @@
+#!/usr/bin/env python
+# -*- mode: python; coding: utf-8 -*-
+
+"""
+    modulesetup - setup script for python module skelton
+
+    usage:
+
+        # execute script like this,
+        $ python modulesetup foo.bar.buz
+
+        # and it makes as below
+        $ tree path/to/.pymodsetup/foo-bar-buz/
+        /some/where/.pymodsetup/foo-bar-buz/
+        ├── MANIFEST.in
+        ├── doc
+        ├── setup.cfg
+        ├── setup.py
+        ├── src
+        │   ├── AUTHORS.rst
+        │   ├── HISTORY.rst
+        │   ├── README.rst
+        │   └── foo
+        │       ├── __init__.py
+        │       └── bar
+        │           ├── __init__.py
+        │           └── buz
+        │               └── __init__.py
+        └── test
+            ├── run.py
+            └── version_test.py
+
+        6 directories, 11 files
+
+    :author: Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
+    :license: MIT License
+"""
+
+import os
+import json
+import re
+import sys
+import types
+
+from datetime import datetime
+from pprint import pformat as pf
+
+
+class ValidatorError(Exception):
+    """Raised for validation errors."""
+
+
+class ModuleSetup(object):
+
+    content_setup_py = """\
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from setuptools import setup, fild_packages
+import os
+
+version = '0.1.0'
+
+long_description = '\n'.join([
+    open(os.path.join('src', 'README.rst')).read(),
+    open(os.path.join('src', 'AUTHORS.rst')).read(),
+    open(os.path.join('src', 'HISTORY.rst')).read(),
+    ])
+
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python',
+    'Topic :: Software Development',
+    ## Add other classifier strings here if you need.
+    ]
+
+setup(
+    name='%(module_name)s',
+    version=version,
+    description='[[ Update here by show description. ]]',
+    long_description=long_description,
+    classifiers=classifiers,
+    keywords=['something'],
+    author='%(author)s',
+    author_email='%(email)s',
+    url='Update here by project site or source code repository.',
+    license='MIT',
+    namespace_packages=%(namespace_packages)s,
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    # package_data={'': ['']},
+    # include_package_data=True,
+    # install_requires=[],
+    # entry_points=\"\",
+    # zip_safe=False,
+)
+"""
+
+    content_setup_cfg = """\
+[egg_info]
+;tag_build = dev
+
+[build]
+build-base = _build
+
+[sdist]
+formats = gztar
+
+[upload_docs]
+upload-dir = _build/sphinx/html
+
+[aliases]
+upload_docs = build_sphinx upload_docs
+release = upload_docs sdist upload
+"""
+
+    content_manifest_in = """\
+exclude bootstrap.py buildout.cfg
+include *.rst
+# recursive-include docs *
+# recursive-include src *.py *.txt *.html *.css* *.conf *.png
+"""
+
+    content_readme = """\
+[[ Short description ]]
+
+FEATURES
+========
+
+* [[ describe features ]]
+
+
+SET UP
+======
+
+Make environment with easy_install ::
+
+    $ easy_install %(module_name)s
+
+
+SYNOPSIS
+========
+
+Using like as below ::
+
+    $ import %(module_name)s
+    $ [[ write as how to use ]]
+
+
+REQUIREMENT
+===========
+
+* Python 2.6.x or later (not support 3.x)
+* [[ others ]]
+
+
+LICENSE
+=======
+
+Licensed under the `MIT license <http://www.opensource.org/licenses/mit-license.php>`_ .
+See the LICENSE file for specific terms.
+"""
+
+    content_authors = """\
+AUTHORS
+=======
+
+Source Code, Document and Packaging
+-----------------------------------
+* %(author)s <%(email)s>
+"""
+
+    content_history = """\
+HISTORY
+=======
+
+0.1.0 (%(date)s)
+---------------------
+* first release
+"""
+
+    content_init_py = """\
+# -*- coding: utf-8 -*-
+
+version = '0.1.0'
+
+## write your own code.
+
+"""
+
+    content_version_test_py = """\
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import unittest
+
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+from %(module_name)s import version
+
+
+class TestModuleVersion(unittest.TestCase):
+
+    def test_version(self):
+        self.assertEqual(version, '0.1.0')
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+"""
+
+    content_run_py = """\
+# -*- coding: utf-8 -*-
+
+import sys
+
+from os import path
+
+sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
+
+# try:
+#     import nose
+# except ImportError:
+#     sys.exit('nose package is required to run this test suites.')
+
+# nose.main()
+
+"""
+
+    def __init__(self, module):
+        """ Initialize ModuleSetup class """
+        self.modname = module
+        self.package = self.modname.split('.')
+
+        try:
+            self.term_input = raw_input
+        except NameError:
+            self.term_input = input
+
+        self.save = 0
+        self.setuprc = os.path.join(os.environ.get('HOME'), '.pymodsetuprc')
+        try:
+            d = json.loads(open(self.setuprc).read())
+            self.author = d['author']
+            self.email = d['email']
+            self.workdir = d['workdir']
+        except:
+            print "%s is not exists." % self.setuprc
+
+    def _is_path(self, x):
+        """ check whether argument string is valid as path or not. """
+        s = os.path.expanduser(x)
+        if os.path.exists(s) and not os.path.isdir(s):
+            raise ValidatorError('Please enter a valid path name.')
+        return s
+
+    def _nonempty(self, x):
+        """ check whether argument string is empty or not. """
+        if not x:
+            raise ValidatorError('Please enter some text.')
+        return x
+
+    def _do_prompt(self, key, text, default=None, validator='_nonempty'):
+        """ get configuration parameters using interactive method. """
+        while True:
+            if default:
+                prompt = '%s [%s]: ' % (text, default)
+            else:
+                prompt = text + ': '
+            x = self.term_input(prompt).strip()
+            if default and not x:
+                x = default
+            try:
+                x = getattr(self, validator)(x)
+            except ValidatorError, e:
+                print '* ' + str(e)
+                continue
+            break
+        setattr(self, key, x)
+
+    def _namespace_package(self):
+        """ construct namespace_packages list. """
+        ns_pkgs = []
+        for i in self.package:
+            p = ''
+            if len(ns_pkgs) > 0:
+                p = ns_pkgs[len(ns_pkgs) - 1]
+                ns_pkgs.append('.'.join([p, i]))
+            else:
+                ns_pkgs.append(i)
+        return ns_pkgs
+
+    def _make_file(self, path, content):
+        """ make named file with given content. """
+        fp = open(path, 'w')
+        fp.write(content)
+        fp.close()
+        print "file: %s is created." % path
+
+    def _make_directory(self, name, path):
+        os.makedirs(path)
+        setattr(self, name, path)
+        print "path: %s is created." % path
+
+    def make_module_dir(self):
+        """ make module root directory. """
+        workdir = os.path.expanduser(self.workdir)
+        if not os.path.exists(workdir):
+            self._make_directory('workdir', workdir)
+        os.chdir(workdir)
+
+        moddir = os.path.join(self.workdir, '-'.join(self.package))
+        self._make_directory('moddir', moddir)
+        os.chdir(moddir)
+
+        srcdir = os.path.join(self.moddir, 'src')
+        self._make_directory('srcdir', srcdir)
+
+        docdir = os.path.join(self.moddir, 'doc')
+        self._make_directory('docdir', docdir)
+
+        testdir = os.path.join(self.moddir, 'test')
+        self._make_directory('testdir', testdir)
+
+    def make_setup_py(self):
+        """ make setup.py template. """
+        place_holder = {
+            "module_name": self.modname,
+            "author": self.author,
+            "email": self.email,
+            "namespace_packages": self._namespace_package(),
+        }
+        path = os.path.join(self.moddir, 'setup.py')
+        self._make_file(path, self.content_setup_py % place_holder)
+
+    def make_setup_cfg(self):
+        """ make setup.cfg template. """
+        path = os.path.join(self.moddir, 'setup.cfg')
+        self._make_file(path, self.content_setup_cfg)
+
+    def make_manifest_in(self):
+        """ make MANIFEST.in template. """
+        path = os.path.join(self.moddir, 'MANIFEST.in')
+        self._make_file(path, self.content_manifest_in)
+
+    def make_readme(self):
+        """ make README file. """
+        path = os.path.join(self.srcdir, 'README.rst')
+        self._make_file(path, self.content_readme)
+
+    def make_authors(self):
+        """ make AUTHORS file. """
+        place_holder = {
+            "author": self.author,
+            "email": self.email,
+        }
+        path = os.path.join(self.srcdir, 'AUTHORS.rst')
+        self._make_file(path, self.content_authors % place_holder)
+
+    def make_history(self):
+        """ make HISTORY file. """
+        place_holder = {
+            "date": datetime.now().strftime("%b %d, %Y"),
+        }
+        path = os.path.join(self.srcdir, 'HISTORY.rst')
+        self._make_file(path, self.content_history % place_holder)
+
+    def make_module_template(self):
+        """ make setup.py template. """
+        os.chdir(self.srcdir)
+
+        for n in range(0, len(self.package)):
+            os.mkdir(self.package[n])
+            os.chdir(self.package[n])
+
+            if n == len(self.package) - 1:
+                self._make_file('__init__.py', self.content_init_py)
+            else:
+                self._make_file('__init__.py', '')
+
+    def make_initial_test(self):
+        """ make initial test template. """
+        os.chdir(self.testdir)
+
+        place_holder = {
+            "module_name": self.modname,
+        }
+        path = os.path.join(self.testdir, 'version_test.py')
+        self._make_file(path, self.content_version_test_py % place_holder)
+
+    def make_run_py(self):
+        """ make setup.py template. """
+        path = os.path.join(self.testdir, 'run.py')
+        self._make_file(path, self.content_run_py)
+
+    def run(self, options):
+        try:
+            if not self.author:
+                self._do_prompt('author', 'Your name?')
+                self.save = self.save + 1
+
+            if not self.email:
+                self._do_prompt('email', 'Your email?')
+                self.save = self.save + 1
+
+            if not self.workdir:
+                self._do_prompt('workdir', 'Your workdir?',
+                                default=os.path.join(os.environ.get('HOME'), '.pymodsetup'),
+                                validator='_is_path')
+                self.save = self.save + 1
+
+            dump(self.__dict__, options)
+
+            ## module
+            self.make_module_dir()
+            self.make_setup_py()
+            self.make_setup_cfg()
+            self.make_manifest_in()
+
+            self.make_readme()
+            self.make_authors()
+            self.make_history()
+
+            self.make_module_template()
+
+            ## test
+            self.make_initial_test()
+            self.make_run_py()
+
+        except Exception, e:
+            print e
+
+        finally:
+            if self.save:
+                keys = ['author', 'email', 'workdir']
+                self._make_file(self.setuprc,
+                                json.dumps(dict([(v, getattr(self, v)) for v in keys])))
+
+
+def dump(obj, options):
+    if options.verbose:
+        if type(obj) is types.StringType:
+            print 'DEBUG: %s' % obj
+        elif type(obj) is types.UnicodeType:
+            print 'DEBUG: %s' % obj.encode('utf-8')
+        else:
+            print 'DEBUG: %s' % pf(obj)
+
+
+def main():
+    from optparse import OptionParser
+
+    version = '''\
+Product:   modulesetup - setup script for python module skelton
+Version:   1.0.0
+Copyright: 2013, Shoji KUMAGAI. All rights reserved. '''
+
+    parser = OptionParser(usage='%prog [Options] module_name', version=version)
+    parser.add_option('-v', '--verbose', action='store_true',
+                      dest='verbose', help='Run as verbose mode.')
+    parser.add_option('-n', '--dry-run', action='store_true',
+                      dest='dryrun', help='Run as verify mode. Not process actually.')
+
+    try:
+        (options, args) = parser.parse_args()
+        dump((options, args), options)
+        if len(args) != 1:
+            sys.exit('Too few or many arguments.')
+        mod = ModuleSetup(args[0])
+        mod.run(options)
+    except Exception, e:
+        sys.exit(e)
+
+
+if __name__ == '__main__':
+    main()
