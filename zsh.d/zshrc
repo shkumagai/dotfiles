@@ -100,7 +100,7 @@ zstyle ':completion:*default' menu select=1
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 # enable completion cache
-zstyle ':completion:*:'
+zstyle ':completion:*:' use-cache on
 
 # expands '=command' to its path name
 setopt equals
