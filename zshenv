@@ -34,8 +34,9 @@ ERLANG_VERSION=(R15B01
                 R15B03-1
                 R16A
                 R16B
+                R16B02
 )
-PATH=/opt/local/erlang/${ERLANG_VERSION[2]}/bin:$PATH
+PATH=/opt/local/erlang/${ERLANG_VERSION[6]}/bin:$PATH
 export PATH
 
 
