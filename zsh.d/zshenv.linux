@@ -27,8 +27,8 @@ alias ls='ls --color=auto'
 
 # Additional Commands
 #--------------------
-alias cmigemo='/usr/local/bin/cmigemo'
-alias emacs='/usr/local/bin/emacs'
+alias cmigemo='/usr/bin/cmigemo'
+alias emacs='/usr/bin/emacs'
 
 
 # Python
@@ -39,15 +39,15 @@ source /usr/local/lib/python/2.7/bin/virtualenvwrapper.sh
 
 # Ruby (rbenv)
 #-------------
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 
 # Golang
 #-------
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/golang
+#export GOROOT=/usr/local/go
+#export PATH=$PATH:$GOROOT/bin
+#export GOPATH=$HOME/golang
 
 
 # Local variables:
