@@ -1,6 +1,8 @@
+%include .hgrc.local
+
 [ui]
-username=Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
-editor=/usr/bin/vim -i NONE
+editor = /usr/bin/vim -i NONE
+style = ~/.hgrc.d/map-cmdline.custom
 
 [alias]
 ci = commit
