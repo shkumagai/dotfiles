@@ -1,0 +1,31 @@
+changeset = '\033[0;33m{rev}:{node|short}\033[0m \033[0;34m{date|isodate}\033[0m {author|person} {desc|firstline}\n'
+changeset_quiet = '\033[0;33m{rev}:{node|short}\033[0m \033[0;34m{date|isodate}\033[0m {desc|firstline}\n'
+changeset_verbose = 'changeset:   \033[0;33m{rev}:{node|short}\033[0m\n{branchs}{bookmarks}{tags}{parents}user:        {author}\ndate:        {date|date}\n{files}{file_copies_switch}description:\n {desc|strip}\n\n'
+changeset_debug = 'changeset:   \033[0;33m{rev}:{node}\033[0m\n{branchs}{bookmarks}{tags}phase:       {phase}\n{parents}{manifest}user:        {author}\ndate:        {date|date}\n{file_mods}{file_adds}{file_dels}{file_copies_switch}{extra}description:\n {desc|strip}\n\n'
+
+start_files = 'files:      '
+file = ' {file}'
+end_files = '\n'
+
+start_file_mods = ''
+file_mod = '\033[0;36mM {file_mod}\033[0m'
+end_file_mods = '\n'
+
+start_file_adds = ''
+file_add = '\033[0;32mA {file_add}\033[0m'
+end_file_adds = '\n'
+
+start_file_dels = ''
+file_del = '\033[0;31mR {file_del}\033[0m'
+end_file_dels = '\n'
+
+start_file_copies = ''
+file_copy = '\033[0;37mC {name} ({source})\033[0m'
+end_file_copies = '\n'
+
+parent = 'parent:      {rev}:{node|formatnode}\n'
+manifest = 'manifest:    {rev}:{node}\n'
+branch = 'branch:      {branch}\n'
+tag = 'tag:         {tag}\n'
+bookmark = 'bookmark:    {bookmark}\n'
+extra = 'extra:       {key}={value|stringescape}\n'
