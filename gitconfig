@@ -13,11 +13,11 @@
     br = branch
     ci = commit
     co = checkout
-    df = diff
+    df = diff --color-words
     lg = log -p
     glog = log --graph
-    glo1 = log --graph --format=\"%C(yellow)%h%Creset %s\"
-    st = status
+    glo1 = log --graph --decorate --format=\"%C(yellow)%h%Creset %s\"
+    st = status --branch
 
 [push]
     default = current
