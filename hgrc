@@ -1,4 +1,4 @@
-%include .hgrc.local
+%include ~/.hgrc.local
 
 [ui]
 editor = /usr/bin/vim -i NONE
