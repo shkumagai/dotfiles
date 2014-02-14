@@ -12,6 +12,7 @@ files=( gitconfig \
         gitignore \
         gitconfig.local \
         hgrc \
+        hgrc.d \
         hgignore \
         perltidyrc \
         vimrc \
