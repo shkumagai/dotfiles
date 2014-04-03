@@ -46,9 +46,14 @@ source /usr/bin/virtualenvwrapper.sh
 
 # Golang
 #-------
-#export GOROOT=/usr/local/go
-#export PATH=$PATH:$GOROOT/bin
-#export GOPATH=$HOME/golang
+export GOROOT=/usr/lib/go
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=/opt/local/work/golang
+
+
+# Steel Bank Common Lisp
+#-----------------------
+export SBCL_HOME=/usr/lib64/sbcl
 
 
 # Local variables:
