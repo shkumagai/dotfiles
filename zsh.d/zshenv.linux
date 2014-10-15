@@ -8,7 +8,7 @@
 TEXLIVE_HOME=/usr/local/texlive/2011
 
 export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/x86_64-linux:$PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$PATH:/sbin
 
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 
