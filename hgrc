@@ -14,6 +14,8 @@ graphlog =
 color =
 record =
 mq =
+hgext.convert =
+hgsubversion = ~/hgsubversion/hgsubversion
 
 [color]
 mode = auto
