@@ -49,6 +49,12 @@ eval "$(rbenv init -)"
 export GOROOT=/opt/local/go
 export GOPATH=$HOME/golang
 
+
+# Java
+#-----
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
