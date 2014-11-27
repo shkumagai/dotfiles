@@ -1,0 +1,32 @@
+select-pane -t 0
+split-window -h
+
+select-pane -t 1
+split-window -v
+resize-pane -t 1 -y 9
+
+select-pane -t 2
+split-window -v
+resize-pane -t 2 -y 8
+
+select-pane -t 3
+split-window -v
+resize-pane -t 3 -y 8
+
+select-pane -t 4
+split-window -v
+resize-pane -t 4 -y 8
+
+select-pane -t 5
+split-window -v
+resize-pane -t 5 -y 8
+
+select-pane -t 6
+split-window -v
+resize-pane -t 6 -y 8
+resize-pane -t 7 -y 8
+
+setw main-pane-width 120
+select-layout main-vertical
+
+display-panes

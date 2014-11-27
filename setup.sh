@@ -19,8 +19,8 @@ files=( gitconfig \
         zshrc \
         zshenv \
         zsh.d \
-        tmux.conf \
         tmux \
+        tmux.conf \
 )
 # echo "files: ${files[@]}"
 

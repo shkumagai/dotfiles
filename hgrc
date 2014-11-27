@@ -9,11 +9,19 @@ ci = commit
 df = diff
 st = status
 
+[pager]
+pager = LESS="-R" less
+quiet = True
+attend = help, diff, log, glog
+
 [extensions]
 graphlog =
 color =
 record =
 mq =
+hgext.convert =
+hgsubversion = ~/hgsubversion/hgsubversion
+pager =
 
 [color]
 mode = auto
