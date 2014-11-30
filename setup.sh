@@ -16,10 +16,11 @@ files=( gitconfig \
         hgignore \
         perltidyrc \
         vimrc \
+        vim \
         zshrc \
         zshenv \
         zsh.d \
-        tmux \
+        tmux.d \
         tmux.conf \
 )
 # echo "files: ${files[@]}"
