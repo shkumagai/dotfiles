@@ -29,9 +29,10 @@ if has('vim_starting')
 endif
 
 " List up below plugins which you wanna use it.
-NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
-NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'groovy.vim'
 
 "----------------------------------------------------------
 " indent-guide
