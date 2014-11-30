@@ -31,6 +31,7 @@ endif
 " List up below plugins which you wanna use it.
 NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 
 "----------------------------------------------------------
 " indent-guide
@@ -87,7 +88,7 @@ set laststatus=2
 set showmatch
 set matchtime=2
 set background=dark
-colorscheme solarized
+colorscheme Tomorrow-Night-Bright
 syntax on
 set hlsearch
 highlight Comment ctermfg=DarkCyan
