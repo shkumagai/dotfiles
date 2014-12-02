@@ -1,0 +1,99 @@
+#!/bin/bash
+
+PWD=$(cd $(dirname $0); pwd)
+TMUX_ROOT=$(cd $PWD/..; pwd)
+TEMP_PASSWD=/tmp/_passwd
+
+WINDOW_NAME="noname"
+
+
+function create-new-window
+{
+    tmux new-window -n ${WINDOW_NAME}
+}
+
+function split-window-for
+{
+    case "${1}" in
+    ap_east)
+        ;;
+    ap_west)
+        ;;
+    lb)
+        ;;
+    log)
+        ;;
+    kvs_sitert)
+        ;;
+    kvs_dynad)
+        ;;
+    esac
+}
+
+function split-window-to-12panes
+{
+    row_per_host=${1}
+
+    tmux split-window -h
+
+    tmux select-pane -t 0;  tmux split-window -v -t ${WINDOW_NAME}.0;  tmux resize-pane -t ${WINDOW_NAME}.0 -y ${row_per_host}
+    tmux select-pane -t 1;  tmux split-window -v -t ${WINDOW_NAME}.1;  tmux resize-pane -t ${WINDOW_NAME}.1 -y ${row_per_host}
+    tmux select-pane -t 2;  tmux split-window -v -t ${WINDOW_NAME}.2;  tmux resize-pane -t ${WINDOW_NAME}.2 -y ${row_per_host}
+    tmux select-pane -t 3;  tmux split-window -v -t ${WINDOW_NAME}.3;  tmux resize-pane -t ${WINDOW_NAME}.3 -y ${row_per_host}
+    tmux select-pane -t 4;  tmux split-window -v -t ${WINDOW_NAME}.4;  tmux resize-pane -t ${WINDOW_NAME}.4 -y ${row_per_host}
+
+    tmux select-pane -t 6;  tmux split-window -v -t ${WINDOW_NAME}.6;  tmux resize-pane -t ${WINDOW_NAME}.6 -y ${row_per_host}
+    tmux select-pane -t 7;  tmux split-window -v -t ${WINDOW_NAME}.7;  tmux resize-pane -t ${WINDOW_NAME}.7 -y ${row_per_host}
+    tmux select-pane -t 8;  tmux split-window -v -t ${WINDOW_NAME}.8;  tmux resize-pane -t ${WINDOW_NAME}.8 -y ${row_per_host}
+    tmux select-pane -t 9;  tmux split-window -v -t ${WINDOW_NAME}.9;  tmux resize-pane -t ${WINDOW_NAME}.9 -y ${row_per_host}
+    tmux select-pane -t 10; tmux split-window -v -t ${WINDOW_NAME}.10; tmux resize-pane -t ${WINDOW_NAME}.10 -y ${row_per_host}
+}
+
+function execute-command-on-pane
+{
+    pane_name=${1}
+    hostname=${2}
+    command=${3}
+
+    tmux send-key -t ${WINDOW_NAME}.${pane_name} "$TMUX_ROOT/bin/automate.sh ${hostname} '${command}'" C-m
+}
+
+function main
+{
+    read -sp "Enter password for account: " passwd; echo
+    read -sp "Enter passphrase for key: " passphrase; echo
+
+    cat <<_EOT > $TEMP_PASSWD
+passwd=${passwd}
+passphrase=${passphrase}
+_EOT
+
+
+    create-new-window ${WINDOW_NAME}
+    split-window-for ${GROUP_NAME}
+    execute-command-on-panes-for ${GROUP_NAME}
+
+    sleep 1
+    rm $TEMP_PASSWD
+}
+
+while getopts w:g:hv option; do
+    case "$option" in
+    w)
+        WINDOW_NAME=$OPTARG
+        ;;
+    g)
+        GROUP_NAME=$OPTARG
+        ;;
+    h|\?)
+        usage; exit 0
+        ;;
+    v)
+        version '0.1'; exit 0
+        ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+main "$@"
+

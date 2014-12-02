@@ -1,0 +1,28 @@
+select-pane -t 0
+split-window -h
+
+select-pane -t 0
+split-window -v
+resize-pane -t 0 -y 15
+
+select-pane -t 1
+split-window -v
+resize-pane -t 1 -y 15
+
+select-pane -t 2
+split-window -v
+resize-pane -t 2 -y 15
+
+select-pane -t 4
+split-window -v
+resize-pane -t 4 -y 15
+
+select-pane -t 5
+split-window -v
+resize-pane -t 5 -y 15
+
+select-pane -t 6
+split-window -v
+resize-pane -t 6 -y 15
+
+display-panes
