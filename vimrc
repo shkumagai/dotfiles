@@ -29,7 +29,7 @@ if has('vim_starting')
 endif
 
 " List up below plugins which you wanna use it.
-"NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 "NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'groovy.vim'
@@ -37,10 +37,12 @@ NeoBundle 'groovy.vim'
 "----------------------------------------------------------
 " indent-guide
 "----------------------------------------------------------
-let g:indent_guides_auto_colors = 1
-let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_color_change_percent = 30
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgray ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=gray     ctermbg=238
 
 
 "==============================================================================
