@@ -1,0 +1,46 @@
+#!/bin/bash
+
+PWD=$(cd $(dirname $0); pwd)
+TMUX_ROOT=$(cd $PWD/..; pwd)
+
+WINDOW_NAME=$(basename $0)
+
+source ${TMUX_ROOT}/bin/utils
+
+function main
+{
+    get-passwds
+    rows=$(get-row-per-host 6)
+
+    tmux neww -n ${WINDOW_NAME}
+    tmux splitw -h
+
+    tmux selectp -t 0;  tmux splitw -v -t ${WINDOW_NAME}.0;  tmux resizep -t ${WINDOW_NAME}.0 -y ${rows}
+    tmux selectp -t 1;  tmux splitw -v -t ${WINDOW_NAME}.1;  tmux resizep -t ${WINDOW_NAME}.1  -y ${rows}
+    tmux selectp -t 2;  tmux splitw -v -t ${WINDOW_NAME}.2;  tmux resizep -t ${WINDOW_NAME}.2  -y ${rows}
+    tmux selectp -t 3;  tmux splitw -v -t ${WINDOW_NAME}.3;  tmux resizep -t ${WINDOW_NAME}.3  -y ${rows}
+    tmux selectp -t 4;  tmux splitw -v -t ${WINDOW_NAME}.4 #;  tmux resizep -t ${WINDOW_NAME}.4  -y ${rows}
+
+    tmux selectp -t 6;  tmux splitw -v -t ${WINDOW_NAME}.6;  tmux resizep -t ${WINDOW_NAME}.6  -y ${rows}
+    tmux selectp -t 7;  tmux splitw -v -t ${WINDOW_NAME}.7;  tmux resizep -t ${WINDOW_NAME}.7  -y ${rows}
+    tmux selectp -t 8;  tmux splitw -v -t ${WINDOW_NAME}.8;  tmux resizep -t ${WINDOW_NAME}.8  -y ${rows}
+    tmux selectp -t 9;  tmux splitw -v -t ${WINDOW_NAME}.9;  tmux resizep -t ${WINDOW_NAME}.9  -y ${rows}
+    tmux selectp -t 10; tmux splitw -v -t ${WINDOW_NAME}.10 #; tmux resizep -t ${WINDOW_NAME}.10 -y ${rows}
+
+    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh xsync-lb-01a 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh xsync-lb-02a 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh xsync-lb-03a 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/automate.sh xsync-lb-04a 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/automate.sh xsync-lb-05a 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/automate.sh xsync-lb-06a 'dstat -tamsl'" C-m
+
+    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/automate.sh xsync-lb-01w 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/automate.sh xsync-lb-02w 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.8  "$TMUX_ROOT/bin/automate.sh xsync-lb-03w 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.9  "$TMUX_ROOT/bin/automate.sh xsync-lb-04w 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.10 "$TMUX_ROOT/bin/automate.sh xsync-lb-05w 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.11 "$TMUX_ROOT/bin/automate.sh xsync-lb-06w 'dstat -tamsl'" C-m
+}
+
+# run
+main "$@"
