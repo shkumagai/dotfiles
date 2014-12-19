@@ -12,24 +12,6 @@ function create-new-window
     tmux new-window -n ${WINDOW_NAME}
 }
 
-function split-window-for
-{
-    case "${1}" in
-    ap_east)
-        ;;
-    ap_west)
-        ;;
-    lb)
-        ;;
-    log)
-        ;;
-    kvs_sitert)
-        ;;
-    kvs_dynad)
-        ;;
-    esac
-}
-
 function split-window-to-12panes
 {
     row_per_host=${1}
@@ -96,4 +78,3 @@ done
 shift $(($OPTIND - 1))
 
 main "$@"
-

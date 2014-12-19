@@ -2,7 +2,7 @@
 
 TEMP_PASSWD=/tmp/_passwd
 
-source $TEMP_PASSWD
+source ${TEMP_PASSWD}
 
 expect -c "
 set timeout 10
