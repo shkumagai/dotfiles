@@ -6,7 +6,7 @@ TEMP_PASSWD=/tmp/_passwd
 
 WINDOW_NAME=$(basename $0)
 
-function get-passwds
+function get-passwds ()
 {
     if [ ! -f ${TEMP_PASSWD} ]; then
         read -sp "Enter password for account: " passwd; echo
@@ -20,7 +20,7 @@ _EOT
     fi
 }
 
-function get-row-per-host
+function get-row-per-host ()
 {
     num=${1}
 
@@ -28,4 +28,14 @@ function get-row-per-host
     rows=${1}
     cols=${2}
     echo -n $(((rows - ${num}) / ${num}))
+}
+
+function get-cols-per-host ()
+{
+    num=${1}
+
+    set -- $(stty size)
+    rows=${1}
+    cols=${2}
+    echo -n $((cols / ${num}))
 }
