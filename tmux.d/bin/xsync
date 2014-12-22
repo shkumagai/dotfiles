@@ -1,0 +1,11 @@
+#!/bin/bash
+
+CWD=$(cd $(dirname $0); pwd)
+TMUX_ROOT=$(cd $CWD/..; pwd)
+
+bash ${TMUX_ROOT}/bin/xsync-ap-east
+bash ${TMUX_ROOT}/bin/xsync-ap-west
+bash ${TMUX_ROOT}/bin/xsync-lb-cloudn
+bash ${TMUX_ROOT}/bin/xsync-lb-dc
+bash ${TMUX_ROOT}/bin/xsync-log
+bash ${TMUX_ROOT}/bin/xsync-kvs
