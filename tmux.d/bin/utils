@@ -1,0 +1,41 @@
+#!/bin/bash
+
+PWD=$(cd $(dirname $0); pwd)
+TMUX_ROOT=$(cd $PWD/..; pwd)
+TEMP_PASSWD=/tmp/_passwd
+
+WINDOW_NAME=$(basename $0)
+
+function get-passwds ()
+{
+    if [ ! -f ${TEMP_PASSWD} ]; then
+        read -sp "Enter password for account: " passwd; echo
+        read -sp "Enter passphrase for key: " passphrase; echo
+        cat <<_EOT > $TEMP_PASSWD
+passwd=${passwd}
+passphrase=${passphrase}
+_EOT
+    else
+        source ${TEMP_PASSWD}
+    fi
+}
+
+function get-row-per-host ()
+{
+    num=${1}
+
+    set -- $(stty size)
+    rows=${1}
+    cols=${2}
+    echo -n $(((rows - ${num}) / ${num}))
+}
+
+function get-cols-per-host ()
+{
+    num=${1}
+
+    set -- $(stty size)
+    rows=${1}
+    cols=${2}
+    echo -n $((cols / ${num}))
+}

@@ -30,7 +30,7 @@ endif
 
 " List up below plugins which you wanna use it.
 NeoBundle 'nathanaelkane/vim-indent-guides'
-"NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'groovy.vim'
 
@@ -90,9 +90,9 @@ set showcmd
 set laststatus=2
 set showmatch
 set matchtime=2
-set background=dark
-colorscheme Tomorrow-Night-Bright
 syntax on
+set background=dark
+colorscheme Tomorrow-Night
 set hlsearch
 highlight Comment ctermfg=DarkCyan
 set wildmenu
