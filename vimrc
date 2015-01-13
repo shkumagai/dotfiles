@@ -99,7 +99,7 @@ set showmatch
 set matchtime=2
 syntax on
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Bright
 set hlsearch
 highlight Comment ctermfg=DarkCyan
 set wildmenu
