@@ -22,17 +22,24 @@
 " git git://github.com/Shougo/neobundle.vim.git
 if has('vim_starting')
     set runtimepath+=~/.bundle/neobundle.vim
-    filetype off
-    call neobundle#rc(expand('~/.bundle'))
-    filetype plugin on
-    filetype indent on
 endif
+
+call neobundle#begin(expand('~/.bundle'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " List up below plugins which you wanna use it.
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'groovy.vim'
+
+call neobundle#end()
+
+filetype plugin indent on
+
+NeoBundleCheck
+
 
 "----------------------------------------------------------
 " indent-guide
