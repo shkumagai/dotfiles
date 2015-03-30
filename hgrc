@@ -12,7 +12,7 @@ st = status
 [pager]
 pager = LESS="-R" less
 quiet = True
-attend = help, diff, log, glog
+attend = help, diff, df, log, glog, incoming, outgoing
 
 [extensions]
 graphlog =
