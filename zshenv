@@ -26,22 +26,6 @@ alias -g V="| vim -R -"
 export SVN_EDITOR=/usr/bin/vim
 
 
-# Erlang
-#-------
-if [ -d /opt/local/erlang ]; then
-    typeset -a ERLANG_VERSION
-    ERLANG_VERSION=(R15B01
-                    R15B02
-                    R15B03-1
-                    R16A
-                    R16B
-                    R16B02
-    )
-    PATH=/opt/local/erlang/${ERLANG_VERSION[6]}/bin:$PATH
-    export PATH
-fi
-
-
 # Git
 #----
 export GIT_MERGE_AUTOEDIT=no

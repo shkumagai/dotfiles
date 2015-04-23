@@ -44,12 +44,6 @@ source /usr/bin/virtualenvwrapper.sh
 #eval "$(rbenv init -)"
 
 
-# Golang
-#-------
-export GOPATH=/opt/local/work/golang
-export PATH=$PATH:$GOPATH/bin
-
-
 # Steel Bank Common Lisp
 #-----------------------
 export CL_SOURCE_REGISTRY="${HOME}/Project/ASD"

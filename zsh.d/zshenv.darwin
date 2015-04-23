@@ -44,12 +44,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 
-# Golang
-#-------
-export GOPATH=$HOME/work/golang
-export PATH=$PATH:$GOPATH/bin
-
-
 # Java
 #-----
 export JAVA_HOME=$(/usr/libexec/java_home)
