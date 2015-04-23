@@ -46,8 +46,8 @@ eval "$(rbenv init -)"
 
 # Golang
 #-------
-export GOROOT=/opt/local/go
-export GOPATH=$HOME/golang
+export GOPATH=$HOME/work/golang
+export PATH=$PATH:$GOPATH/bin
 
 
 # Java
