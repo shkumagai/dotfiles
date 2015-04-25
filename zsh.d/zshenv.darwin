@@ -5,8 +5,6 @@
 
 # Pathes
 #-------
-PATH=$(echo $PATH | sed -e "s/\/usr\/local\/bin\://")
-
 TEXLIVE_HOME=/usr/local/texlive/2011
 
 export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/universal-darwin:$PATH
