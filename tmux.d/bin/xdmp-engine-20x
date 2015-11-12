@@ -25,16 +25,16 @@ function main
     tmux selectp -t 7;  tmux splitw -v -t ${WINDOW_NAME}.7;  tmux resizep -t ${WINDOW_NAME}.7  -y ${rows}
     tmux selectp -t 8;  tmux splitw -v -t ${WINDOW_NAME}.8 #;  tmux resizep -t ${WINDOW_NAME}.9  -y ${rows}
 
-    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh dwh-engine-201 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh dwh-engine-202 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh dwh-engine-203 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/automate.sh dwh-engine-204 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/automate.sh dwh-engine-205 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/automate.sh dwh-engine-206 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/automate.sh dwh-engine-207 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/automate.sh dwh-engine-208 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.8  "$TMUX_ROOT/bin/automate.sh dwh-engine-209 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.9  "$TMUX_ROOT/bin/automate.sh dwh-engine-210 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh dwh-engine-202 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh dwh-engine-207 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh dwh-engine-208 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/automate.sh dwh-engine-209 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/automate.sh dwh-engine-210 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/automate.sh dwh-engine-211 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/automate.sh dwh-engine-212 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/automate.sh dwh-engine-213 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.8  "$TMUX_ROOT/bin/automate.sh dwh-engine-214 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.9  "$TMUX_ROOT/bin/automate.sh dwh-engine-215 'dstat -tamsl'" C-m
 }
 
 # run
