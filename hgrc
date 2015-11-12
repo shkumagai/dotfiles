@@ -20,7 +20,7 @@ color =
 record =
 mq =
 hgext.convert =
-hgsubversion = ~/hgsubversion/hgsubversion
+; hgsubversion = ~/hgsubversion/hgsubversion
 pager =
 
 [color]
