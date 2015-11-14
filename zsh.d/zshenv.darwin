@@ -33,13 +33,13 @@ alias emacs='/usr/local/bin/emacs'
 # Python
 #-------
 export WORKON=$HOME/.virtualenvs
-source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
+#source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
 
 
 # Ruby (rbenv)
 #-------------
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 
 # Java
