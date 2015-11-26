@@ -3,6 +3,7 @@
 [ui]
 editor = /usr/bin/vim -i NONE
 style = ~/.hgrc.d/map-cmdline.custom
+merge = vimdiff
 
 [alias]
 ci = commit
@@ -22,6 +23,7 @@ mq =
 hgext.convert =
 ; hgsubversion = ~/hgsubversion/hgsubversion
 pager =
+transplant =
 
 [color]
 mode = auto
