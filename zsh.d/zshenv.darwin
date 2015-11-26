@@ -38,8 +38,8 @@ source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtu
 
 # Ruby (rbenv)
 #-------------
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 
 # Java
