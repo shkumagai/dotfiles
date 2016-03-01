@@ -1,6 +1,7 @@
 %include ~/.hgrc.local
 
 [ui]
+merge = internal:merge
 editor = /usr/bin/vim -i NONE
 style = ~/.hgrc.d/map-cmdline.custom
 
@@ -20,7 +21,7 @@ color =
 record =
 mq =
 hgext.convert =
-hgsubversion = ~/hgsubversion/hgsubversion
+; hgsubversion = ~/hgsubversion/hgsubversion
 pager =
 
 [color]
