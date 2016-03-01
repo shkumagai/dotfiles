@@ -50,6 +50,10 @@ export CL_SOURCE_REGISTRY="${HOME}/Project/ASD"
 export SBCL_HOME=/usr/lib64/sbcl
 
 
+# Java (JVM)
+#-----------
+export JAVA_HOME=$(readlink /etc/java-config-2/current-system-vm)
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2

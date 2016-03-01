@@ -10,6 +10,9 @@ export TERM=xterm-256color
 export GOPATH=$HOME/work/golang
 export PATH=$GOPATH/bin:$PATH
 
+TMPPATH=$(echo $PATH | perl -npe 's!/opt/local/s?bin!!g;')
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
