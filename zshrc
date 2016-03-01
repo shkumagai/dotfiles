@@ -17,3 +17,6 @@ export PATH=$GOPATH/bin:$PATH
 # indent-tabs-mode: nil
 # End:
 # ex: sw=2 ts=2 et filetype=sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
