@@ -38,6 +38,15 @@ export WORKON=$HOME/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
 
 
+# Golang
+#-------
+export GOENVGOROOT=${HOME}/.goenvs
+export GOENVTARGET=${HOME}/bin
+export GOENVHOME=${HOME}/workspace
+export GOPATH=$HOME/work/golang
+export PATH=$GOPATH/bin:$PATH
+
+
 # Ruby (rbenv)
 #-------------
 #export PATH="$HOME/.rbenv/bin:$PATH"

@@ -7,9 +7,6 @@ export TERM=xterm-256color
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
-export GOPATH=$HOME/work/golang
-export PATH=$GOPATH/bin:$PATH
-
 TMPPATH=$(echo $PATH | perl -npe 's!/opt/local/s?bin!!g;')
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
