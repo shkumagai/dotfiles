@@ -8,6 +8,7 @@ autoload -U compinit && compinit
 #allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
+bindkey -e
 
 #===========================================================
 # Customize
