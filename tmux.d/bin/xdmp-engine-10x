@@ -10,7 +10,8 @@ source ${TMUX_ROOT}/bin/utils
 function main
 {
     get-passwds
-    rows=$(get-row-per-host 5)
+    # rows=$(get-row-per-host 5)
+    rows=10
 
     tmux neww -n ${WINDOW_NAME}
     tmux splitw -h -t ${WINDOW_NAME}
