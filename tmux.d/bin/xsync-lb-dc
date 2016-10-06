@@ -10,7 +10,8 @@ source ${TMUX_ROOT}/bin/utils
 function main
 {
     get-passwds
-    rows=$(get-row-per-host 7)
+    #rows=$(get-row-per-host 7)
+    rows=7
 
     tmux neww -n ${WINDOW_NAME}
 
