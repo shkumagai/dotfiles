@@ -6,12 +6,6 @@ source ${TMUX_ROOT}/bin/utils
 
 WINDOW_NAME=$(basename $0)
 
-if [ "$(hostname -s)" = "arcturus" ]; then
-    COMMAND="$TMUX_ROOT/bin/automate.sh"
-else
-    COMMAND="ssh"
-fi
-
 function main
 {
     get-passwds
@@ -22,9 +16,9 @@ function main
     tmux selectp -t 0;  tmux splitw -v -t ${WINDOW_NAME}.0;  sleep 0.3;  tmux resizep -y ${rows} -t ${WINDOW_NAME}.0
     tmux selectp -t 1;  tmux splitw -v -t ${WINDOW_NAME}.1;  sleep 0.3;  tmux resizep -y ${rows} -t ${WINDOW_NAME}.1
 
-    tmux send -t ${WINDOW_NAME}.0  "$COMMAND dwh-master-01/dwh-engine-04 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.1  "$COMMAND dwh-master-01/dwh-engine-05 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.2  "$COMMAND dwh-master-01/dwh-engine-06 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh dwh-master-01/dwh-engine-04 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh dwh-master-01/dwh-engine-05 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh dwh-master-01/dwh-engine-06 '$@'" C-m
 }
 
 # run
