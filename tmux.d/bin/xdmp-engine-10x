@@ -2,10 +2,15 @@
 
 PWD=$(cd $(dirname $0); pwd)
 TMUX_ROOT=$(cd $PWD/..; pwd)
+source ${TMUX_ROOT}/bin/utils
 
 WINDOW_NAME=$(basename $0)
 
-source ${TMUX_ROOT}/bin/utils
+if [ "$(hostname -s)" = "arcturus" ]; then
+    COMMAND="$TMUX_ROOT/bin/automate.sh"
+else
+    COMMAND="ssh"
+fi
 
 function main
 {
@@ -25,16 +30,16 @@ function main
     tmux selectp -t 6;  tmux splitw -v -t ${WINDOW_NAME}.6;  sleep 0.3;  tmux resizep -y ${rows} -t ${WINDOW_NAME}.6
     tmux selectp -t 7;  tmux splitw -v -t ${WINDOW_NAME}.7;  sleep 0.3;  tmux resizep -y ${rows} -t ${WINDOW_NAME}.7
 
-    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh dwh-engine-101 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh dwh-engine-102 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/automate.sh dwh-engine-103 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/automate.sh dwh-engine-104 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.8  "$TMUX_ROOT/bin/automate.sh dwh-engine-105 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh dwh-engine-106 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/automate.sh dwh-engine-107 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/automate.sh dwh-engine-108 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/automate.sh dwh-engine-109 '$@'" C-m
-    tmux send -t ${WINDOW_NAME}.9  "$TMUX_ROOT/bin/automate.sh dwh-engine-110 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.0  "$COMMAND dwh-master-01/dwh-engine-101 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$COMMAND dwh-master-01/dwh-engine-102 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.4  "$COMMAND dwh-master-01/dwh-engine-103 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.6  "$COMMAND dwh-master-01/dwh-engine-104 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.8  "$COMMAND dwh-master-01/dwh-engine-105 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$COMMAND dwh-master-01/dwh-engine-106 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.3  "$COMMAND dwh-master-01/dwh-engine-107 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.5  "$COMMAND dwh-master-01/dwh-engine-108 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.7  "$COMMAND dwh-master-01/dwh-engine-109 '$@'" C-m
+    tmux send -t ${WINDOW_NAME}.9  "$COMMAND dwh-master-01/dwh-engine-110 '$@'" C-m
 }
 
 # run
