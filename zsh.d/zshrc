@@ -45,6 +45,14 @@ case ${UID} in
 esac
 setopt transient_rprompt
 
+case "${TERM}" in
+  kterm*|xterm*)
+    precmd() {
+      echo -ne "\033]0;${USER}@${HOST%%.*}\007"
+    }
+    ;;
+esac
+
 
 # Automation
 #-----------
