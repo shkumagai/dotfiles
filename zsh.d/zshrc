@@ -23,11 +23,18 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git hg bzr
 zstyle ':vcs_info:*' formats '(%s:%b)'
 zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
-precmd () {
+function precmd_prompt () {
   psvar=()
   LANG=en_US.UTF-8 vcs_info
   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+
+  case "${TERM}" in
+    kterm*|xterm*)
+      echo -ne "\033]0;${USER}@${HOST%%.*}\007" ;;
+  esac
 }
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd precmd_prompt
 
 case ${UID} in
 0)
@@ -44,14 +51,6 @@ case ${UID} in
   ;;
 esac
 setopt transient_rprompt
-
-case "${TERM}" in
-  kterm*|xterm*)
-    precmd() {
-      echo -ne "\033]0;${USER}@${HOST%%.*}\007"
-    }
-    ;;
-esac
 
 
 # Automation
