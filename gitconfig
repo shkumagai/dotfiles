@@ -1,5 +1,6 @@
-[include]
-    path = ~/.gitconfig.local
+[user]
+    name = shkumagai
+    email = "take.this.2.your.grave@gmail.com"
 
 [core]
     excludesfile = ~/.gitignore
@@ -13,11 +14,14 @@
     br = branch
     ci = commit
     co = checkout
-    df = diff --color-words
+    df = diff
     lg = log -p
     glog = log --graph
     glo1 = log --graph --decorate --format=\"%C(yellow)%h%Creset %s\"
     st = status --branch
+
+[diff]
+    comapctionHeuristic = true
 
 [push]
     default = current
