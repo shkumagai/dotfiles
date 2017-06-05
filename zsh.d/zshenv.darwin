@@ -7,7 +7,7 @@
 #-------
 TEXLIVE_HOME=/usr/local/texlive/2011
 
-export PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/universal-darwin:$PATH
+export PATH=$TEXLIVE_HOME/bin/universal-darwin:$PATH
 export PATH=$HOME/bin:$PATH
 
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
@@ -32,8 +32,8 @@ alias emacs='/usr/local/bin/emacs'
 
 # Python
 #-------
-export WORKON=$HOME/.virtualenvs
-source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
+#export WORKON=$HOME/.virtualenvs
+#source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
 
 
 # Ruby (rbenv)
