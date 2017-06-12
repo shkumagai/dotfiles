@@ -33,7 +33,8 @@ alias emacs='/usr/local/bin/emacs'
 # Python
 #-------
 #export WORKON=$HOME/.virtualenvs
-#source /opt/local/Library/Frameworks/Python.framework/Versions/Current/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+source /usr/local/bin/virtualenvwrapper.sh
 
 
 # Ruby (rbenv)
