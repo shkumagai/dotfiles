@@ -61,7 +61,7 @@ export SBCL_HOME=/usr/lib64/sbcl
 
 # Java (JVM)
 #-----------
-export JAVA_HOME=$(readlink /etc/java-config-2/current-system-vm)
+#export JAVA_HOME=$(readlink /etc/java-config-2/current-system-vm)
 
 # Local variables:
 # mode: shell-script
