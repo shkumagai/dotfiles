@@ -45,13 +45,13 @@ add-zsh-hook precmd precmd_prompt
 
 case ${UID} in
 0)
-  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%} %1(v|%1v|) %{${fg[red]}%}#%{${reset_color}%}%b "
+  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}%1(v|%1v|) %{${fg[red]}%}#%{${reset_color}%}%b "
   PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
   RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
   SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
   ;;
 *)
-  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%} %1(v|%1v|) %{${fg[cyan]}%}%%%{${reset_color}%} "
+  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}%1(v|%1v|) %{${fg[cyan]}%}%%%{${reset_color}%} "
   PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
   RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
