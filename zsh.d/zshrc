@@ -134,7 +134,8 @@ setopt numeric_glob_sort
 unsetopt promptcr
 
 # Directory: Cyan
-export LS_COLORS='di=01;36'
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export LS_COLORS='di=36'
 
 # enable colorlize file list completion like 'ls'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
