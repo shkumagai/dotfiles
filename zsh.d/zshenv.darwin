@@ -32,8 +32,8 @@ alias emacs='/usr/local/bin/emacs'
 
 # Python
 #-------
-#export WORKON=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+# export WORKON=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
 source /usr/local/bin/virtualenvwrapper.sh
 
 
