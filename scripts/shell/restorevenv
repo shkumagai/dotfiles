@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source /usr/local/bin/virtualenvwrapper.sh
+echo $WORKON_HOME
+cd $HOME
+workon | xargs -L 1 -t -P 4 -I % -- sh -c 'exe=$(ls -l $WORKON_HOME/%/bin/python | awk "{ print \$NF }"); find $WORKON_HOME/% -type l -delete && virtualenv -p /usr/local/bin/${exe} $WORKON_HOME/%'
+
