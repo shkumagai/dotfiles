@@ -3,7 +3,7 @@
 # :author: Shoji KUMAGAI
 
 BASEDIR = $(PWD)
-FILE = pullall ports_update
+FILE = restorevenv ports_update
 
 .PHONY: help link clean
 
