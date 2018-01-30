@@ -20,7 +20,7 @@ eggs/
 .eggs/
 lib/
 lib64/
-parts/
+# parts/
 sdist/
 var/
 wheels/
@@ -106,7 +106,7 @@ ENV/
 ### https://raw.github.com/github/gitignore/7af8eea00b37b330af2b9de94170f1d6aeafb1f0/Node.gitignore
 
 # Logs
-logs
+./logs
 *.log
 npm-debug.log*
 yarn-debug.log*
