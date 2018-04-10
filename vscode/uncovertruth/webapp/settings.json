@@ -1,0 +1,14 @@
+{
+    "flow.enabled": true,
+    "flow.pathToFlow": "./node_modules/.bin/flow",
+    "flow.useNPMPackagedFlow": true,
+
+    "javascript.validate.enable": false,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+
+    "git.ignoreLimitWarning": true,
+    "python.linting.flake8Args": [
+        "--config=${workspaceRoot}/setup.cfg"
+    ],
+    "python.pythonPath": "/Users/kumagai/.virtualenvs/userdive_webapp/bin/python"
+}
