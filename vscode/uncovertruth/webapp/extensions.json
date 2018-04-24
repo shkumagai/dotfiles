@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "DavidAnson.vscode-markdownlint",
         "bibhasdn.django-html",
         "dbaeumer.vscode-eslint",
         "eg2.tslint",
