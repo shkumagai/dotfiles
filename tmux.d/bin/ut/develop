@@ -1,0 +1,11 @@
+#!/bin/bash
+
+CWD=$(cd $(dirname $0); pwd)
+echo ${CWD}
+
+for item in vscode webapp0 webapp1 style
+do
+    echo ${CWD}/${item}
+    ${CWD}/${item}
+    sleep 0.5
+done
