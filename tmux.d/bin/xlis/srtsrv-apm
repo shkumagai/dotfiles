@@ -1,10 +1,8 @@
 #!/bin/bash
 
-PWD=$(cd $(dirname $0); pwd)
-TMUX_ROOT=$(cd $PWD/..; pwd)
-
 WINDOW_NAME=$(basename $0)
 
+source ./base
 source ${TMUX_ROOT}/bin/utils
 
 function main
@@ -22,14 +20,14 @@ function main
     tmux selectp -t 5;  tmux splitw -v -t ${WINDOW_NAME}.5;  tmux resizep -t ${WINDOW_NAME}.5 -y ${rows}
     tmux selectp -t 6;  tmux splitw -v -t ${WINDOW_NAME}.6;  tmux resizep -t ${WINDOW_NAME}.6 -y ${rows}
 
-    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-06 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-07 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-08 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-09 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-10 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-11 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-12 'dstat -tamsl'" C-m
-    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/automate.sh srtsrv-apm-14 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-06 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-07 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-08 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.3  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-09 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.4  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-10 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.5  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-11 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.6  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-12 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.7  "$TMUX_ROOT/bin/auto_ssh.sh srtsrv-apm-14 'dstat -tamsl'" C-m
 }
 
 # run

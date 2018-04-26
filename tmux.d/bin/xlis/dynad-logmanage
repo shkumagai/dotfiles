@@ -1,10 +1,8 @@
 #!/bin/bash
 
-PWD=$(cd $(dirname $0); pwd)
-TMUX_ROOT=$(cd $PWD/..; pwd)
-
 WINDOW_NAME=$(basename $0)
 
+source ./base
 source ${TMUX_ROOT}/bin/utils
 
 function main ()
@@ -28,17 +26,17 @@ function main ()
 
     tmux display-panes
 
-    tmux send -t ${WINDOW_NAME}.0 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-01 'top'" C-m
-    tmux send -t ${WINDOW_NAME}.1 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-01 'tail -F /var/log/messages'" C-m
-    tmux send -t ${WINDOW_NAME}.2 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-01 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.0 "$TMUX_ROOT/bin/auto_ssh.sh dynad-logcompressor-01 'top'" C-m
+    tmux send -t ${WINDOW_NAME}.1 "$TMUX_ROOT/bin/auto_ssh.sh dynad-logcompressor-01 'tail -F /var/log/messages'" C-m
+    tmux send -t ${WINDOW_NAME}.2 "$TMUX_ROOT/bin/auto_ssh.sh dynad-logcompressor-01 'dstat -tamsl'" C-m
 
-    tmux send -t ${WINDOW_NAME}.3 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-02 'top'" C-m
-    tmux send -t ${WINDOW_NAME}.4 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-02 'tail -F /var/log/messages'" C-m
-    tmux send -t ${WINDOW_NAME}.5 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-02 'dstat -tamsl'" C-m
+    tmux send -t ${WINDOW_NAME}.3 "$TMUX_ROOT/bin/auto_ssh.sh dynad-archiver-01 'top'" C-m
+    tmux send -t ${WINDOW_NAME}.4 "$TMUX_ROOT/bin/auto_ssh.sh dynad-archiver-01 'tail -F /var/log/messages'" C-m
+    tmux send -t ${WINDOW_NAME}.5 "$TMUX_ROOT/bin/auto_ssh.sh dynad-archiver-01 'dstat -tamsl'" C-m
 
-    tmux send -t ${WINDOW_NAME}.6 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-03 'top'" C-m
-    tmux send -t ${WINDOW_NAME}.7 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-03 'tail -F /var/log/messages'" C-m
-    tmux send -t ${WINDOW_NAME}.8 "$TMUX_ROOT/bin/automate.sh -z dynad-user-kvs-03 'dstat -tamsl'" C-m
+    # tmux send -t ${WINDOW_NAME}.6 "$TMUX_ROOT/bin/auto_ssh.sh dynad-db-01 'top'" C-m
+    # tmux send -t ${WINDOW_NAME}.7 "$TMUX_ROOT/bin/auto_ssh.sh dynad-db-01 'tail -F /var/log/messages'" C-m
+    # tmux send -t ${WINDOW_NAME}.8 "$TMUX_ROOT/bin/auto_ssh.sh dynad-db-01 'dstat -tamsl'" C-m
 }
 
 # run

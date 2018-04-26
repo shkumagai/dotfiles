@@ -1,7 +1,6 @@
 #!/bin/bash
 
-CWD=$(cd $(dirname $0); pwd)
-TMUX_ROOT=$(cd $CWD/..; pwd)
+source ./base
 
 bash ${TMUX_ROOT}/bin/xsync-ap-east
 bash ${TMUX_ROOT}/bin/xsync-ap-west

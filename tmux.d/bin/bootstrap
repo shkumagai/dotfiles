@@ -37,7 +37,7 @@ function execute-command-on-pane
     hostname=${2}
     command=${3}
 
-    tmux send-key -t ${WINDOW_NAME}.${pane_name} "$TMUX_ROOT/bin/automate.sh ${hostname} '${command}'" C-m
+    tmux send-key -t ${WINDOW_NAME}.${pane_name} "$TMUX_ROOT/bin/auto_ssh.sh ${hostname} '${command}'" C-m
 }
 
 function main

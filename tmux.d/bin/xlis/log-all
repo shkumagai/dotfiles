@@ -1,10 +1,8 @@
 #!/bin/bash
 
-PWD=$(cd $(dirname $0); pwd)
-TMUX_ROOT=$(cd $PWD/..; pwd)
-
 WINDOW_NAME=$(basename $0)
 
+source ./base
 source ${TMUX_ROOT}/bin/utils
 
 function main ()
@@ -19,9 +17,9 @@ function main ()
 
     tmux display-panes
 
-    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/automate.sh xsync-log-01 'pwd'" C-m
-    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/automate.sh xsync-log-03 'pwd'" C-m
-    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/automate.sh xsync-log-04 'pwd'" C-m
+    tmux send -t ${WINDOW_NAME}.0  "$TMUX_ROOT/bin/auto_ssh.sh xsync-log-01 'pwd'" C-m
+    tmux send -t ${WINDOW_NAME}.1  "$TMUX_ROOT/bin/auto_ssh.sh xsync-log-03 'pwd'" C-m
+    tmux send -t ${WINDOW_NAME}.2  "$TMUX_ROOT/bin/auto_ssh.sh xsync-log-04 'pwd'" C-m
 }
 
 # run

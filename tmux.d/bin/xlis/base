@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PWD=$(cd $(dirname $0); pwd)
+TMUX_ROOT=$(cd $PWD/../..; pwd)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CWD=$(cd $(dirname $0); pwd)
+source ./base
 echo ${CWD}
 
 ${CWD}/xdmp-engine-10x "dstat -tamsl";  sleep 0.5
