@@ -29,6 +29,10 @@ alias cmigemo='/usr/local/bin/cmigemo'
 alias growlnotify='/usr/local/bin/growlnotify'
 alias emacs='/usr/local/bin/emacs'
 
+# Node.js (Nodebrew)
+#-------------------
+export PATH=/usr/local/var/nodebrew/current/bin:$PATH
+export NODEBREW_ROOT=/usr/local/var/nodebrew
 
 # Python
 #-------
