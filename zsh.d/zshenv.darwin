@@ -40,6 +40,18 @@ export NODEBREW_ROOT=/usr/local/var/nodebrew
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
+# for PycURL install helper
+export PYCURL_SSL_LIBRARY=openssl
+
+if [ -x /opt/local/bin/port ]; then
+    LDFLAGS=-L/opt/local/lib
+    CPPFLAGS=-I/opt/local/include
+elif [ -x /usr/local/bin/brew ]; then
+    LDFLAGS=-L/usr/local/opt/openssl/lib
+    CPPFLAGS=-I/usr/local/opt/openssl/include
+fi
+export LDFLAGS
+export CPPFLAGS
 
 # Ruby (rbenv)
 #-------------
