@@ -7,7 +7,9 @@ export TERM=xterm-256color
 
 if [ -x "/opt/local/bin/port" ]; then
     export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-elif [ -x "/usr/local/bin/brew" ]; then
+    PATH=/opt/local/share/git/contrib/diff-highlight:$PATH
+fi
+if [ -x "/usr/local/bin/brew" ]; then
     export PATH=/usr/local/bin:/usr/local/sbin:$PATH
     if [ -f $(brew --prefix)/etc/brew-wrap ]; then
         source $(brew --prefix)/etc/brew-wrap
