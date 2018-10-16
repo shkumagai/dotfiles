@@ -3,7 +3,7 @@
 CWD=$(cd $(dirname $0); pwd)
 echo ${CWD}
 
-for item in vscode webapp0 webapp1 style
+for item in vscode webapp0 webapp1 front-v2
 do
     echo ${CWD}/${item}
     ${CWD}/${item}
