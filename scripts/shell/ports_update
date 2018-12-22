@@ -7,6 +7,8 @@ readonly blue='0;34'
 readonly gray='0;37'
 readonly org='0;0'
 
+EXCLUDES="and not sqlite"
+
 clr_echo ()
 {
   msg=${1}
@@ -23,7 +25,7 @@ outdated=$(sudo port outdated 2> /dev/null)
 if [ $#outdated -ne 0 ]; then
   clr_echo 'Upgrade available:' $green
   echo $outdated_items
-  sudo port upgrade outdated
+  sudo port upgrade outdated ${EXCLUDES}
 
   clr_echo 'Uninstall outdated items.' $green
   port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;'
