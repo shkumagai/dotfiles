@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ${PY_EXEC_ROOT}/virtualenvwrapper.sh
+source ${VIRTUALENVWRAPPER_SCRIPT}
 echo $WORKON_HOME
 cd $HOME
 workon | xargs -L 1 -t -P 4 -I % -- sh -c 'exe=$(ls -l $WORKON_HOME/%/bin/python | awk "{ print \$NF }"); find $WORKON_HOME/% -type l -delete && virtualenv -p ${PY_EXEC_ROOT}/${exe} $WORKON_HOME/%'

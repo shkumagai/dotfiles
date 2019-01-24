@@ -17,7 +17,7 @@
     df = diff
     lg = log -p
     glog = log --graph
-    glo1 = log --graph --decorate --format=\"%C(yellow)%h%Creset %s\"
+    glo1 = log --graph --oneline
     st = status --branch
 
 [diff]
