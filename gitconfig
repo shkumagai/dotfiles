@@ -12,6 +12,7 @@
 
 [alias]
     br = branch
+    ba = branch --all -vv
     ci = commit
     co = checkout
     df = diff
