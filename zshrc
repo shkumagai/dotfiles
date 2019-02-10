@@ -15,6 +15,7 @@ if [ -x "/usr/local/bin/brew" ]; then
         source $(brew --prefix)/etc/brew-wrap
     fi
     PATH=/usr/local/share/git-core/contrib/diff-highlight:$PATH
+    export HOMEBREW_NO_INSTALL_CLEANUP=1
 fi
 
 ### Added by the Heroku Toolbelt
