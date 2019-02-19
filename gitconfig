@@ -16,9 +16,9 @@
     ci = commit
     co = checkout
     df = diff
-    lg = log -p
-    glog = log --graph
-    glo1 = log --graph --oneline
+    lgp = log -p
+    gl1 = log --graph --date-order -C -M --oneline
+    gla = log --graph --date-order -C -M --oneline --all
     st = status --branch
 
 [diff]
