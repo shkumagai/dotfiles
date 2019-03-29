@@ -17,6 +17,7 @@
     co = checkout
     df = diff
     lgp = log -p
+    glo = log --graph --date-order -C -M
     gl1 = log --graph --date-order -C -M --oneline
     gla = log --graph --date-order -C -M --oneline --all
     st = status --branch
