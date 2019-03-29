@@ -6,5 +6,5 @@
     "python.linting.flake8Args": [
         "--config=${workspaceRoot}/setup.cfg"
     ],
-    "python.pythonPath": "/Users/kumagai/.virtualenvs/webapp/bin/python"
+    "python.pythonPath": "/Users/kumagai/.virtualenvs/userdive_webapp/bin/python"
 }
