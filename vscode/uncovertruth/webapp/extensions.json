@@ -2,8 +2,9 @@
     "recommendations": [
         "bibhasdn.django-html",
         "dbaeumer.vscode-eslint",
-        "eg2.tslint",
-        "flowtype.flow-for-vscode",
+        "esbenp.prettier-vscode",
+        "humao.rest-client",
+        "ms-vscode.vscode-typescript-tslint-plugin",
         "ms-python.python",
         "Zignd.html-css-class-completion",
         "ricard.PostCSS"
