@@ -17,14 +17,14 @@
 " If you don't have neobundle.vim, follow the steps below
 " to install.
 "
-" mkdir ~/.bundle
-" cd ~/.bundle
+" mkdir ~/.vim/bundle
+" cd ~/.vim/bundle
 " git git://github.com/Shougo/neobundle.vim.git
 if has('vim_starting')
-    set runtimepath+=~/.bundle/neobundle.vim
+    set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-call neobundle#begin(expand('~/.bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
