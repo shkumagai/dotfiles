@@ -43,6 +43,12 @@ for zfile in ${zshfiles[@]}; do
   ls -l $SRC/zsh.d/$zfile
 done
 
+# install NeoBundle for vim
+if [ ! -d ~/.vim/bundle/neobundle.vim ]; then
+  echo "neobundle.vim are not exist. it'll clone there..."
+  git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+fi
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
