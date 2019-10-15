@@ -6,6 +6,7 @@
     excludesfile = ~/.gitignore
     editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
     whitespace = trailing-space,space-before-tab
+    ignorecase = false
 
 [color]
     ui = auto
