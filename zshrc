@@ -39,3 +39,6 @@ export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 # indent-tabs-mode: nil
 # End:
 # ex: sw=2 ts=2 et filetype=sh
+
+# added by travis gem
+[ -f /Users/shkumagai/.travis/travis.sh ] && source /Users/shkumagai/.travis/travis.sh
