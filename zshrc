@@ -18,19 +18,14 @@ if [ -x "/usr/local/bin/brew" ]; then
     export HOMEBREW_NO_INSTALL_CLEANUP=1
 fi
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# for PostgreSQL@9.6
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/shkumagai/.travis/travis.sh ] && source /Users/shkumagai/.travis/travis.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
-
-# for pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-
-# for PostgreSQL@9.6
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
 # Local variables:
 # mode: shell-script
@@ -39,6 +34,3 @@ export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 # indent-tabs-mode: nil
 # End:
 # ex: sw=2 ts=2 et filetype=sh
-
-# added by travis gem
-[ -f /Users/shkumagai/.travis/travis.sh ] && source /Users/shkumagai/.travis/travis.sh

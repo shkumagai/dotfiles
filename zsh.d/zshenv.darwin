@@ -5,9 +5,6 @@
 
 # Pathes
 #-------
-TEXLIVE_HOME=/usr/local/texlive/2011
-
-export PATH=$TEXLIVE_HOME/bin/universal-darwin:$PATH
 export PATH=$HOME/bin:$PATH
 
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
@@ -36,20 +33,20 @@ export NODEBREW_ROOT=/usr/local/var/nodebrew
 
 # Python
 #-------
-# export WORKON=$HOME/.virtualenvs
-# if [ -x /usr/local/bin/python ]; then
-#     PY_EXEC_ROOT=/usr/local/bin
-#     SUFFIX=""
-# elif [ -x /opt/local/bin/python ]; then
-#     PY_EXEC_ROOT=/opt/local/bin
-#     SUFFIX="-$(${PY_EXEC_ROOT}/python -V | cut -c 8-10)"
-# else
-#     PY_EXEC_ROOT=/usr/bin
-#     SUFFIX=""
-# fi
-# export PY_EXEC_ROOT
-# export VIRTUALENVWRAPPER_PYTHON=${PY_EXEC_ROOT}/python
-# source ${PY_EXEC_ROOT}/virtualenvwrapper.sh${SUFFIX}
+export WORKON=$HOME/.virtualenvs
+if [ -x /usr/local/bin/python ]; then
+    PY_EXEC_ROOT=/usr/local/bin
+    SUFFIX=""
+elif [ -x /opt/local/bin/python ]; then
+    PY_EXEC_ROOT=/opt/local/bin
+    SUFFIX="-$(${PY_EXEC_ROOT}/python -V | cut -c 8-10)"
+else
+    PY_EXEC_ROOT=/usr/bin
+    SUFFIX=""
+fi
+export PY_EXEC_ROOT
+export VIRTUALENVWRAPPER_PYTHON=${PY_EXEC_ROOT}/python
+source ${PY_EXEC_ROOT}/virtualenvwrapper.sh${SUFFIX}
 
 # for PycURL install helper
 export PYCURL_SSL_LIBRARY=openssl
@@ -63,17 +60,6 @@ elif [ -d /usr/local/opt/openssl ]; then
 fi
 export LDFLAGS
 export CPPFLAGS
-
-# Ruby (rbenv)
-#-------------
-#export PATH="$HOME/.rbenv/bin:$PATH"
-#eval "$(rbenv init -)"
-
-
-# Java
-#-----
-#export JAVA_HOME=$(/usr/libexec/java_home)
-
 
 # Local variables:
 # mode: shell-script
