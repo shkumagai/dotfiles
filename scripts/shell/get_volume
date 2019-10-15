@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+SOUND_INFO=$(osascript -e "get volume settings")
+if [ ! -z "${SOUND_INFO}" ]; then
+  if [ "$(echo $SOUND_INFO | awk -F', ' '{ print $4 }')" = "output muted:true" ]; then
+    sound="[      muted      ]"
+  else
+    sound_volume=$(expr $(echo $SOUND_INFO | awk -F', ' '{ print $1 }' | sed "s/[^0-9]//g") / 6)
+    str=""
+    for (( i=0; i < 16; i++ )); do
+      if [ $i -lt $sound_volume ]; then
+        str="${str}■"
+      else
+        str="${str} "
+      fi
+    done
+    sound="[${str} ]"
+  fi
+  echo "#[bold]${sound}#[default]"
+fi
