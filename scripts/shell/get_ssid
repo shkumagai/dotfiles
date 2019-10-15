@@ -1,0 +1,44 @@
+#!/bin/bash
+
+airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+
+if [ ! -x "$airport_path" ]; then
+  echo "$airport_path: not found" 1>&2
+  exit 1
+fi
+
+info=( $(eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}') )
+if [ ${#info[@]} -eq 0 ]; then
+  echo "offline" 1>&2
+  exit 1
+fi
+
+rssi="${info[0]}"    # strength of wifi wave
+stat="${info[1]}"    # whether wifi is available
+rate="${info[2]}"    # bandwidth of wifi wave
+ssid="${info[3]}"    # wifi ssid name
+
+case "$stat" in
+"running")
+    if [ "$rssi" -le -90 ]; then
+       signal="   Bad   "
+    elif [ "$rssi" -gt -90 -a "$rssi" -le -80 ]; then
+         signal="Not Good "
+    elif [ "$rssi" -gt -80 -a "$rssi" -le -70 ]; then
+        signal="  Good   "
+    elif [ "$rssi" -gt -70 -a "$rssi" -le -60 ]; then
+        signal=" Better  "
+    elif [ "$rssi" -gt -60 ]; then
+        signal="Excellent"
+    fi
+    airport_stat="${ssid} ${rate}Mbps (${signal})" ;;
+"init") airport_stat="#[fg=yellow] ... #[fg=default]" ;;
+*)      airport_stat="#[fg=red]  ✘  #[fg=default]" ;;
+esac
+
+if [ "$rate" = 0 ]; then
+  echo "no_wifi"
+  exit 1
+fi
+
+echo -e "Wifi: ${airport_stat}"
