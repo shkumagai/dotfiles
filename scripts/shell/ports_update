@@ -7,7 +7,7 @@ readonly blue='0;34'
 readonly gray='0;37'
 readonly org='0;0'
 
-EXCLUDES="and not sqlite"
+# EXCLUDES="and not sqlite"
 
 clr_echo ()
 {
