@@ -34,7 +34,7 @@ export NODEBREW_ROOT=/usr/local/var/nodebrew
 # Python
 #-------
 export WORKON=$HOME/.virtualenvs
-if [ -x /usr/local/bin/python ]; then
+if [ -x /usr/local/bin/python -a ! -z /opt/local/bin/python ]; then
     PY_EXEC_ROOT=/usr/local/bin
     SUFFIX=""
 elif [ -x /opt/local/bin/python ]; then
