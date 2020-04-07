@@ -18,6 +18,9 @@ if [ -x "/usr/local/bin/brew" ]; then
     export HOMEBREW_NO_INSTALL_CLEANUP=1
 fi
 
+# for Yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 # for PostgreSQL@9.6
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
