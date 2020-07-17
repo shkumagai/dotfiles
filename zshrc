@@ -30,6 +30,9 @@ export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 #THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
 [[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
+# Additional local settings
+[[ -f "${HOME}/.zshrc.inc" ]] && source "${HOME}/.zshrc.inc"
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
