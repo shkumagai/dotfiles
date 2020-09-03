@@ -1,39 +1,36 @@
-#
-# .zshenv
-#
+# .zshenv --- zshenv for Darwin (MacOS) environment -*- encoding: utf-8-unix -*-
 
 
-# Pathes
-#-------
+# Basic pathes
 export PATH=$HOME/bin:$PATH
-
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
-
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
-
 export PERL5LIB=/usr/local/lib
+
+# MacPorts
+[[ -x "/opt/local/bin/port" ]] && export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+[[ -f "/opt/local/share/git" ]] && export PATH=/opt/local/share/git/contrib/diff-highlight:$PATH
+
+# Homebrew
+[[ -x "/usr/local/bin/brew" ]] && export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
+[[ -f $(brew --prefix)/share/git-core ]] && export PATH=/usr/local/share/git-core/contrib/diff-highlight:$PATH
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 
 # Aliases
-#--------
 alias ls='ls -G'
 
 
 # Additional Commands
-#--------------------
 alias cmigemo='/usr/local/bin/cmigemo'
-alias growlnotify='/usr/local/bin/growlnotify'
 alias emacs='/usr/local/bin/emacs'
 
-# Node.js (Nodebrew)
-#-------------------
-export PATH=/usr/local/var/nodebrew/current/bin:$PATH
-export NODEBREW_ROOT=/usr/local/var/nodebrew
 
 # Python
-#-------
 export WORKON=$HOME/.virtualenvs
+
 if [ -x /usr/local/bin/python -a ! -z /opt/local/bin/python ]; then
     PY_EXEC_ROOT=/usr/local/bin
     SUFFIX=""
@@ -44,11 +41,12 @@ else
     PY_EXEC_ROOT=/usr/bin
     SUFFIX=""
 fi
+
 export PY_EXEC_ROOT
 export VIRTUALENVWRAPPER_PYTHON=${PY_EXEC_ROOT}/python
 source ${PY_EXEC_ROOT}/virtualenvwrapper.sh${SUFFIX}
 
-# for PycURL install helper
+# Workaround: PycURL install helper
 export PYCURL_SSL_LIBRARY=openssl
 
 if [ -d /opt/local/lib/openssl ]; then
@@ -60,6 +58,15 @@ elif [ -d /usr/local/opt/openssl ]; then
 fi
 export LDFLAGS
 export CPPFLAGS
+
+
+# Node.js (nodenv)
+eval "$(nodenv init -)"
+
+
+# Yarn (package management tool for Node)
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 
 # Local variables:
 # mode: shell-script

@@ -1,11 +1,9 @@
-# .zshrc is sourced in interactive shells.
-# It should contain commands to set up aliases,
-# functions, options, key bindings, etc.
+# .zsh.d/zshrc --- Zsh settings -*- coding: utf-8-unix -*-
 
 fpath=(~/comp/zsh ${fpath})
 autoload -U compinit && compinit
 
-#allow tab completion in the middle of a word
+# allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
 bindkey -e

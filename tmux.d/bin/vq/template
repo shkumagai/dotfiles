@@ -14,7 +14,7 @@ function main
 
     tmux neww -n ${WINDOW_NAME} -c ${HOME}
     if [ -d ${WORKON_HOME}/${VENV_NAME} ]; then
-        tmux send -t ${WINDOW_NAME}.0 "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/id_rsa; workon ${WINDOW_NAME}" C-m
+        tmux send -t ${WINDOW_NAME}.0 "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/vq.id_rsa; workon ${WINDOW_NAME}" C-m
     fi
 }
 

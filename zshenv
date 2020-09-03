@@ -1,7 +1,11 @@
 # ~/.zshenv
 
 # load global settings
-source ~/.zsh.d/zshenv
+case ${OSTYPE} in
+    darwin*) ENVFILE=~/.zsh.d/zshenv-darwin ;;
+    linux*)  ENVFILE=~/.zsh.d/zshenv-linux  ;;
+esac
+source $ENVFILE
 
 
 # Language and Character set
