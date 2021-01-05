@@ -3,7 +3,7 @@
 CWD=$(cd $(dirname $0); pwd)
 echo ${CWD}
 
-for item in mysql visasq27 release runsh app-vq infra poc-models
+for item in mysql visasq27 app-vq infra
 do
     echo ${CWD}/${item}
     ${CWD}/${item}
