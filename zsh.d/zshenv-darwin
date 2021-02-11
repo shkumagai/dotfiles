@@ -2,21 +2,21 @@
 
 
 # Basic pathes
-export PATH=$HOME/bin:$PATH
+export PATH=$PATH:$HOME/bin
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
 export PERL5LIB=/usr/local/lib
 
-# MacPorts
-[[ -x "/opt/local/bin/port" ]] && export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-[[ -f "/opt/local/share/git" ]] && export PATH=/opt/local/share/git/contrib/diff-highlight:$PATH
-
 # Homebrew
-[[ -x "/usr/local/bin/brew" ]] && export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
-[[ -f $(brew --prefix)/share/git-core ]] && export PATH=/usr/local/share/git-core/contrib/diff-highlight:$PATH
+[[ -x "/usr/local/bin/brew" ]]           && export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+[[ -f $(brew --prefix)/etc/brew-wrap ]]  && source $(brew --prefix)/etc/brew-wrap
 export HOMEBREW_NO_INSTALL_CLEANUP=1
+
+# MacPorts
+[[ -x "/opt/local/bin/port" ]]          && export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+[[ -d "/opt/local/share/git/contrib" ]] && export PATH=/opt/local/share/git/contrib/diff-highlight:$PATH
+[[ -d "/opt/local/libexec/gnubin" ]]    && export PATH=/opt/local/libexec/gnubin:$PATH
 
 
 # Aliases
@@ -58,6 +58,9 @@ elif [ -d /usr/local/opt/openssl ]; then
 fi
 export LDFLAGS
 export CPPFLAGS
+
+# pipx
+[[ -d "$HOME/.local/pipx" ]] && export PATH=$PATH:$HOME/.local/bin
 
 
 # Node.js (nodenv)

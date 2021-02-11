@@ -1,5 +1,8 @@
 # ~/.zshenv
 
+# ignore /etc/profile
+setopt no_global_rcs
+
 # load global settings
 case ${OSTYPE} in
     darwin*) ENVFILE=~/.zsh.d/zshenv-darwin ;;
