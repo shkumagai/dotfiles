@@ -1,6 +1,6 @@
 # .zsh.d/zshrc --- Zsh settings -*- coding: utf-8-unix -*-
 
-fpath=(~/comp/zsh ${fpath})
+fpath=(~/.zsh.d/zfunc ${fpath})
 autoload -U compinit && compinit
 
 # allow tab completion in the middle of a word
