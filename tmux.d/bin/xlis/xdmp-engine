@@ -1,9 +1,0 @@
-#!/bin/bash
-
-source ./base
-echo ${CWD}
-
-${CWD}/xdmp-engine-10x "dstat -tamsl";  sleep 0.5
-${CWD}/tgt_wrtr "tail -F /var/log/supervisor/target_result_writer*/*log";  sleep 0.5
-${CWD}/xdmp-engine-20x "dstat -tamsl";  sleep 0.5
-${CWD}/seg_wrkr "tail -F /var/log/supervisor/segment_evaluator_worker*/*log";  sleep 0.5

@@ -2,4 +2,4 @@ gitconfig.local
 zsh.d/zshenv
 vim/.*hist
 vim/bundle/*
-vscode/**/tags
+zsh.d/zfunc/_*
