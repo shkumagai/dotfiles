@@ -1,8 +1,0 @@
-#!/bin/bash
-
-source ./base
-
-bash ${TMUX_ROOT}/bin/dynad-kvs-user
-bash ${TMUX_ROOT}/bin/dynad-kvs-item
-bash ${TMUX_ROOT}/bin/dynad-datafeed
-bash ${TMUX_ROOT}/bin/dynad-logmanage

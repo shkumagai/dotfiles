@@ -5,8 +5,8 @@ setopt no_global_rcs
 
 # load global settings
 case ${OSTYPE} in
-    darwin*) ENVFILE=~/.zsh.d/zshenv-darwin ;;
-    linux*)  ENVFILE=~/.zsh.d/zshenv-linux  ;;
+    darwin*) ENVFILE=~/.zsh.d/zshenv-darwin.sh ;;
+    linux*)  ENVFILE=~/.zsh.d/zshenv-linux.sh  ;;
 esac
 source $ENVFILE
 
