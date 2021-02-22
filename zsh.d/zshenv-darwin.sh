@@ -20,7 +20,11 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 
 # Aliases
-alias ls='ls -G'
+if [ -x "/opt/local/libexec/gnubin/ls" ]; then
+    alias ls='ls --color=auto'
+else
+    alias ls='ls -G'
+fi
 
 
 # Additional Commands
