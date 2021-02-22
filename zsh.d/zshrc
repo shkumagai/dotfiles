@@ -1,7 +1,7 @@
 # .zsh.d/zshrc --- Zsh settings -*- coding: utf-8-unix -*-
 
 fpath=(~/.zsh.d/zfunc ${fpath})
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 
 # allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
@@ -16,7 +16,7 @@ LC_ALL=en_US.UTF-8
 
 # Prompts
 #--------
-autoload -U colors
+autoload -Uz colors
 colors
 
 # enable to use colorlize
