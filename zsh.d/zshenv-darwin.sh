@@ -1,22 +1,21 @@
 # .zshenv --- zshenv for Darwin (MacOS) environment -*- encoding: utf-8-unix -*-
 
-
 # Basic pathes
-export PATH=$PATH:$HOME/bin
+append_path ${HOME}/bin
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
 export PERL5LIB=/usr/local/lib
 
 # Homebrew
-[[ -x "/usr/local/bin/brew" ]]           && export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-[[ -f $(brew --prefix)/etc/brew-wrap ]]  && source $(brew --prefix)/etc/brew-wrap
+[[ -x "/usr/local/bin/brew" ]]          && prepend_path /usr/local/bin /usr/local/sbin
+[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # MacPorts
-[[ -x "/opt/local/bin/port" ]]          && export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-[[ -d "/opt/local/share/git/contrib" ]] && export PATH=/opt/local/share/git/contrib/diff-highlight:$PATH
-[[ -d "/opt/local/libexec/gnubin" ]]    && export PATH=/opt/local/libexec/gnubin:$PATH
+[[ -x "/opt/local/bin/port" ]]          && prepend_path /opt/local/bin /opt/local/sbin
+[[ -d "/opt/local/share/git/contrib" ]] && prepend_path /opt/local/share/git/contrib/diff-highlight
+[[ -d "/opt/local/libexec/gnubin" ]]    && prepend_path /opt/local/libexec/gnubin
 
 
 # Aliases
@@ -33,22 +32,16 @@ alias emacs='/usr/local/bin/emacs'
 
 
 # Python
-export WORKON=$HOME/.virtualenvs
+# pipx
+PIPX_BIN=$HOME/.local/bin
+PIPX_ROOT=$HOME/.local/pipx
+[[ -d "$PIPX_ROOT" ]] && append_path $PIPX_BIN
 
-if [ -x /usr/local/bin/python -a ! -z /opt/local/bin/python ]; then
-    PY_EXEC_ROOT=/usr/local/bin
-    SUFFIX=""
-elif [ -x /opt/local/bin/python ]; then
-    PY_EXEC_ROOT=/opt/local/bin
-    SUFFIX="-$(${PY_EXEC_ROOT}/python -V | cut -c 8-10)"
-else
-    PY_EXEC_ROOT=/usr/bin
-    SUFFIX=""
+# virtualenvwrapper via pipx
+if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
+    export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
+    source $PIPX_BIN/virtualenvwrapper.sh
 fi
-
-export PY_EXEC_ROOT
-export VIRTUALENVWRAPPER_PYTHON=${PY_EXEC_ROOT}/python
-source ${PY_EXEC_ROOT}/virtualenvwrapper.sh${SUFFIX}
 
 # Workaround: PycURL install helper
 export PYCURL_SSL_LIBRARY=openssl
@@ -63,16 +56,13 @@ fi
 export LDFLAGS
 export CPPFLAGS
 
-# pipx
-[[ -d "$HOME/.local/pipx" ]] && export PATH=$PATH:$HOME/.local/bin
-
 
 # Node.js (nodenv)
 eval "$(nodenv init -)"
 
 
 # Yarn (package management tool for Node)
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+prepend_path $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin
 
 
 # Local variables:

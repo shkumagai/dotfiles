@@ -2,10 +2,7 @@
 
 
 # Basic pathes
-TEXLIVE_HOME=/usr/local/texlive/2011
-PATH=/opt/local/bin:/opt/local/sbin:$TEXLIVE_HOME/bin/x86_64-linux:$PATH
-
-export PATH=$HOME/bin:$PATH:/sbin
+append_path $HOME/bin /sbin
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
@@ -24,17 +21,24 @@ alias emacs='/usr/bin/emacs'
 
 
 # Python
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
-export WORKON=$HOME/.virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+# pipx
+PIPX_BIN=$HOME/.local/bin
+PIPX_ROOT=$HOME/.local/pipx
+[[ -d "$PIPX_ROOT" ]] && append_path $PIPX_BIN
+
+# virtualenvwrapper via pipx
+if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
+    export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
+    source $PIPX_BIN/virtualenvwrapper.sh
+fi
 
 
-# Golang
-export GOENVGOROOT=${HOME}/.goenvs
-export GOENVTARGET=${HOME}/bin
-export GOENVHOME=${HOME}/workspace
-export GOPATH=$HOME/work/golang
-export PATH=$GOPATH/bin:$PATH
+# Node.js (nodenv)
+eval "$(nodenv init -)"
+
+
+# Yarn (package management tool for Node)
+prepend_path $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin
 
 
 # Local variables:
