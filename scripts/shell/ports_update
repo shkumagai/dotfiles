@@ -18,19 +18,35 @@ clr_echo ()
 
 # main
 
-clr_echo 'Update start.' $brown
+clr_echo 'Update start...' $brown
 sudo port selfupdate
 
-outdated=$(sudo port outdated 2> /dev/null)
+clr_echo 'Check outdated items...' $brown
+outdated_items=$(sudo port outdated 2> /dev/null)
 if [ $#outdated -ne 0 ]; then
   clr_echo 'Upgrade available:' $green
   echo $outdated_items
   sudo port upgrade outdated ${EXCLUDES}
 
-  clr_echo 'Uninstall outdated items.' $green
+  clr_echo 'Uninstall outdated items:' $green
   port installed | grep -Ev "(active|installed)" | perl -npe '`sudo port uninstall$_`;'
+else
+  clr_echo ' No outdated items.' $green
 fi
 
 clr_echo 'Update complete.' $brown
+
+clr_echo 'Check non-requested items...' $brown
+non_dependents=$(port installed | grep -v 'following' | awk '{print $1}' | xargs port dependents | grep 'has not dependents' | awk '{print $1}')
+requested=$(port installed requested | grep -v 'following' | awk '{print $1}')
+unexpected_non_requested=$(diff <(echo $requested) <(echo $non_dependents) | grep -E '^\+[^+]+')
+
+if [ $#unexpected_non_requested -ne 0 ]; then
+  clr_echo 'Non-requested items:' $green
+  echo $unexpected_non_requested | tr -d "+"
+else
+  clr_echo ' All items have been requested or have been dependent.' $green
+fi
+
 date
 # END
