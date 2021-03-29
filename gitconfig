@@ -23,6 +23,7 @@
     gl1 = log --graph --date-order --oneline
     gla = log --graph --date-order --oneline --all
     st = status --branch
+    pf = push --force-with-lease
 
 [diff]
     comapctionHeuristic = true
