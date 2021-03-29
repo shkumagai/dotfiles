@@ -1,7 +1,11 @@
 # .zsh.d/zshrc --- Zsh settings -*- coding: utf-8-unix -*-
 
+if [ -x /opt/local/bin/git ]; then
+  zstyle ':completion:*:*:git:*' script ~/.zsh.d/zfunc/git-completion.bash
+fi
+
 fpath=(~/.zsh.d/zfunc ${fpath})
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -i
 
 # allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
