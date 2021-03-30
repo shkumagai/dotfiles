@@ -49,6 +49,13 @@ if [ ! -d ~/.vim/bundle/neobundle.vim ]; then
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
+# install git completion scripts
+if [ -x /opt/local/bin/git ]; then
+  ln -sF /opt/local/share/git/contrib/completion/git-completion.zsh ~/.zsh.d/zfunc/_git
+  ln -sF /opt/local/share/git/contrib/completion/git-completion.bash ~/.zsh.d/zfunc/git-completion.bash
+fi
+ls -l ~/.zsh.d/zfunc
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2

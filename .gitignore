@@ -1,5 +1,5 @@
 gitconfig.local
-zsh.d/zshenv
 vim/.*hist
 vim/bundle/*
-zsh.d/zfunc/_*
+zsh.d/zfunc/*
+zsh.d/zshenv
