@@ -24,23 +24,11 @@ files=( gitconfig \
 )
 # echo "files: ${files[@]}"
 
-zshfiles=( zshenv \
-)
-# echo "zshfiles: ${zshfiles[@]}"
-
 for file in ${files[@]}; do
   # echo "ln -sf $SRC/$file $DST/.$file"
   [[ -h $DST/.$file ]] && rm $DST/.$file
   ln -s $SRC/$file $DST/.$file
   ls -l $DST/.$file
-done
-
-arch=$( uname -s | tr "[:upper:]" "[:lower:]" )
-
-for zfile in ${zshfiles[@]}; do
-  # echo "ln -sf $SRC/zsh.d/$zfile.$arch $SRC/zsh.d/.$zfile"
-  ln -sf $SRC/zsh.d/$zfile.$arch $SRC/zsh.d/$zfile
-  ls -l $SRC/zsh.d/$zfile
 done
 
 # install NeoBundle for vim
@@ -51,8 +39,8 @@ fi
 
 # install git completion scripts
 if [ -x /opt/local/bin/git ]; then
-  ln -sF /opt/local/share/git/contrib/completion/git-completion.zsh ~/.zsh.d/zfunc/_git
-  ln -sF /opt/local/share/git/contrib/completion/git-completion.bash ~/.zsh.d/zfunc/git-completion.bash
+  ln -sf /opt/local/share/git/contrib/completion/git-completion.zsh ~/.zsh.d/zfunc/_git
+  ln -sf /opt/local/share/git/contrib/completion/git-completion.bash ~/.zsh.d/zfunc/git-completion.bash
 fi
 ls -l ~/.zsh.d/zfunc
 
