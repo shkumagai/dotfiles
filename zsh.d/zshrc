@@ -109,7 +109,7 @@ setopt magic_equal_subst
 setopt mark_dirs
 
 # enable to cursor selection in completion list selection
-zstyle ':completion:*default' menu select=1
+zstyle ':completion:*:default' menu select=1
 
 # enable to completion when use sudo
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
