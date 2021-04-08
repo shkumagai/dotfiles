@@ -1,9 +1,5 @@
 # .zsh.d/zshrc --- Zsh settings -*- coding: utf-8-unix -*-
 
-if [ -x /opt/local/bin/git ]; then
-  zstyle ':completion:*:*:git:*' script ~/.zsh.d/zfunc/git-completion.bash
-fi
-
 fpath=(~/.zsh.d/zfunc ${fpath})
 autoload -Uz compinit && compinit -i
 
