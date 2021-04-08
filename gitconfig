@@ -1,7 +1,3 @@
-[user]
-    name = shkumagai
-    email = "take.this.2.your.grave@gmail.com"
-
 [core]
     excludesfile = ~/.gitignore
     editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
