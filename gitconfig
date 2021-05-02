@@ -38,5 +38,8 @@
     show = diff-highlight | less
     diff = diff-highlight | less
 
-[include]
-    path = ~/.gitconfig.local
+[includeIf "gitdir:~/work/gh/corp/"]
+    path = ~/.gitconfig.corp
+
+[includeIf "gitdir:~/work/gh/shkumagai/"]
+    path = ~/.gitconfig.shkumagai

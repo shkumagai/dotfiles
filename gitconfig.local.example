@@ -1,0 +1,7 @@
+[user]
+    name = shkumagai
+    email = take.this.2.your.grave@gmail.com
+
+[core]
+    sshCommand = "ssh -i IDENTITY_FILE"
+
