@@ -5,7 +5,7 @@ if [ ! -z "${SOUND_INFO}" ]; then
   if [ "$(echo $SOUND_INFO | awk -F', ' '{ print $4 }')" = "output muted:true" ]; then
     sound="[      muted      ]"
   else
-    sound_volume=$(expr $(echo $SOUND_INFO | awk -F', ' '{ print $1 }' | sed "s/[^0-9]//g") / 6)
+    sound_volume=$(expr $(echo $SOUND_INFO | awk -F', ' '{ print $1 }' | grep -o '[0-9]\{1,3\}') / 6)
     str=""
     for (( i=0; i < 16; i++ )); do
       if [ $i -lt $sound_volume ]; then
