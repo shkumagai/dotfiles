@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+icon_status_charged='🔌'
+icon_status_charging='🔌'
+icon_status_discharging='🔋'
+icon_status_attached='⚠'
+icon_status_unknown='??'
+
+battery_status () {
+  pmset -g batt | awk -F'; *' 'NR==2{ print $2 }'
+}
+
+print_icon_status () {
+  status=$1
+  if [[ $status =~ (charged) || $status =~ (full) ]]; then
+    printf "$icon_status_charged"
+  elif [[ $status =~ (^charging) || $status =~ (finishing charge) ]]; then
+    printf "$icon_status_charging"
+  elif [[ $status =~ (^discharging) ]]; then
+    printf "$icon_status_discharging"
+  elif [[ $status =~ (attached) ]]; then
+    printf "$icon_status_attached"
+  else
+    printf "$icon_status_unknown"
+  fi
+}
+
+main () {
+  local status=$(battery_status)
+  print_icon_status "$status"
+}
+
+main

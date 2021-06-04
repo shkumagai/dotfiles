@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+print_percentage () {
+  pmset -g batt | grep -o '[0-9]\{1,3\}%'
+}
+
+main () {
+  print_percentage
+}
+
+main
