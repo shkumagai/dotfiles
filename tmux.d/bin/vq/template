@@ -4,7 +4,7 @@ PWD=$(cd $(dirname $0); pwd)
 source ${PWD}/base
 source ${TMUX_ROOT}/bin/utils
 
-WINDOW_NAME=$(basename $0)
+WINDOW_NAME=${1:-zsh}
 VENV_NAME=${WINDOW_NAME}
 # echo ${WINDOW_NAME}
 
