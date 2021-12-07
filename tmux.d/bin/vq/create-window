@@ -4,9 +4,9 @@ PWD=$(cd $(dirname $0); pwd)
 source ${PWD}/base
 source ${TMUX_ROOT}/bin/utils
 
-REPO_NAME=${1:-zsh}
-WINDOW_NAME=${2:-$REPO_NAME}
-echo ${REPO_NAME} ${WINDOW_NAME}
+USE_VENV=${1:-0}
+REPO_NAME=${2:-zsh}
+WINDOW_NAME=${3:-$REPO_NAME}
 
 # visasq specific
 WORKSPACE_ROOT=$(visasq-ctl configure workspace list --format=json | jq -r '.[]["currentDir"]')
@@ -54,7 +54,7 @@ function main
 
     if [ ! -z "${REPO_DEST}" ]; then
         WINDOW_HOME=${REPO_DEST}
-        if [ ${REPO_TYPE} = app ]; then
+        if [ ${USE_VENV} -eq 1 ]; then
             $(find-or-create-venv $REPO_DEST)
         fi
     else
