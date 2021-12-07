@@ -3,7 +3,7 @@ CWD := $(dir $(MAKEFILE_PATH))
 
 
 define create-window
-	/bin/bash $(CWD)/template $1
+	/bin/bash $(CWD)/create-window $1 $2
 endef
 
 
@@ -15,8 +15,11 @@ help:
 .PHONY: init
 init:
 	$(call create-window,sandbox)
-	$(call create-window,visasq27)
-	$(call create-window,release)
-	$(call create-window,app-search)
+	$(call create-window,visasq-shared-apps,shared)
+	$(call create-window,visasq,vis-asq)
 	$(call create-window,app-vq)
-	$(call create-window,shared-apps)
+	$(call create-window,app-search,app-srh)
+	$(call create-window,app-advisor,app-adv)
+	$(call create-window,visasq-batch)
+	$(call create-window,visasq-batch-infra)
+	$(call create-window,visasq-infra)
