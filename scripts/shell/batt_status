@@ -3,8 +3,8 @@
 icon_status_charged='🔌'
 icon_status_charging='🔌'
 icon_status_discharging='🔋'
-icon_status_attached='⚠'
-icon_status_unknown='??'
+icon_status_attached='😕'
+icon_status_unknown='🧐'
 
 battery_status () {
   pmset -g batt | awk -F'; *' 'NR==2{ print $2 }'
