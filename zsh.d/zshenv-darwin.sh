@@ -65,6 +65,9 @@ eval "$(nodenv init -)"
 prepend_path $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin
 
 
+# Rust
+prepend_path $HOME/.cargo/bin
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
