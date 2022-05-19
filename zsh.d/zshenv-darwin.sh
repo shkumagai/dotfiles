@@ -2,13 +2,14 @@
 
 # Basic pathes
 append_path ${HOME}/bin
+prepend_path /usr/local/bin /usr/local/sbin
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
 export PERL5LIB=/usr/local/lib
 
 # Homebrew
-[[ -x "/usr/local/bin/brew" ]]          && prepend_path /usr/local/bin /usr/local/sbin
+[[ -x "/opt/homebrew/bin/brew" ]]       && prepend_path /opt/homebrew/bin
 [[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
@@ -58,7 +59,7 @@ export CPPFLAGS
 
 
 # Node.js (nodenv)
-eval "$(nodenv init -)"
+which nodenv 2>&1 > /dev/null && eval "$(nodenv init -)"
 
 
 # Yarn (package management tool for Node)
