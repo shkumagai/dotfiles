@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
@@ -13,10 +13,10 @@ if [ ${#info[@]} -eq 0 ]; then
   exit 1
 fi
 
-rssi="${info[0]}"    # strength of wifi wave
-stat="${info[1]}"    # whether wifi is available
-rate="${info[2]}"    # bandwidth of wifi wave
-ssid="${info[3]}"    # wifi ssid name
+rssi="${info[1]}"    # strength of wifi wave
+stat="${info[2]}"    # whether wifi is available
+rate="${info[3]}"    # bandwidth of wifi wave
+ssid="${info[4]}"    # wifi ssid name
 
 case "$stat" in
 "running")
@@ -41,4 +41,4 @@ if [ "$rate" = 0 ]; then
   exit 1
 fi
 
-echo -e "Wifi: ${airport_stat}"
+echo "wifi: ${airport_stat}"
