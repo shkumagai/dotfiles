@@ -21,9 +21,9 @@ ssid="${info[4]}"    # wifi ssid name
 case "$stat" in
 "running")
     if [ "$rssi" -le -90 ]; then
-       signal="   Bad   "
+        signal="   Bad   "
     elif [ "$rssi" -gt -90 -a "$rssi" -le -80 ]; then
-         signal="Not Good "
+        signal="Not Good "
     elif [ "$rssi" -gt -80 -a "$rssi" -le -70 ]; then
         signal="  Good   "
     elif [ "$rssi" -gt -70 -a "$rssi" -le -60 ]; then
