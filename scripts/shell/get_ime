@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+
+plist_buddy_path="/usr/libexec/PlistBuddy"
+
+if [ ! -x "$plist_buddy_path" ]; then
+  echo "$plist_buddy_path: not found" 1>&2
+  exit 1
+fi
+
+info=$("$plist_buddy_path" -c "Print AppleSelectedInputSources:0" ${HOME}/Library/Preferences/com.apple.HIToolbox.plist 2> /dev/null)
+
+input_source_kind=$(echo $info | grep "InputSourceKind =" | awk -F' = ' '{ print $2; }')
+bundle_id=$(echo $info | grep "Bundle ID =" | awk -F' = ' '{ print $2; }')
+input_mode=$(echo $info | grep "Input Mode =" | awk -F' = ' '{ print $2; }')
+
+echo "input source kind: $input_source_kind"
+echo "bundle id: $bundle_id"
+echo "input mode: $input_mode"
+
+case "$input_source_kind" in
+"Input Mode")
+    if [ "$input_mode" = "com.apple.inputmethod.Roman" ]; then
+      char="Ａ"
+    elif [ "$input_mode" = "com.apple.inputmethod.Japanese" ]; then
+      char="あ"
+    fi
+    if [ "$bundle_id" = "com.apple.inputmethod.Kotoeri.RomajiTyping" ]; then
+      bundle="\uF179"  # apple icon font
+    elif [ "$bundle_id" = "com.google.inputmethod.Japanese" ]; then
+      bundle="\uF1A0"  # google icon font
+    fi
+    ime_status="${bundle} ${char}" ;;
+'Keyboard Layout')
+    ime_status="\uF179 Ａ" ;;
+*) ime_status="" ;;
+esac
+
+echo "${ime_status}"
