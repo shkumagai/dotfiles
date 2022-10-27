@@ -3,7 +3,7 @@
 # :author: Shoji KUMAGAI
 
 BASEDIR = $(PWD)
-FILE = restorevenv ports_update get_ssid get_volume batt_status batt_percentage
+FILE = restorevenv ports_update get_ssid get_volume batt_status batt_percentage get_ime
 
 .PHONY: help link clean
 
