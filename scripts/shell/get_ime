@@ -7,15 +7,21 @@ if [ ! -x "$plist_buddy_path" ]; then
   exit 1
 fi
 
-info=$("$plist_buddy_path" -c "Print AppleSelectedInputSources:0" ${HOME}/Library/Preferences/com.apple.HIToolbox.plist 2> /dev/null)
+idx=$("$plist_buddy_path" -c "Print AppleSelectedInputSources" ${HOME}/Library/Preferences/com.apple.HIToolbox.plist 2> /dev/null \
+  | grep 'InputSourceKind =' \
+  | awk -F' = ' '{ print $2; }' \
+  | grep -En '(Keyboard Layout|Input Mode)' \
+  | awk -F: '{ print $1; }')
+
+info=$("$plist_buddy_path" -c "Print AppleSelectedInputSources:$(( $idx - 1 ))" ${HOME}/Library/Preferences/com.apple.HIToolbox.plist 2> /dev/null)
 
 input_source_kind=$(echo $info | grep "InputSourceKind =" | awk -F' = ' '{ print $2; }')
 bundle_id=$(echo $info | grep "Bundle ID =" | awk -F' = ' '{ print $2; }')
 input_mode=$(echo $info | grep "Input Mode =" | awk -F' = ' '{ print $2; }')
 
-echo "input source kind: $input_source_kind"
-echo "bundle id: $bundle_id"
-echo "input mode: $input_mode"
+# echo "input source kind: $input_source_kind"
+# echo "bundle id: $bundle_id"
+# echo "input mode: $input_mode"
 
 case "$input_source_kind" in
 "Input Mode")
