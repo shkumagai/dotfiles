@@ -19,7 +19,4 @@ help:
 .PHONY: init
 init:
 	$(call create-window-no-venv,sandbox)
-	$(call create-window-use-venv,visasq-shared-apps,shared)
-	$(call create-window-use-venv,app-search,app-srh)
-	$(call create-window-no-venv,visasq-apps-earch-infra,srh-inf)
 	$(call create-window-no-venv,visasq-infra,infra)
