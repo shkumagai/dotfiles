@@ -27,9 +27,11 @@ else
 fi
 
 
-# Additional Commands
-alias cmigemo='/usr/local/bin/cmigemo'
-alias emacs='/usr/local/bin/emacs'
+# Conditional Settings
+if [ -d "/opt/local/share/fzf" ]; then
+    source /opt/local/share/fzf/shell/key-bindings.zsh
+    source /opt/local/share/fzf/shell/completion.zsh
+fi
 
 
 # Python
