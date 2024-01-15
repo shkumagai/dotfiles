@@ -3,10 +3,14 @@
 # Basic pathes
 append_path ${HOME}/bin
 prepend_path /usr/local/bin /usr/local/sbin
-export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
-export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+export MANPATH=/opt/local/man:$MANPATH
 export PERL5LIB=/usr/local/lib
+
+if [ -z "$TEXLIVE_HOME" ]; then
+    export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
+    export MANPATH=$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+fi
 
 # Homebrew
 [[ -x "/opt/homebrew/bin/brew" ]]       && prepend_path /opt/homebrew/bin
