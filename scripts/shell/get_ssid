@@ -20,18 +20,18 @@ ssid="${info[4]}"    # wifi ssid name
 
 case "$stat" in
 "running")
-    if [ "$rssi" -le -90 ]; then
-        signal="   Bad   "
-    elif [ "$rssi" -gt -90 -a "$rssi" -le -80 ]; then
-        signal="Not Good "
-    elif [ "$rssi" -gt -80 -a "$rssi" -le -70 ]; then
-        signal="  Good   "
-    elif [ "$rssi" -gt -70 -a "$rssi" -le -60 ]; then
-        signal=" Better  "
-    elif [ "$rssi" -gt -60 ]; then
-        signal="Excellent"
-    fi
-    airport_stat="${ssid} ${rate}Mbps (${signal})" ;;
+  if [ "$rssi" -le -90 ]; then
+    signal="   Bad   "
+  elif [ "$rssi" -gt -90 -a "$rssi" -le -80 ]; then
+    signal="Not Good "
+  elif [ "$rssi" -gt -80 -a "$rssi" -le -70 ]; then
+    signal="  Good   "
+  elif [ "$rssi" -gt -70 -a "$rssi" -le -60 ]; then
+    signal=" Better  "
+  elif [ "$rssi" -gt -60 ]; then
+    signal="Excellent"
+  fi
+  airport_stat="${ssid} ${rate}Mbps (${signal})" ;;
 "init") airport_stat="#[fg=yellow] ... #[fg=default]" ;;
 *)      airport_stat="#[fg=red]  ✘  #[fg=default]" ;;
 esac

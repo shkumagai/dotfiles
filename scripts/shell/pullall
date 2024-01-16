@@ -2,9 +2,9 @@
 
 for dir in ?*
 do
-    if [ -d $dir ]; then
-        echo -e "\033[0;33m$dir\033[0;0m"
-        cd $dir && git pull && cd ..
-        sleep 1
-    fi
+  if [ -d $dir ]; then
+    echo -e "\033[0;33m$dir\033[0;0m"
+    cd $dir && git pull && cd ..
+    sleep 1
+  fi
 done

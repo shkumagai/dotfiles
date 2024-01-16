@@ -8,8 +8,8 @@ export MANPATH=/opt/local/man:$MANPATH
 export PERL5LIB=/usr/local/lib
 
 if [ -z "$TEXLIVE_HOME" ]; then
-    export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
-    export MANPATH=$TEXLIVE_HOME/texmf/doc/man:$MANPATH
+  export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
+  export MANPATH=$TEXLIVE_HOME/texmf/doc/man:$MANPATH
 fi
 
 # Homebrew
@@ -25,16 +25,16 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # Aliases
 if [ -x "/opt/local/libexec/gnubin/ls" ]; then
-    alias ls='ls --color=auto'
+  alias ls='ls --color=auto'
 else
-    alias ls='ls -G'
+  alias ls='ls -G'
 fi
 
 
 # Conditional Settings
 if [ -d "/opt/local/share/fzf" ]; then
-    source /opt/local/share/fzf/shell/key-bindings.zsh
-    source /opt/local/share/fzf/shell/completion.zsh
+  source /opt/local/share/fzf/shell/key-bindings.zsh
+  source /opt/local/share/fzf/shell/completion.zsh
 fi
 
 
@@ -46,19 +46,19 @@ PIPX_ROOT=$HOME/.local/pipx
 
 # virtualenvwrapper via pipx
 if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
-    export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
-    source $PIPX_BIN/virtualenvwrapper.sh
+  export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
+  source $PIPX_BIN/virtualenvwrapper.sh
 fi
 
 # Workaround: PycURL install helper
 export PYCURL_SSL_LIBRARY=openssl
 
 if [ -d /opt/local/lib/openssl ]; then
-    LDFLAGS=-L/opt/local/lib
-    CPPFLAGS=-I/opt/local/include
+  LDFLAGS=-L/opt/local/lib
+  CPPFLAGS=-I/opt/local/include
 elif [ -d /usr/local/opt/openssl ]; then
-    LDFLAGS=-L/usr/local/opt/openssl/lib
-    CPPFLAGS=-I/usr/local/opt/openssl/include
+  LDFLAGS=-L/usr/local/opt/openssl/lib
+  CPPFLAGS=-I/usr/local/opt/openssl/include
 fi
 export LDFLAGS
 export CPPFLAGS

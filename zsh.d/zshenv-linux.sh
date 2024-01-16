@@ -28,8 +28,8 @@ PIPX_ROOT=$HOME/.local/pipx
 
 # virtualenvwrapper via pipx
 if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
-    export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
-    source $PIPX_BIN/virtualenvwrapper.sh
+  export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
+  source $PIPX_BIN/virtualenvwrapper.sh
 fi
 
 

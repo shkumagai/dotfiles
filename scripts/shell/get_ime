@@ -25,19 +25,19 @@ input_mode=$(echo $info | grep "Input Mode =" | awk -F' = ' '{ print $2; }')
 
 case "$input_source_kind" in
 "Input Mode")
-    if [ "$input_mode" = "com.apple.inputmethod.Roman" ]; then
-      char="Ａ"
-    elif [ "$input_mode" = "com.apple.inputmethod.Japanese" ]; then
-      char="あ"
-    fi
-    if [ "$bundle_id" = "com.apple.inputmethod.Kotoeri.RomajiTyping" ]; then
-      bundle="\uF179"  # apple icon font
-    elif [ "$bundle_id" = "com.google.inputmethod.Japanese" ]; then
-      bundle="\uF1A0"  # google icon font
-    fi
-    ime_status="${bundle} ${char}" ;;
+  if [ "$input_mode" = "com.apple.inputmethod.Roman" ]; then
+    char="Ａ"
+  elif [ "$input_mode" = "com.apple.inputmethod.Japanese" ]; then
+    char="あ"
+  fi
+  if [ "$bundle_id" = "com.apple.inputmethod.Kotoeri.RomajiTyping" ]; then
+    bundle="\uF179"  # apple icon font
+  elif [ "$bundle_id" = "com.google.inputmethod.Japanese" ]; then
+    bundle="\uF1A0"  # google icon font
+  fi
+  ime_status="${bundle} ${char}" ;;
 'Keyboard Layout')
-    ime_status="\uF179 Ａ" ;;
+  ime_status="\uF179 Ａ" ;;
 *) ime_status="" ;;
 esac
 

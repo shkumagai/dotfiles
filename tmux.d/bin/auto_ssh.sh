@@ -6,10 +6,10 @@ MARK="\$"
 source ${TEMP_PASSWD}
 
 while getopts bz option; do
-    case "$option" in
-        b) MARK="\$" ;;
-        z) MARK="%" ;;
-    esac
+  case "$option" in
+    b) MARK="\$" ;;
+    z) MARK="%" ;;
+  esac
 done
 shift $(($OPTIND - 1))
 
