@@ -22,7 +22,7 @@
     pf = push --force-with-lease
 
 [diff]
-    comapctionHeuristic = true
+    compactionHeuristic = true
 
 [push]
     default = current
