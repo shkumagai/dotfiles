@@ -24,11 +24,11 @@ files=( gitconfig \
 )
 # echo "files: ${files[@]}"
 
-for file in ${files[@]}; do
+for file in "${files[@]}"; do
   # echo "ln -sf $SRC/$file $DST/.$file"
-  [[ -h $DST/.$file ]] && rm $DST/.$file
-  ln -s $SRC/$file $DST/.$file
-  ls -l $DST/.$file
+  [[ -h "${DST}/.$file" ]] && rm "${DST}/.$file"
+  ln -s "${SRC}/$file" "${DST}/.$file"
+  ls -l "${DST}/.$file"
 done
 
 # install NeoBundle for vim

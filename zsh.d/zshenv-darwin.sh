@@ -1,7 +1,9 @@
+#!/bin/zsh
 # .zshenv --- zshenv for Darwin (MacOS) environment -*- encoding: utf-8-unix -*-
+# shellcheck disable=SC1071
 
 # Basic pathes
-append_path ${HOME}/bin
+append_path "${HOME}/bin"
 prepend_path /usr/local/bin /usr/local/sbin
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$MANPATH
@@ -14,7 +16,8 @@ fi
 
 # Homebrew
 [[ -x "/opt/homebrew/bin/brew" ]]       && prepend_path /opt/homebrew/bin
-[[ -f $(brew --prefix)/etc/brew-wrap ]] && source $(brew --prefix)/etc/brew-wrap
+# shellcheck disable=SC1091
+[[ -f $(brew --prefix)/etc/brew-wrap ]] && source "$(brew --prefix)/etc/brew-wrap"
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # MacPorts
@@ -33,21 +36,24 @@ fi
 
 # Conditional Settings
 if [ -d "/opt/local/share/fzf" ]; then
+  # shellcheck disable=SC1091
   source /opt/local/share/fzf/shell/key-bindings.zsh
+  # shellcheck disable=SC1091
   source /opt/local/share/fzf/shell/completion.zsh
 fi
 
 
 # Python
 # pipx
-PIPX_BIN=$HOME/.local/bin
-PIPX_ROOT=$HOME/.local/pipx
-[[ -d "$PIPX_ROOT" ]] && append_path $PIPX_BIN
+PIPX_BIN="${HOME}/.local/bin"
+PIPX_ROOT="${HOME}/.local/pipx"
+[[ -d "$PIPX_ROOT" ]] && append_path "${PIPX_BIN}"
 
 # virtualenvwrapper via pipx
 if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
-  export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
-  source $PIPX_BIN/virtualenvwrapper.sh
+  export VIRTUALENVWRAPPER_PYTHON="${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python"
+  # shellcheck disable=SC1091
+  source "${PIPX_BIN}/virtualenvwrapper.sh"
 fi
 
 # Workaround: PycURL install helper
@@ -63,17 +69,21 @@ fi
 export LDFLAGS
 export CPPFLAGS
 
+# workaround: mysqlclient
+PKG_CONFIG_PATH=/opt/local/lib/mysql57/pkgconfig
+export PKG_CONFIG_PATH
+
 
 # Node.js (nodenv)
-which nodenv 2>&1 > /dev/null && eval "$(nodenv init -)"
+which nodenv >/dev/null 2>&1 && [ -d "$(nodenv root)" ] && eval "$(nodenv init -)"
 
 
 # Yarn (package management tool for Node)
-prepend_path $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin
+prepend_path "${HOME}/.yarn/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
 
 
 # Rust
-prepend_path $HOME/.cargo/bin
+prepend_path "${HOME}/.cargo/bin"
 
 # Local variables:
 # mode: shell-script

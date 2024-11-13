@@ -1,8 +1,9 @@
+#!/bin/zsh
 # .zshenv --- zshenv for Linux environment -*- encoding: utf-8-unix -*-
-
+# shellcheck disable=SC1071
 
 # Basic pathes
-append_path $HOME/bin /sbin
+append_path "${HOME}/bin" /sbin
 export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$TEXLIVE_HOME/texmf/doc/man:$MANPATH
@@ -24,12 +25,13 @@ alias emacs='/usr/bin/emacs'
 # pipx
 PIPX_BIN=$HOME/.local/bin
 PIPX_ROOT=$HOME/.local/pipx
-[[ -d "$PIPX_ROOT" ]] && append_path $PIPX_BIN
+[[ -d "$PIPX_ROOT" ]] && append_path "${PIPX_BIN}"
 
 # virtualenvwrapper via pipx
 if [ -d "$PIPX_ROOT/venvs/virtualenvwrapper" ]; then
   export VIRTUALENVWRAPPER_PYTHON=${PIPX_ROOT}/venvs/virtualenvwrapper/bin/python
-  source $PIPX_BIN/virtualenvwrapper.sh
+  # shellcheck disable=SC1091
+  source "${PIPX_BIN}/virtualenvwrapper.sh"
 fi
 
 
@@ -38,7 +40,7 @@ eval "$(nodenv init -)"
 
 
 # Yarn (package management tool for Node)
-prepend_path $HOME/.yarn/bin $HOME/.config/yarn/global/node_modules/.bin
+prepend_path "${HOME}/.yarn/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
 
 
 # Local variables:

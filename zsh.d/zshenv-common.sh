@@ -1,18 +1,23 @@
+#!/bin/zsh
 # .zshenv --- zshenv common environment -*- encoding: utf-8-unix -*-
+# shellcheck disable=SC1071
 
 function filter_args () {
+  # shellcheck disable=SC2034
   args=$*
   rest=()
-  for p in ${=args}; do [[ ! ${PATH} =~ ^.*${p}.*$ ]] && rest+=(${p}); done
-  echo ${rest}
+  for p in ${=args}; do re="^.*${p}.*$"; [[ ! "${PATH}" =~ ${re} ]] && rest+=("${p}"); done
+  echo "${rest[@]}"
 }
 
 function append_path () {
-  paths=($(filter_args $*)); [[ ${#paths} -gt 0 ]] && export PATH=$PATH:${(j|:|)paths}
+  # shellcheck disable=SC2296
+  paths=("$(filter_args "$@")"); [[ ${#paths} -gt 0 ]] && export PATH=$PATH:${(j|:|)paths}
 }
 
 function prepend_path () {
-  paths=($(filter_args $*)); [[ ${#paths} -gt 0 ]] && export PATH=${(j|:|)paths}:$PATH
+  # shellcheck disable=SC2296
+  paths=("$(filter_args "$@")"); [[ ${#paths} -gt 0 ]] && export PATH=${(j|:|)paths}:$PATH
 }
 
 # Local variables:
