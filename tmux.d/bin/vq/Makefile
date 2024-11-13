@@ -20,3 +20,8 @@ help:
 init:
 	$(call create-window-no-venv,sandbox)
 	$(call create-window-no-venv,visasq-infra,infra)
+	$(call create-window-no-venv,visasq)
+	$(call create-window-no-venv,app-vq,vq)
+	$(call create-window-no-venv,app-search,search)
+	$(call create-window-no-venv,app-expert,expert)
+
