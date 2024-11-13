@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
+# shellcheck disable=SC1071
 
 airport_path="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
@@ -7,7 +8,7 @@ if [ ! -x "$airport_path" ]; then
   exit 1
 fi
 
-info=( $(eval "$airport_path" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}') )
+info=( $(eval "${airport_path}" --getinfo | grep -E "^ *(agrCtlRSSI|state|lastTxRate|SSID):" | awk '{print $2}') )
 if [ ${#info[@]} -eq 0 ]; then
   echo "offline" 1>&2
   exit 1

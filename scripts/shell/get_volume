@@ -1,9 +1,10 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
+# shellcheck disable=SC1071
 
 SOUND_INFO=$(osascript -e "get volume settings")
-if [ ! -z "${SOUND_INFO}" ]; then
-  volume_level=$(echo ${SOUND_INFO} | awk -F', ' '{ print $1 }')
-  mute_flag=$(echo ${SOUND_INFO} | awk -F', ' '{ print $4 }')
+if [ -n "${SOUND_INFO}" ]; then
+  volume_level=$(echo "${SOUND_INFO}" | awk -F', ' '{ print $1 }')
+  mute_flag=$(echo "${SOUND_INFO}" | awk -F', ' '{ print $4 }')
 
   if [ "${mute_flag}" = "output muted:true" ]; then
     volume="   🔇   "
