@@ -7,17 +7,19 @@ function filter_args () {
   args=$*
   rest=()
   for p in ${=args}; do re="^.*${p}.*$"; [[ ! "${PATH}" =~ ${re} ]] && rest+=("${p}"); done
-  echo "${rest[@]}"
+  echo ${rest[@]}
 }
 
 function append_path () {
   # shellcheck disable=SC2296
-  paths=("$(filter_args "$@")"); [[ ${#paths} -gt 0 ]] && export PATH=$PATH:${(j|:|)paths}
+  paths=($(filter_args $@))
+  [[ ${#paths} -gt 0 ]] && export PATH=$PATH:${(j|:|)paths}
 }
 
 function prepend_path () {
   # shellcheck disable=SC2296
-  paths=("$(filter_args "$@")"); [[ ${#paths} -gt 0 ]] && export PATH=${(j|:|)paths}:$PATH
+  paths=($(filter_args $@))
+  [[ ${#paths} -gt 0 ]] && export PATH=${(j|:|)paths}:$PATH
 }
 
 # Local variables:

@@ -4,7 +4,8 @@
 
 # Basic pathes
 append_path "${HOME}/bin"
-prepend_path /usr/local/bin /usr/local/sbin
+prepend_path /usr/local/bin
+prepend_path /usr/local/sbin
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$MANPATH
 export PERL5LIB=/usr/local/lib
@@ -21,9 +22,9 @@ fi
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # MacPorts
-[[ -x "/opt/local/bin/port" ]]          && prepend_path /opt/local/bin /opt/local/sbin
+[[ -x "/opt/local/bin/port" ]] && ( prepend_path /opt/local/bin; prepend_path /opt/local/sbin )
 [[ -d "/opt/local/share/git/contrib" ]] && prepend_path /opt/local/share/git/contrib/diff-highlight
-[[ -d "/opt/local/libexec/gnubin" ]]    && prepend_path /opt/local/libexec/gnubin
+[[ -d "/opt/local/libexec/gnubin" ]] && prepend_path /opt/local/libexec/gnubin
 
 
 # Aliases
@@ -75,7 +76,11 @@ export PKG_CONFIG_PATH
 
 
 # Node.js (nodenv)
-which nodenv >/dev/null 2>&1 && [ -d "$(nodenv root)" ] && eval "$(nodenv init -)"
+if [ $(command -v nodenv >/dev/null) ] && [ -d "$(nodenv root)" ]; then
+  init_script=$(nodenv init -)
+  eval "$(echo ${init_script} | grep -v PATH)"
+  prepend_path "$(echo ${init_script} | grep PATH)"
+fi
 
 
 # Yarn (package management tool for Node)
@@ -84,6 +89,11 @@ prepend_path "${HOME}/.yarn/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
 
 # Rust
 prepend_path "${HOME}/.cargo/bin"
+
+
+# Google Cloud SDK
+prepend_path "${HOME}/google-cloud-sdk/bin"
+source "${HOME}/google-cloud-sdk/completion.zsh.inc"
 
 # Local variables:
 # mode: shell-script

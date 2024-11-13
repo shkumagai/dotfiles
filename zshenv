@@ -9,6 +9,7 @@ case ${OSTYPE} in
     darwin*) ENVFILE=~/.zsh.d/zshenv-darwin.sh ;;
     linux*)  ENVFILE=~/.zsh.d/zshenv-linux.sh  ;;
 esac
+# echo "PATH (HOME/zshenv after) :: ${PATH}"
 source $ENVFILE
 
 

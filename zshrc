@@ -5,9 +5,6 @@ source ~/.zsh.d/zshrc
 
 export TERM=xterm-256color
 
-# Additional local settings
-[[ -f "${HOME}/.zshrc.inc" ]] && source "${HOME}/.zshrc.inc"
-
 
 # Local variables:
 # mode: shell-script
