@@ -35,9 +35,9 @@
     helper = osxkeychain
 
 [pager]
-    log = diff-highlight | less
-    show = diff-highlight | less
-    diff = diff-highlight | less
+    log = less
+    show = less
+    diff = less
 
 [user]
     name = shoji-kumagai-visasq
