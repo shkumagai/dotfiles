@@ -22,7 +22,10 @@ fi
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # MacPorts
-[[ -x "/opt/local/bin/port" ]] && ( prepend_path /opt/local/bin; prepend_path /opt/local/sbin )
+if [ -x "/opt/local/bin/port" ]; then
+  prepend_path /opt/local/bin
+  prepend_path /opt/local/sbin
+fi
 [[ -d "/opt/local/share/git/contrib" ]] && prepend_path /opt/local/share/git/contrib/diff-highlight
 [[ -d "/opt/local/libexec/gnubin" ]] && prepend_path /opt/local/libexec/gnubin
 
@@ -92,8 +95,8 @@ prepend_path "${HOME}/.cargo/bin"
 
 
 # Google Cloud SDK
-# source "${HOME}/google-cloud-sdk/completion.zsh.inc"
-# prepend_path "${HOME}/google-cloud-sdk/bin"
+source "${HOME}/google-cloud-sdk/completion.zsh.inc"
+prepend_path "${HOME}/google-cloud-sdk/bin"
 
 # Local variables:
 # mode: shell-script
