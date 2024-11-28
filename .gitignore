@@ -3,4 +3,4 @@ vim/.*hist
 vim/bundle/*
 zsh.d/zfunc/*
 zsh.d/zshenv
-scripts/shell/pullrequests
+**/pullrequests
