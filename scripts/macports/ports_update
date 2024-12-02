@@ -1,39 +1,35 @@
-#!/bin/zsh
+#!/bin/bash
 
-readonly red='0;31'
 readonly green='0;32'
 readonly brown='0;33'
-readonly blue='0;34'
-readonly gray='0;37'
 readonly org='0;0'
-
 # EXCLUDES="and not sqlite"
 
 clr_echo ()
 {
   msg=${1}
-  color=${2:-$(echo $org)}
-  echo -e "\033[${color}m${msg}\033[${org}m"
+  color=${2:-"${org}"}
+  printf "\033[${color}m%s\033[${org}m\n" "${msg}"
 }
 
 # main
 
-clr_echo 'Update start...' $brown
+clr_echo "Update start..." "${brown}"
 sudo port selfupdate
 
-clr_echo 'Check outdated items...' $brown
+clr_echo "Check outdated items..." "${brown}"
 outdated_items=$(sudo port outdated 2> /dev/null)
 if [ "$outdated_items" = "No installed ports are outdated." ]; then
-  clr_echo " $outdated_items" $green
+  clr_echo " $outdated_items" "${green}"
 else
-  clr_echo ' Upgrade available:' $green
-  echo $outdated_items
-  sudo port -u upgrade outdated ${EXCLUDES}
+  clr_echo " Upgrade available:" "${green}"
+  echo "${outdated_items}"
+  sudo port -u upgrade outdated "${EXCLUDES}"
 fi
 
-clr_echo 'Update complete.' $brown
+clr_echo "Update complete." "${brown}"
 
-clr_echo 'Check is there any disk spaces...' $brown
+clr_echo "Check is there any disk spaces..." "${brown}"
 sudo port reclaim
 
 date
