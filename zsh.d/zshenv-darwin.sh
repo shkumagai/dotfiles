@@ -1,6 +1,6 @@
 #!/bin/zsh
 # .zshenv --- zshenv for Darwin (MacOS) environment -*- encoding: utf-8-unix -*-
-# shellcheck disable=SC1071
+# shellcheck disable=SC1071,SC1091
 
 # Basic pathes
 append_path "${HOME}/bin"
@@ -16,18 +16,19 @@ if [ -z "$TEXLIVE_HOME" ]; then
 fi
 
 # Homebrew
-[[ -x "/opt/homebrew/bin/brew" ]]       && prepend_path /opt/homebrew/bin
-# shellcheck disable=SC1091
+[[ -x "/opt/homebrew/bin/brew" ]] && append_path /opt/homebrew/bin
 [[ -f $(brew --prefix)/etc/brew-wrap ]] && source "$(brew --prefix)/etc/brew-wrap"
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 # MacPorts
 if [ -x "/opt/local/bin/port" ]; then
-  prepend_path /opt/local/bin
-  prepend_path /opt/local/sbin
+  append_path /opt/local/bin
+  append_path /opt/local/sbin
 fi
-[[ -d "/opt/local/share/git/contrib" ]] && prepend_path /opt/local/share/git/contrib/diff-highlight
-[[ -d "/opt/local/libexec/gnubin" ]] && prepend_path /opt/local/libexec/gnubin
+[[ -d "/opt/local/share/git/contrib" ]] && append_path /opt/local/share/git/contrib/diff-highlight
+# pyenv において GNU coreutils 等を利用する際に /opt/local/libexec/gnubin を
+# PATHに含めると Python 3.12 以降のビルドが失敗する事象がある模様
+# [[ -d "/opt/local/libexec/gnubin" ]] && prepend_path /opt/local/libexec/gnubin
 
 
 # Aliases
@@ -40,9 +41,7 @@ fi
 
 # Conditional Settings
 if [ -d "/opt/local/share/fzf" ]; then
-  # shellcheck disable=SC1091
   source /opt/local/share/fzf/shell/key-bindings.zsh
-  # shellcheck disable=SC1091
   source /opt/local/share/fzf/shell/completion.zsh
 fi
 
@@ -73,16 +72,19 @@ fi
 export LDFLAGS
 export CPPFLAGS
 
-# workaround: mysqlclient
+# Workaround: mysqlclient
 PKG_CONFIG_PATH=/opt/local/lib/mysql57/pkgconfig
 export PKG_CONFIG_PATH
 
+# Temporary: pyenv
+PYENV_ROOT=${HOME}/.pyenv
+[[ -d "${PYENV_ROOT}/bin" ]] && prepend_path "${PYENV_ROOT}/bin"
+eval "$(pyenv init -)"
+
 
 # Node.js (nodenv)
-if [ $(command -v nodenv >/dev/null) ] && [ -d "$(nodenv root)" ]; then
-  init_script=$(nodenv init -)
-  eval "$(echo ${init_script} | grep -v PATH)"
-  prepend_path "$(echo ${init_script} | grep PATH)"
+if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ ! $(echo "$PATH" | grep ".nodenv/shims") ]; then
+  eval "$(nodenv init -)"
 fi
 
 
