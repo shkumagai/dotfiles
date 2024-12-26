@@ -45,3 +45,5 @@
 
 [includeIf "gitdir:~/work/gh/shkumagai/"]
     path = ~/.config/git/gitconfig.shkumagai
+[init]
+	defaultBranch = main
