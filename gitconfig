@@ -22,6 +22,7 @@
     bv = branch -vv
     bva = branch -vv --all
     ci = commit
+    fix = ci --fixup
     co = checkout
     df = diff
     lgp = log -p
@@ -30,6 +31,7 @@
     gla = gl1 --all
     st = status --branch
     pf = push --force-with-lease
+    rebiq = rebase --interactive --autosquash
 
 [diff]
     algorithm = histogram
