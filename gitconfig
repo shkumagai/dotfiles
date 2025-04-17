@@ -8,6 +8,15 @@
 [color]
     ui = auto
 
+[init]
+    defaultBranch = main
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
 [alias]
     br = branch
     bv = branch -vv
@@ -23,13 +32,26 @@
     pf = push --force-with-lease
 
 [diff]
+    algorithm = histogram
+    colorMoved = plain
     compactionHeuristic = true
+    mnemonicPrefix = true
+    renames = true
 
 [push]
     default = current
+    autoSetupRemote = true
+    followTags = true
 
 [fetch]
     prune = true
+    pruneTags = true
+    all = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
 
 [credential]
     helper = osxkeychain
@@ -45,5 +67,3 @@
 
 [includeIf "gitdir:~/work/gh/shkumagai/"]
     path = ~/.config/git/gitconfig.shkumagai
-[init]
-	defaultBranch = main
