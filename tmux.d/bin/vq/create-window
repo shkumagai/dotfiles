@@ -1,8 +1,10 @@
 #!/bin/bash
 
-PWD=$(cd $(dirname $0); pwd)
-source ${PWD}/base
-source ${TMUX_ROOT}/bin/utils
+PWD=$(cd "$(dirname "$0")" || exit; pwd)
+# shellcheck disable=SC1091
+source "${PWD}/base"
+# shellcheck disable=SC1091
+source "${TMUX_ROOT}/bin/utils"
 
 USE_VENV=${1:-0}
 REPO_NAME=${2:-zsh}
@@ -10,59 +12,32 @@ WINDOW_NAME=${3:-$REPO_NAME}
 
 # visasq specific
 WORKSPACE_ROOT=$(visasq-ctl configure workspace list --format=json | jq -r '.[]["currentDir"]')
-INFRA_ROOT=${WORKSPACE_ROOT}/infra
-APP_ROOT=${WORKSPACE_ROOT}/app
-
-function detect-repository-type
-{
-  if [ ${REPO_NAME##*-} = infra ]; then
-    _TYPE="infra"
-  else
-    _TYPE="app"
-  fi
-  echo ${_TYPE}
-}
-
-function get-repository-dir
-{
-  TYPE=${1}
-
-  if [ ${TYPE} = infra ]; then
-    REPO_DIR=${INFRA_ROOT}/${REPO_NAME}
-  elif [ ${TYPE} = app ]; then
-    REPO_DIR=${APP_ROOT}/${REPO_NAME}
-  fi
-  [ -d ${REPO_DIR} ] || exit 1
-  echo $REPO_DIR
-}
 
 function find-or-create-venv
 {
   BASE=${1}
 
-  [ ! -d ${BASE}/.venv ] && cd ${BASE} && python3.9 -m venv .venv
+  [ ! -d "${BASE}/.venv" ] && cd "${BASE}" && python3.9 -m venv .venv
 }
 
 function main
 {
   get-passwds
 
-  REPO_TYPE=$(detect-repository-type)
-  printf "repository type: '%s'\n" $REPO_TYPE
-  REPO_DEST=$(get-repository-dir ${REPO_TYPE})
-  printf "repository dest: '%s'\n" $REPO_DEST
+  printf "WORKSPACE_ROOT: %s\n" "${WORKSPACE_ROOT}"
 
-  if [ ! -z "${REPO_DEST}" ]; then
-    WINDOW_HOME=${REPO_DEST}
-    if [ ${USE_VENV} -eq 1 ]; then
-      $(find-or-create-venv $REPO_DEST)
+  if [ -n "${REPO_NAME}" ]; then
+    WINDOW_HOME="${WORKSPACE_ROOT}/${REPO_NAME}"
+    if [ "${USE_VENV}" -eq 1 ]; then
+      find-or-create-venv "${WORKSPACE_ROOT}/${REPO_NAME}"
     fi
   else
     WINDOW_HOME=${HOME}
   fi
+  print "WINDOW_HOME: %s\n" "${WINDOW_HOME}"
 
-  tmux neww -n ${WINDOW_NAME} -c ${WINDOW_HOME}
-  tmux send -t ${WINDOW_NAME}.0 "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/vq.id_rsa; [ -d .venv ] && source .venv/bin/activate" C-m
+  tmux neww -n "${WINDOW_NAME}" -c "${WINDOW_HOME}"
+  tmux send -t "${WINDOW_NAME}.0" "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/vq.id_rsa; [ -d .venv ] && source .venv/bin/activate" C-m
 }
 
 main "$@"
