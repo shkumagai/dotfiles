@@ -35,7 +35,7 @@ function dump_pull_requests() {
     gh pr list \
         --author "@me" \
         --state "all" \
-        --limit 200 \
+        --limit 999 \
         --repo visasq/"${repo}" \
         --json number,title,state,createdAt,closedAt,additions,deletions \
         --jq "[.[] | .repo = \"${repo}\"]" \
