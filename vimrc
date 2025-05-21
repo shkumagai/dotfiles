@@ -98,6 +98,7 @@ set laststatus=2
 set showmatch
 set matchtime=2
 syntax on
+set re=0
 set background=dark
 colorscheme Tomorrow-Night-Bright
 set hlsearch
