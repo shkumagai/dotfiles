@@ -102,6 +102,8 @@ prepend_path "${HOME}/.cargo/bin"
 # Google Cloud SDK
 source "${HOME}/google-cloud-sdk/completion.zsh.inc"
 prepend_path "${HOME}/google-cloud-sdk/bin"
+CLOUDSDK_PYTHON=/opt/local/bin/python
+export CLOUDSDK_PYTHON
 
 # Local variables:
 # mode: shell-script
