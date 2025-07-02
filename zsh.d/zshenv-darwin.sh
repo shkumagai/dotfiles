@@ -105,6 +105,11 @@ prepend_path "${HOME}/google-cloud-sdk/bin"
 CLOUDSDK_PYTHON=/opt/local/bin/python
 export CLOUDSDK_PYTHON
 
+# Claude code
+export CLAUDE_CODE_USE_VERTEX=1
+export CLOUD_ML_REGION="us-east5"
+export ANTHROPIC_VERTEX_PROJECT_ID="private-shoji-kumagai-01"
+
 # Local variables:
 # mode: shell-script
 # sh-basic-offset: 2
