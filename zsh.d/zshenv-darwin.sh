@@ -74,8 +74,10 @@ export LDFLAGS
 export CPPFLAGS
 
 # Workaround: mysqlclient
-PKG_CONFIG_PATH=/opt/local/lib/mysql57/pkgconfig
-export PKG_CONFIG_PATH
+if [ -x "/opt/homebrew/bin/brew" ] && [ "" ]; then
+  PKG_CONFIG_PATH="$(brew --prefix)/opt/mysql-client/lib/pkgconfig"
+  export PKG_CONFIG_PATH
+fi
 
 # Temporary: pyenv
 PYENV_ROOT=${HOME}/.pyenv
@@ -84,7 +86,7 @@ eval "$(pyenv init -)"
 
 
 # Node.js (nodenv)
-if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ ! $(echo "$PATH" | grep ".nodenv/shims") ]; then
+if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ -z "$(echo "$PATH" | grep ".nodenv/shims")" ]; then
   eval "$(nodenv init -)"
 fi
 
