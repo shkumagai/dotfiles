@@ -2,7 +2,7 @@
 # .zshenv --- zshenv for Darwin (MacOS) environment -*- encoding: utf-8-unix -*-
 # shellcheck disable=SC1071,SC1091
 
-# Basic pathes
+# Basic paths
 append_path "${HOME}/bin"
 prepend_path /usr/local/bin
 prepend_path /usr/local/sbin
