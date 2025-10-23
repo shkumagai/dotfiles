@@ -1,0 +1,19 @@
+[tools]
+# global tool versions go here
+bat = "latest"
+fzf = "latest"
+gcloud = "latest"
+gh = "latest"
+jq = "latest"
+node = "24"
+pdm = "latest"
+peco = "latest"
+rg = "latest"
+usage = "latest"
+uv = "latest"
+yq = "latest"
+
+[settings]
+# tools can read the versions files used by other version managers
+# for example, .node-version in the case of node's nodenv
+# idiomatic_version_file_enable_tools = ["node", "python"]

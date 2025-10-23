@@ -10,10 +10,6 @@ DST=$HOME
 
 files=( gitconfig \
         gitignore \
-        hgrc \
-        hgrc.d \
-        hgignore \
-        perltidyrc \
         vimrc \
         vim \
         zshrc \
@@ -29,6 +25,13 @@ for file in "${files[@]}"; do
   [[ -h "${DST}/.$file" ]] && rm "${DST}/.$file"
   ln -s "${SRC}/$file" "${DST}/.$file"
   ls -l "${DST}/.$file"
+done
+
+dirs=( mise )
+
+for dir in "${dirs[@]}"; do
+  ln -sF "${SRC}/config/${dir}" "${HOME}/.config/${dir}"
+  ls -l "${HOME}/.config/${dir}"
 done
 
 # install NeoBundle for vim

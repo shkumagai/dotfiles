@@ -20,6 +20,11 @@ fi
 [[ -f $(brew --prefix)/etc/brew-wrap ]] && source "$(brew --prefix)/etc/brew-wrap"
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
+# mise
+if [ -s "${HOME}/.local/bin/mise" ]; then
+  eval "$(${HOME}/.local/bin/mise activate zsh)"
+fi
+
 # MacPorts
 if [ -x "/opt/local/bin/port" ]; then
   append_path /opt/local/bin
@@ -44,8 +49,6 @@ if [ -n "$(command -v fzf)" ]; then
   source ${HOME}/.zsh.d/src/fzf-git.sh
 fi
 
-
-# Python
 # pipx
 PIPX_BIN="${HOME}/.local/bin"
 PIPX_ROOT="${HOME}/.local/pipx"
@@ -77,16 +80,16 @@ if [ -x "/opt/homebrew/bin/brew" ] && [ "" ]; then
   export PKG_CONFIG_PATH
 fi
 
-# Temporary: pyenv
-PYENV_ROOT=${HOME}/.pyenv
-[[ -d "${PYENV_ROOT}/bin" ]] && prepend_path "${PYENV_ROOT}/bin"
-eval "$(pyenv init -)"
+# # Temporary: pyenv
+# PYENV_ROOT=${HOME}/.pyenv
+# [[ -d "${PYENV_ROOT}/bin" ]] && prepend_path "${PYENV_ROOT}/bin"
+# eval "$(pyenv init -)"
 
 
-# Node.js (nodenv)
-if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ -z "$(echo "$PATH" | grep ".nodenv/shims")" ]; then
-  eval "$(nodenv init -)"
-fi
+# # Node.js (nodenv)
+# if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ -z "$(echo "$PATH" | grep ".nodenv/shims")" ]; then
+#   eval "$(nodenv init -)"
+# fi
 
 
 # Yarn (package management tool for Node)
@@ -98,10 +101,11 @@ prepend_path "${HOME}/.cargo/bin"
 
 
 # Google Cloud SDK
-source "${HOME}/google-cloud-sdk/completion.zsh.inc"
-prepend_path "${HOME}/google-cloud-sdk/bin"
+source "$(mise where gcloud)/completion.zsh.inc"
 CLOUDSDK_PYTHON=/opt/local/bin/python
 export CLOUDSDK_PYTHON
+GOOGLE_CLOUD_PROJECT="private-shoji-kumagai-01"
+GOOGLE_CLOUD_LOCATION="us-central1"
 
 # Claude code
 export CLAUDE_CODE_USE_VERTEX=1
