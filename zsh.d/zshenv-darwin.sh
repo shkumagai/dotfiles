@@ -31,9 +31,6 @@ if [ -x "/opt/local/bin/port" ]; then
   append_path /opt/local/sbin
 fi
 [[ -d "/opt/local/share/git/contrib" ]] && append_path /opt/local/share/git/contrib/diff-highlight
-# pyenv において GNU coreutils 等を利用する際に /opt/local/libexec/gnubin を
-# PATHに含めると Python 3.12 以降のビルドが失敗する事象がある模様
-# [[ -d "/opt/local/libexec/gnubin" ]] && prepend_path /opt/local/libexec/gnubin
 
 
 # Aliases
@@ -79,21 +76,6 @@ if [ -x "/opt/homebrew/bin/brew" ] && [ "" ]; then
   PKG_CONFIG_PATH="$(brew --prefix)/opt/mysql-client/lib/pkgconfig"
   export PKG_CONFIG_PATH
 fi
-
-# # Temporary: pyenv
-# PYENV_ROOT=${HOME}/.pyenv
-# [[ -d "${PYENV_ROOT}/bin" ]] && prepend_path "${PYENV_ROOT}/bin"
-# eval "$(pyenv init -)"
-
-
-# # Node.js (nodenv)
-# if [ -n "$(command -v nodenv)" ] && [ -d "$(nodenv root)" ] && [ -z "$(echo "$PATH" | grep ".nodenv/shims")" ]; then
-#   eval "$(nodenv init -)"
-# fi
-
-
-# Yarn (package management tool for Node)
-prepend_path "${HOME}/.yarn/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
 
 
 # Rust
