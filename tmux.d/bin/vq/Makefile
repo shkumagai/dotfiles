@@ -23,3 +23,5 @@ init:
 	$(call create-window-no-venv,app/visasq,visasq)
 	$(call create-window-no-venv,app/app-vq,vq)
 	$(call create-window-no-venv,app/app-search,search)
+	$(call create-window-no-venv,app/app-expert,expert)
+	$(call create-window-no-venv,app/app-direct,direct)
