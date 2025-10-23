@@ -72,8 +72,8 @@ export LDFLAGS
 export CPPFLAGS
 
 # Workaround: mysqlclient
-if [ -x "/opt/homebrew/bin/brew" ] && [ "" ]; then
-  PKG_CONFIG_PATH="$(brew --prefix)/opt/mysql-client/lib/pkgconfig"
+if [ -x "/opt/homebrew/bin/brew" ] && [ -d "$(brew --prefix mysql-client)/lib/pkgconfig" ]; then
+  PKG_CONFIG_PATH="$(brew --prefix mysql-client)/lib/pkgconfig"
   export PKG_CONFIG_PATH
 fi
 
@@ -84,7 +84,7 @@ prepend_path "${HOME}/.cargo/bin"
 
 # Google Cloud SDK
 source "$(mise where gcloud)/completion.zsh.inc"
-CLOUDSDK_PYTHON=/opt/local/bin/python
+CLOUDSDK_PYTHON=/opt/local/bin/python3.12
 export CLOUDSDK_PYTHON
 GOOGLE_CLOUD_PROJECT="private-shoji-kumagai-01"
 GOOGLE_CLOUD_LOCATION="us-central1"
