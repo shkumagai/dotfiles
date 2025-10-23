@@ -38,12 +38,10 @@ else
   alias ls='ls -G'
 fi
 
-
-# Conditional Settings
-if [ -d "/opt/local/share/fzf" ]; then
-  source /opt/local/share/fzf/shell/key-bindings.zsh
-  source /opt/local/share/fzf/shell/completion.zsh
-  source $HOME/.zsh.d/src/fzf-git.sh
+# fzf
+if [ -n "$(command -v fzf)" ]; then
+  source <(fzf --zsh)
+  source ${HOME}/.zsh.d/src/fzf-git.sh
 fi
 
 

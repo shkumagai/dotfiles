@@ -1,6 +1,7 @@
 gitconfig.local
 vim/.*hist
 vim/bundle/*
+zsh.d/src/*
 zsh.d/zfunc/*
 zsh.d/zshenv
 **/pullrequests
