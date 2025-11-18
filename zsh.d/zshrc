@@ -22,41 +22,43 @@ colors
 # enable to use colorlize
 setopt prompt_subst
 
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git hg bzr
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '!'
-zstyle ':vcs_info:git:*' unstagedstr '+'
-zstyle ':vcs_info:*' formats '%u%c(%s:%b)'
-zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
+eval "$(starship init zsh)"
 
-function precmd_prompt () {
-  psvar=()
-  LANG=en_US.UTF-8 vcs_info
-  [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-
-  case "${TERM}" in
-    kterm*|xterm*)
-      echo -ne "\033]0;${USER}@${HOST%%.*}\007" ;;
-  esac
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd precmd_prompt
-
-case ${UID} in
-0)
-  PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}%1(v|%1v|) %{${fg[red]}%}#%{${reset_color}%}%b "
-  PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-  RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
-  SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-  ;;
-*)
-  PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}%1(v|%1v|) %{${fg[cyan]}%}%%%{${reset_color}%} "
-  PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
-  RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
-  SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-  ;;
-esac
+# autoload -Uz vcs_info
+# zstyle ':vcs_info:*' enable git hg bzr
+# zstyle ':vcs_info:git:*' check-for-changes true
+# zstyle ':vcs_info:git:*' stagedstr '!'
+# zstyle ':vcs_info:git:*' unstagedstr '+'
+# zstyle ':vcs_info:*' formats '%u%c(%s:%b)'
+# zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
+# 
+# function precmd_prompt () {
+#   psvar=()
+#   LANG=en_US.UTF-8 vcs_info
+#   [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+# 
+#   case "${TERM}" in
+#     kterm*|xterm*)
+#       echo -ne "\033]0;${USER}@${HOST%%.*}\007" ;;
+#   esac
+# }
+# autoload -Uz add-zsh-hook
+# add-zsh-hook precmd precmd_prompt
+# 
+# case ${UID} in
+# 0)
+#   PROMPT="%B%{${fg[red]}%}[%T %m:/]%{${reset_color}%}%1(v|%1v|) %{${fg[red]}%}#%{${reset_color}%}%b "
+#   PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
+#   RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
+#   SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
+#   ;;
+# *)
+#   PROMPT="%{${fg[cyan]}%}[%T %n@%m]%{${reset_color}%}%1(v|%1v|) %{${fg[cyan]}%}%%%{${reset_color}%} "
+#   PROMPT2="%{${fg[cyan]}%}%_>%{${reset_color}%} "
+#   RPROMPT="%{${fg[cyan]}%}[%~]%{${reset_color}%}"
+#   SPROMPT="%{${fg[cyan]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
+#   ;;
+# esac
 setopt transient_rprompt
 
 
