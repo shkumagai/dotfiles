@@ -39,6 +39,7 @@ if [ -x "/opt/local/libexec/gnubin/ls" ]; then
 else
   alias ls='ls -G'
 fi
+alias bastion-prod='gcloud compute ssh --zone "us-central1-a" "bastion-prod-gce" --tunnel-through-iap --project "service-vis-asq-v2-prod"'
 
 # fzf
 if [ -n "$(command -v fzf)" ]; then
