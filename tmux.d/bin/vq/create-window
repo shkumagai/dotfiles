@@ -11,13 +11,13 @@ REPO_NAME=${2:-zsh}
 WINDOW_NAME=${3:-$REPO_NAME}
 
 # visasq specific
-WORKSPACE_ROOT=$(visasq-ctl configure workspace list --format=json | jq -r '.[]["currentDir"]')
+WORKSPACE_ROOT=$(cat ${HOME}/.config/visasq/common.json | jq -r '.workspace_path')
 
 function find-or-create-venv
 {
   BASE=${1}
 
-  [ ! -d "${BASE}/.venv" ] && cd "${BASE}" && python3.9 -m venv .venv
+  [ ! -d "${BASE}/.venv" ] && cd "${BASE}" && python3.13 -m venv .venv
 }
 
 function main
@@ -34,10 +34,10 @@ function main
   else
     WINDOW_HOME=${HOME}
   fi
-  print "WINDOW_HOME: %s\n" "${WINDOW_HOME}"
+  printf "WINDOW_HOME: %s\n" "${WINDOW_HOME}"
 
   tmux neww -n "${WINDOW_NAME}" -c "${WINDOW_HOME}"
-  tmux send -t "${WINDOW_NAME}.0" "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/vq.id_rsa; [ -d .venv ] && source .venv/bin/activate" C-m
+  tmux send -t "${WINDOW_NAME}.0" "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/id_ed25519_vq; [ -d .venv ] && source .venv/bin/activate" C-m
 }
 
 main "$@"
