@@ -72,12 +72,6 @@ fi
 export LDFLAGS
 export CPPFLAGS
 
-# Workaround: mysqlclient
-if [ -x "/opt/homebrew/bin/brew" ] && [ -d "$(brew --prefix mysql-client)/lib/pkgconfig" ]; then
-  PKG_CONFIG_PATH="$(brew --prefix mysql-client)/lib/pkgconfig"
-  export PKG_CONFIG_PATH
-fi
-
 
 # Rust
 prepend_path "${HOME}/.cargo/bin"
