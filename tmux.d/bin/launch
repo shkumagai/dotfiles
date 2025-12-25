@@ -1,0 +1,70 @@
+#!/bin/bash
+
+PROJECT_ROOT=$(cat "$HOME/.config/visasq/common.json" | jq -r '.workspace_path')
+
+function create-3-pane-window {
+  WINDOW_NAME=${1:-no-name}
+
+  # layout image:
+  # +--------------------------------+
+  # |  pane 0                        |
+  # |                                |
+  # |                                |
+  # +--------------------------------+
+  # |  pane 1                        |
+  # +--------------------------------+
+  # |  pane 2                        |
+  # +--------------------------------+
+  tmux new-window -n "${WINDOW_NAME}"
+  tmux split-window -v
+  tmux split-window -v -t "${WINDOW_NAME}.1"
+}
+
+function create-4-pane-window {
+  WINDOW_NAME=${1:-no-name}
+
+  # layout image:
+  # +--------------------------------+
+  # |  pane 0                        |
+  # +--------------------------------+
+  # |  pane 1                        |
+  # +--------------------------------+
+  # |  pane 2                        |
+  # +--------------------------------+
+  # |  pane 3                        |
+  # +--------------------------------+
+  tmux new-window -n "${WINDOW_NAME}"
+  tmux split-window -v
+  tmux split-window -v -t "${WINDOW_NAME}.0"
+  tmux split-window -v -t "${WINDOW_NAME}.2"
+}
+
+function admins {
+  # admins (app-vq.git, app-search.git)
+  WINDOW_NAME=${1:-admins}
+
+  create-3-pane-window "${WINDOW_NAME}"
+
+  tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/app-vq && make local" C-m
+  tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/app-vq/front/webapp && npm run build && npm run dev" C-m
+  tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/app-search && make local" C-m
+}
+
+function legacy {
+  # legacy (visasq.git)
+  WINDOW_NAME=${1:-legacy}
+  create-4-pane-window "${WINDOW_NAME}"
+
+  tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/visasq && make local" C-m
+  tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/visasq/webapp-admin2 && npm run vite" C-m
+  tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/visasq/webapp-lite && npm run vite" C-m
+  tmux send -t "${WINDOW_NAME}.3" "cd ${PROJECT_ROOT}/app/visasq-batch/auth0-token-parser && make local" C-m
+}
+
+function main
+{
+  admins "vq-admins"
+  legacy "legacy"
+}
+
+main "$@"
