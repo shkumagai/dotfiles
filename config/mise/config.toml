@@ -8,6 +8,7 @@ jq = "latest"
 node = "24"
 pdm = "latest"
 peco = "latest"
+pinact = "latest"
 rg = "latest"
 usage = "latest"
 uv = "latest"
@@ -16,4 +17,4 @@ yq = "latest"
 [settings]
 # tools can read the versions files used by other version managers
 # for example, .node-version in the case of node's nodenv
-# idiomatic_version_file_enable_tools = ["node", "python"]
+idiomatic_version_file_enable_tools = ["node", "python"]
