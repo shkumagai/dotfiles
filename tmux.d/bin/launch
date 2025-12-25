@@ -42,12 +42,11 @@ function create-4-pane-window {
 function admins {
   # admins (app-vq.git, app-search.git)
   WINDOW_NAME=${1:-admins}
-
   create-3-pane-window "${WINDOW_NAME}"
 
-  tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/app-vq && make local" C-m
-  tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/app-vq/front/webapp && npm run build && npm run dev" C-m
-  tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/app-search && make local" C-m
+  tmux select-pane -t "${WINDOW_NAME}.0" -T "vq"      ; tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/app-vq && make local" C-m
+  tmux select-pane -t "${WINDOW_NAME}.1" -T "vq|front"; tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/app-vq/front/webapp && npm run build && npm run dev" C-m
+  tmux select-pane -t "${WINDOW_NAME}.2" -T "search"  ; tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/app-search && make local" C-m
 }
 
 function legacy {
@@ -55,10 +54,10 @@ function legacy {
   WINDOW_NAME=${1:-legacy}
   create-4-pane-window "${WINDOW_NAME}"
 
-  tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/visasq && make local" C-m
-  tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/visasq/webapp-admin2 && npm run vite" C-m
-  tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/visasq/webapp-lite && npm run vite" C-m
-  tmux send -t "${WINDOW_NAME}.3" "cd ${PROJECT_ROOT}/app/visasq-batch/auth0-token-parser && make local" C-m
+  tmux select-pane -t "${WINDOW_NAME}.0" -T "visasq"        ; tmux send -t "${WINDOW_NAME}.0" "cd ${PROJECT_ROOT}/app/visasq && make local" C-m
+  tmux select-pane -t "${WINDOW_NAME}.1" -T "visasq|webapp2"; tmux send -t "${WINDOW_NAME}.1" "cd ${PROJECT_ROOT}/app/visasq/webapp-admin2 && npm run vite" C-m
+  tmux select-pane -t "${WINDOW_NAME}.2" -T "visasq|lite"   ; tmux send -t "${WINDOW_NAME}.2" "cd ${PROJECT_ROOT}/app/visasq/webapp-lite && npm run vite" C-m
+  tmux select-pane -t "${WINDOW_NAME}.3" -T "token-parser"  ; tmux send -t "${WINDOW_NAME}.3" "cd ${PROJECT_ROOT}/app/visasq-batch/auth0-token-parser && make local" C-m
 }
 
 function main
