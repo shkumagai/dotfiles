@@ -37,7 +37,7 @@ function main
   printf "WINDOW_HOME: %s\n" "${WINDOW_HOME}"
 
   tmux neww -n "${WINDOW_NAME}" -c "${WINDOW_HOME}"
-  tmux send -t "${WINDOW_NAME}.0" "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/id_ed25519_vq; [ -d .venv ] && source .venv/bin/activate" C-m
+  tmux send -t "${WINDOW_NAME}.0" "${TMUX_ROOT}/bin/auto_agent.sh ~/.ssh/vq.id_ed25519; [ -d .venv ] && source .venv/bin/activate" C-m
 }
 
 main "$@"
