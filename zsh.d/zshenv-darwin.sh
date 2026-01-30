@@ -4,8 +4,8 @@
 
 # Basic paths
 append_path "${HOME}/bin"
-prepend_path /usr/local/bin
-prepend_path /usr/local/sbin
+append_path /usr/local/bin
+append_path /usr/local/sbin
 export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 export MANPATH=/opt/local/man:$MANPATH
 export PERL5LIB=/usr/local/lib
@@ -14,6 +14,13 @@ if [ -z "$TEXLIVE_HOME" ]; then
   export INFOPATH=$TEXLIVE_HOME/texmf/doc/info:$INFOPATH
   export MANPATH=$TEXLIVE_HOME/texmf/doc/man:$MANPATH
 fi
+
+# MacPorts
+if [ -x "/opt/local/bin/port" ]; then
+  prepend_path /opt/local/bin
+  prepend_path /opt/local/sbin
+fi
+[[ -d "/opt/local/share/git/contrib" ]] && append_path /opt/local/share/git/contrib/diff-highlight
 
 # Homebrew
 [[ -x "/opt/homebrew/bin/brew" ]] && append_path /opt/homebrew/bin
@@ -24,14 +31,6 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 if [ -s "${HOME}/.local/bin/mise" ]; then
   eval "$(${HOME}/.local/bin/mise activate zsh)"
 fi
-
-# MacPorts
-if [ -x "/opt/local/bin/port" ]; then
-  append_path /opt/local/bin
-  append_path /opt/local/sbin
-fi
-[[ -d "/opt/local/share/git/contrib" ]] && append_path /opt/local/share/git/contrib/diff-highlight
-
 
 # Aliases
 if [ -x "/opt/local/libexec/gnubin/ls" ]; then
