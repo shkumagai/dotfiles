@@ -46,23 +46,39 @@ function dump_pull_requests() {
 }
 
 function print_stats() {
+  print_stats_total
+  echo
+  print_stats_by_state
+  echo
+  print_stats_by_repository
+  echo
+  print_stats_by_year
+}
+
+function print_stats_total() {
   print_bold_l_c "===== total ==================================================="
   jq -s add pullrequests/*.json | jq -r '. | length'
+}
 
+function print_stats_by_state() {
   print_bold_l_c "===== per state ==============================================="
   printf "%-6s %-6s\n" "state" "count"
   printf "====== ======\n"
   jq -s add pullrequests/*.json | jq -r 'group_by(.state) | map({"state": .[0].state, "count": [.[]]|length}) | .[] | [.state,.count] | @tsv' \
     | sort -rd \
     | awk -F"\t" '{ printf "%-6s %6s\n", $1, $2; }'
+}
 
+function print_stats_by_repository() {
   print_bold_l_c "===== per repository =========================================="
   printf "%-29s %6s %6s %9s %9s\n" "repository name" "merged" "closed" "additions" "deletions"
   printf "============================= ====== ====== ========= =========\n"
   jq -s add pullrequests/*.json \
     | jq -r 'group_by(.repo) | map({ "repo": .[0].repo, "total":  [.[]]|length, "open": [.[]|select(.state=="OPEN")]|length, "merged": [.[]|select(.state=="MERGED")]|length, "closed": [.[]|select(.state=="CLOSED")]|length, "additions": [.[].additions]|add, "deletions": [.[].deletions]|add }) | .[] | [.repo,.merged,.closed,.additions,.deletions] | @tsv' \
     | awk -F"\t" '{ printf "%-29s %6d %6d \x1b[32m%9d\x1b[0m \x1b[31m%9d\x1b[0m\n", $1, $2, $3, $4, $5; }'
+}
 
+function print_stats_by_year() {
   print_bold_l_c "===== per year ================================================"
   printf "%-29s %6s %6s %9s %9s\n" "year" "merged" "closed" "additions" "deletions"
   printf "============================= ====== ====== ========= =========\n"
