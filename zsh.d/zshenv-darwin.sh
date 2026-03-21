@@ -85,8 +85,16 @@ GOOGLE_CLOUD_LOCATION="us-central1"
 
 # Claude code
 export CLAUDE_CODE_USE_VERTEX=1
-export CLOUD_ML_REGION="us-east5"
+export CLOUD_ML_REGION="global"
 export ANTHROPIC_VERTEX_PROJECT_ID="private-shoji-kumagai-01"
+
+export ANTHROPIC_MODEL="claude-opus-4-6"
+
+# オプション：必要に応じてプロンプトキャッシングを無効にする
+export DISABLE_PROMPT_CACHING=1
+
+# CLOUD_ML_REGION=global の場合、サポートされていないモデルのリージョンをオーバーライドする
+# export VERTEX_REGION_CLAUDE_3_5_HAIKU=us-east5
 
 # Local variables:
 # mode: shell-script
