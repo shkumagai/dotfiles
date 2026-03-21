@@ -5,7 +5,8 @@ from zoneinfo import ZoneInfo, available_timezones
 
 fmt = '%Y-%m-%d %H:%M:%S(%Z)'
 
-TzMap: TypeAlias = dict[int, tuple[str, str]]
+TzOffset: TypeAlias = float
+TzMap: TypeAlias = dict[TzOffset, set[tuple[str, str]]]
 
 
 def _dump(tz_map: TzMap) -> None:
@@ -18,15 +19,19 @@ def _dump(tz_map: TzMap) -> None:
             print(f"\t{zone:<32} {timestamp:<30}")
 
 
-def main():
+def main() -> None:
     ambiguous_dt = datetime(2018, 10, 28, 1, 59, tzinfo=ZoneInfo("UTC"))
 
-    tz_map: TzMap = {}
+    tz_map: TzMap = dict()
+
     for zone in available_timezones():
         tz = ZoneInfo(zone)
         new_dt = ambiguous_dt.astimezone(tz=tz)
         timestamp = new_dt.strftime(fmt)
-        offset = new_dt.utcoffset().total_seconds()
+        if utcoffset := new_dt.utcoffset():
+            offset = utcoffset.total_seconds()
+        else:
+            offset = 0.0
 
         items = tz_map.setdefault(offset, set())
         items.add((zone, timestamp))
