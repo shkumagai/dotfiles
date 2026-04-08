@@ -1,3 +1,7 @@
+[settings]
+idiomatic_version_file_enable_tools = [ "python"]
+install_before = "7d"
+
 [tools]
 # global tool versions go here
 bat = "latest"
@@ -5,14 +9,12 @@ fzf = "latest"
 gcloud = "latest"
 gh = "latest"
 jq = "latest"
+just = "latest"
 node = "24"
 pdm = "latest"
-peco = "latest"
+"github:peco/peco" = "latest"
 pinact = "latest"
 rg = "latest"
 usage = "latest"
-uv = "latest"
+uv = "0.10"
 yq = "latest"
-
-[settings]
-idiomatic_version_file_enable_tools = ["node", "python"]

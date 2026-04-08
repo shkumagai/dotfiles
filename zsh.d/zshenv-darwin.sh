@@ -27,11 +27,6 @@ fi
 [[ -f $(brew --prefix)/etc/brew-wrap ]] && source "$(brew --prefix)/etc/brew-wrap"
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
-# mise
-if [ -s "${HOME}/.local/bin/mise" ]; then
-  eval "$(${HOME}/.local/bin/mise activate zsh)"
-fi
-
 # Aliases
 if [ -x "/opt/local/libexec/gnubin/ls" ]; then
   alias ls='ls --color=auto'
@@ -73,8 +68,12 @@ export CPPFLAGS
 
 
 # Rust
-prepend_path "${HOME}/.cargo/bin"
+append_path "${HOME}/.cargo/bin"
 
+# mise
+if [ -s "${HOME}/.local/bin/mise" ]; then
+  eval "$(${HOME}/.local/bin/mise activate zsh)"
+fi
 
 # Google Cloud SDK
 source "$(mise where gcloud)/completion.zsh.inc"
