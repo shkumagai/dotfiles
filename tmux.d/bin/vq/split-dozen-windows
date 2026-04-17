@@ -1,0 +1,67 @@
+#!/bin/bash
+
+WORKSPACE_ROOT="$(jq -r '.workspace_path' "${HOME}/.config/visasq/common.json")"
+
+
+function get-row-per-pane() {
+  number=${1}
+
+  # shellcheck disable=SC2046
+  set -- $(stty size)
+  rows=${1}
+  # shellcheck disable=SC2004
+  echo -n $(( (rows - ${number}) / ${number}))
+}
+
+
+function launch() {
+  row_per_pane=$(get-row-per-pane 6)
+
+  tmux \
+  new-window -n "launcher" -c "${WORKSPACE_ROOT}" \; \
+  split-pane -t 0 -v \; \
+  split-pane -t 0 -v \; \
+  split-pane -t 1 -v \; \
+  split-pane -t 3 -v \; \
+  split-pane -t 4 -v \; \
+  resize-pane -t 0 -y "${row_per_pane}" \; \
+  resize-pane -t 1 -y "${row_per_pane}" \; \
+  resize-pane -t 2 -y "${row_per_pane}" \; \
+  resize-pane -t 3 -y "${row_per_pane}" \; \
+  resize-pane -t 4 -y "${row_per_pane}" \; \
+  split-pane -t "launcher.0" -h \; \
+  split-pane -t "launcher.2" -h \; \
+  split-pane -t "launcher.4" -h \; \
+  split-pane -t "launcher.6" -h \; \
+  split-pane -t "launcher.8" -h \; \
+  split-pane -t "launcher.10" -h \; \
+  select-pane -t 0  -T "visasq:app" \; \
+  select-pane -t 1  -T "visasq:front:admin" \; \
+  select-pane -t 2  -T "visasq:front:lite" \; \
+  select-pane -t 3  -T "visasq:front:admin2" \; \
+  select-pane -t 4  -T "app-vq:app" \; \
+  select-pane -t 5  -T "app-vq:front" \; \
+  select-pane -t 6  -T "app-exert:app" \; \
+  select-pane -t 7  -T "app-exert:front" \; \
+  select-pane -t 8  -T "app-direct:app" \; \
+  select-pane -t 9  -T "app-direct:front" \; \
+  select-pane -t 10 -T "batch:auth0" \; \
+  send-keys -t 0 "cd ${WORKSPACE_ROOT}/app/visasq && clear" C-m \; \
+  send-keys -t 1 "cd ${WORKSPACE_ROOT}/app/visasq/webapp-admin && npm run watch" C-m \; \
+  send-keys -t 2 "cd ${WORKSPACE_ROOT}/app/visasq/webapp-lite && npm run vite" C-m \; \
+  send-keys -t 3 "cd ${WORKSPACE_ROOT}/app/visasq/webapp-admin2 && npm run vite" C-m \; \
+  send-keys -t 4 "cd ${WORKSPACE_ROOT}/app/app-vq && clear" C-m \; \
+  send-keys -t 5 "cd ${WORKSPACE_ROOT}/app/app-vq/front/webapp && npm run dev" C-m \; \
+  send-keys -t 6 "cd ${WORKSPACE_ROOT}/app/app-expert && clear" C-m \; \
+  send-keys -t 7 "cd ${WORKSPACE_ROOT}/app/app-expert/webapp && clear" C-m \; \
+  send-keys -t 8 "cd ${WORKSPACE_ROOT}/app/app-direct && clear" C-m \; \
+  send-keys -t 9 "cd ${WORKSPACE_ROOT}/app/app-direct/webapp && clear" C-m \; \
+  send-keys -t 10 "cd ${WORKSPACE_ROOT}/app/visasq-batch/auth0-token-parser && make local" C-m
+}
+
+
+function main() {
+  launch
+}
+
+main "$@"
