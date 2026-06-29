@@ -83,11 +83,10 @@ GOOGLE_CLOUD_PROJECT="private-shoji-kumagai-01"
 GOOGLE_CLOUD_LOCATION="us-central1"
 
 # Claude code
-export CLAUDE_CODE_USE_VERTEX=1
-export CLOUD_ML_REGION="global"
-export ANTHROPIC_VERTEX_PROJECT_ID="private-shoji-kumagai-01"
-
-export ANTHROPIC_MODEL="claude-opus-4-6"
+export CLAUDE_CODE_USE_VERTEX=0
+export CLOUD_ML_REGION=
+export ANTHROPIC_VERTEX_PROJECT_ID=
+export ANTHROPIC_MODEL=
 
 # オプション：必要に応じてプロンプトキャッシングを無効にする
 export DISABLE_PROMPT_CACHING=1
