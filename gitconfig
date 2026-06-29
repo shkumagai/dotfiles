@@ -7,7 +7,7 @@
     co = checkout
     df = diff
     lgp = log -p
-    gl = log --date=format:'%Y-%m-%d %T' --pretty=format:'%C(yellow)%h%Creset %C(dim)%ad%C(auto)%d%Creset %s %C(dim cyan)(%cr)%Creset'
+    gl = log --date=format:'%Y-%m-%d %T' --pretty=format:'%C(yellow)%h%Creset %C(dim)%ad%C(auto)%d%Creset %s %C(dim cyan)(%an: %cr)%Creset'
     glo = gl --graph --date-order
     gl1 = glo HEAD
     glm = glo --branches="*master" --branches="*main" --branches="*staging" HEAD
