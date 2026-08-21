@@ -1,83 +1,83 @@
 [alias]
-    br = branch
-    bv = branch -vv
-    bva = branch -vv --all
-    ci = commit
-    fix = ci --fixup
-    co = checkout
-    df = diff
-    lgp = log -p
-    gl = log --date=format:'%Y-%m-%d %T' --pretty=format:'%C(yellow)%h%Creset %C(dim)%ad%C(auto)%d%Creset %s %C(dim cyan)(%an: %cr)%Creset'
-    glo = gl --graph --date-order
-    gl1 = glo HEAD
-    glm = glo --branches="*master" --branches="*main" --branches="*staging" HEAD
-    gla = glo --all
-    st = status --branch
-    pf = push --force-with-lease
-    rebiq = rebase --interactive --autosquash
+	br = branch
+	bv = branch -vv
+	bva = branch -vv --all
+	ci = commit
+	fix = ci --fixup
+	co = checkout
+	df = diff
+	lgp = log -p
+	gl = log --date=format:'%Y-%m-%d %T' --pretty=format:'%C(yellow)%h%Creset %C(dim)%ad%C(auto)%d%Creset %s %C(dim cyan)(%an: %cr)%Creset'
+	glo = gl --graph --date-order
+	gl1 = glo HEAD
+	glm = glo --branches="*master" --branches="*main" --branches="*staging" HEAD
+	gla = glo --all
+	st = status --branch
+	pf = push --force-with-lease
+	rebiq = rebase --interactive --autosquash
 
 [branch]
-    sort = -committerdate
+	sort = -committerdate
 
 [color]
-    ui = auto
+	ui = auto
 
 [column]
-    ui = auto
+	ui = auto
 
 [commit]
-    verbose = true
+	verbose = true
 
 [core]
-    excludesfile = ${HOME}/.config/git/ignore
-    whitespace = trailing-space,space-before-tab
-    ignorecase = false
-    editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
-    sshCommand = "ssh -i ${HOME}/.ssh/id_ed25519_vq"
+	excludesfile = ${HOME}/.config/git/ignore
+	whitespace = trailing-space,space-before-tab
+	ignorecase = false
+	editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
+	sshCommand = "ssh -i ${HOME}/.ssh/id_ed25519_vq"
 
 [credential]
-    helper = osxkeychain
+	helper = osxkeychain
 
 [diff]
-    algorithm = histogram
-    colorMoved = plain
-    compactionHeuristic = true
-    mnemonicPrefix = true
-    renames = true
+	algorithm = histogram
+	colorMoved = plain
+	compactionHeuristic = true
+	mnemonicPrefix = true
+	renames = true
 
 [fetch]
-    prune = true
-    pruneTags = true
-    all = true
+	prune = true
+	pruneTags = true
+	all = true
 
 [init]
-    defaultBranch = main
+	defaultBranch = main
 
 [pager]
-    log = less
-    show = less
-    diff = less
+	log = less
+	show = less
+	diff = less
 
 [push]
-    default = simple
-    autoSetupRemote = true
-    followTags = true
+	default = simple
+	autoSetupRemote = true
+	followTags = true
 
 [rebase]
-    autoSquash = true
-    autoStash = true
-    updateRefs = true
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 
 [rerere]
-    enabled = true
-    autoUpdate = true
+	enabled = true
+	autoUpdate = true
 
 [tag]
-    sort = version:refname
+	sort = version:refname
 
 [user]
-    name = shkumagai
-    email = "take.this.2.your.grave@gmail.com"
+	name = shkumagai
+	email = "take.this.2.your.grave@gmail.com"
 
-[includeIf "gitdir:${HOME}/work/gh/corp/"]
-    path = ${HOME}/.config/git/gitconfig.corp
+[includeIf "gitdir:~/work/gh/corp/"]
+	path = ~/.config/git/gitconfig.corp

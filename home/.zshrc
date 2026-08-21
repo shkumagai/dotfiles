@@ -1,5 +1,5 @@
 #!/bin/zsh
-# -*- mode: zsh; encoding: utf-8 -*-
+# -*- shellcheck shell=zsh; encoding: utf-8 -*-
 
 # in ~/.zshenv, executed `unsetopt GLOBAL_RCS` and ignored /etc/zshrc
 if [[ -r /etc/zshrc ]]; then
@@ -35,12 +35,3 @@ bindkey -e
 if command -v sheldon >/dev/null 2>&1; then
   eval "$(sheldon init zsh)"
 fi
-
-
-# Local variables:
-# mode: shell-script
-# sh-basic-offset: 2
-# sh-indent-comment: t
-# indent-tabs-mode: nil
-# End:
-# ex: sw=2 ts=2 et filetype=sh

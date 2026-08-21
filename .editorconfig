@@ -10,14 +10,16 @@ indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{pl,py}]
+[*.py]
 indent_size = 4
 
-[{gitconfig,gitconfig.*}]
+[home/.config/git/config]
+indent_style = tab
 indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
 
-[Makefile,*.mk]
+[Makefile]
 indent_style = tab
+indent_size = 4

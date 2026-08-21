@@ -1,8 +1,8 @@
 "==============================================================================
 " An example for vimrc
 "
-" Maintainer   : Shoji KUMAGAI <shoji.kumagai@mail.rakuten.co.jp>
-" Last updated : Thu Dec 22 20:56:10 JST 2011
+" Maintainer   : Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
+" Last updated : Thu Aug 21 15:15:10 JST 2026
 "
 " To use this, copy to your home directory.
 "==============================================================================
