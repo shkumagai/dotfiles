@@ -1,5 +1,5 @@
 #!/bin/zsh
-# -*- mode: zsh; encoding: utf-8 -*-
+# -*- shellcheck shell=zsh; encoding: utf-8 -*-
 
 # Language
 export LANG=en_US.UTF-8
@@ -62,12 +62,3 @@ path=(
   /run/current-system/sw/bin(N-/)
   ${path}
 )
-
-
-# Local variables:
-# mode: shell-script
-# sh-basic-offset: 2
-# sh-indent-comment: t
-# indent-tabs-mode: nil
-# End:
-# ex: sw=2 ts=2 et filetype=sh

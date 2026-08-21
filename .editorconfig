@@ -14,10 +14,12 @@ trim_trailing_whitespace = true
 indent_size = 4
 
 [{gitconfig,gitconfig.*}]
+indent_style = tab
 indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
 
-[Makefile,*.mk]
+[{Makefile,*.mk}]
 indent_style = tab
+indent_size = 4

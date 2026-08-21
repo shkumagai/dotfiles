@@ -1,4 +1,5 @@
 # ~/.zshrc
+# shellcheck shell=zsh
 
 # load global settings
 source ~/.zsh.d/zshrc
