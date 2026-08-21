@@ -1,0 +1,55 @@
+# Get editor completions base on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a black line between shell prompts
+add_newline = false
+format = """$username(@hostname) $character"""
+right_format = """$all"""
+# command_timeout = 1500
+continuation_prompt = '[❯❯❯](fg:white)'
+
+# Replace the '>' (\u276F) symbol in the prompt with ''
+[character]
+# Ansi: 45,69,62
+success_symbol = '[❯](fg:#00d7ff)[❯](fg:#5f87ff)[❯](fg:#5f5fd7)'
+# Ansi: 225,170,164
+error_symbol = '[❯](fg:#ffd7ff)[❯](fg:#d75fd7)[❯](fg:#d700d7)'
+
+[package]
+disabled = true
+
+[directory]
+truncation_length = 8
+truncation_symbol = '.../'
+
+[cmd_duration]
+show_milliseconds = true
+format = '[$duration]($style)'
+
+[gcloud]
+symbol = ''
+format = '[$symbol $account(@$domain)(\($project\))]($style) '
+# style = 'bold yellow'
+
+[gcloud.region_aliases]
+us-central1 = 'uc1'
+asia-northeast1 = 'ans1'
+
+[gcloud.project_aliases]
+service-vis-asq-v2-prod = 'prod'
+service-vis-asq-v2-stg = 'stg'
+service-vis-asq-v2-uat = 'uat'
+private-shoji-kumagai-01 = 'dev'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+
+[mise]
+disabled = false
+
+[nodejs]
+format = '[$symbol($version)]($style) '
+
+[python]
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version})( \(${virtualenv}\))]($style) '
