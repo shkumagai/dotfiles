@@ -1,7 +1,3 @@
-[user]
-    name = shkumagai
-    email = "take.this.2.your.grave@gmail.com"
-
 [alias]
     br = branch
     bv = branch -vv
@@ -33,11 +29,11 @@
     verbose = true
 
 [core]
-    excludesfile = "${HOME}/.gitignore"
+    excludesfile = ${HOME}/.config/git/ignore
     whitespace = trailing-space,space-before-tab
     ignorecase = false
     editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
-    sshCommand = "ssh -i ${HOME}/.ssh/sh.id_ed25519"
+    sshCommand = "ssh -i ${HOME}/.ssh/id_ed25519_vq"
 
 [credential]
     helper = osxkeychain
@@ -79,5 +75,9 @@
 [tag]
     sort = version:refname
 
-[includeIf "gitdir:~/work/gh/corp/"]
-    path = ~/.config/git/gitconfig.corp
+[user]
+    name = shkumagai
+    email = "take.this.2.your.grave@gmail.com"
+
+[includeIf "gitdir:${HOME}/work/gh/corp/"]
+    path = ${HOME}/.config/git/gitconfig.corp

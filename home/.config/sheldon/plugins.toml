@@ -1,0 +1,80 @@
+# `sheldon` configuration file
+# ----------------------------
+#
+# You can modify this file directly or you can use one of the following
+# `sheldon` commands which are provided to assist in editing the config file:
+#
+# - `sheldon add` to add a new plugin to the config file
+# - `sheldon edit` to open up the config file in the default editor
+# - `sheldon remove` to remove a plugin from the config file
+#
+# See the documentation for more https://github.com/rossmacarthur/sheldon#readme
+
+shell = "zsh"
+
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+
+[plugins]
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[plugins.starship]
+inline = '''
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
+'''
+
+[plugins.fzf]
+inline = '''
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+fi
+'''
+
+[plugins.fzf-git]
+github = "junegunn/fzf-git"
+
+[plugins.cargo]
+inline = '''
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+if [[ -f "${CARGO_HOME/env" ]]; then
+  source "${CARGO_HOME}/env"
+fi
+'''
+
+[plugins.go]
+inline = '''
+export GOBIN="${XDG_BIN_HOME}"
+export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
+export GOPATH="${XDG_DATA_HOME}/go"
+'''
+
+[plugins.mise]
+inline = '''
+if command -v mise &> /dev/null; then
+  source "$(mise activate zsh)"
+fi
+'''
+
+[plugins.kumagai]
+local = "${HOME}/.zsh.d"
+use = ["*.zsh"]
+
+[plugins.local]
+inline = '''
+if [[ -f "${HOME}/.zshrc.local" ]]; then
+  source "${HOME}/.zshrc.local
+fi
+'''
+
+[plugins.compinit]
+inline = '''
+autoload -Uz compinit
+mkdir -p "${XDG_CACHE_HOME}/zsh"
+zsh-defer compinit -C -d "${XDG_CACHE_HOME}/zsh/.zcompdump-${ZSH_VERSION}"
+'''
