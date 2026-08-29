@@ -3,7 +3,7 @@
 # :author: Shoji KUMAGAI
 
 BASEDIR = $(PWD)
-FILE = restorevenv ports_update get_ssid get_volume batt_status batt_percentage get_ime
+FILE = ports_update batt_status batt_percentage get_volume get_ime
 
 .PHONY: help link clean
 
@@ -18,5 +18,4 @@ clean: $(FILE)
 
 link: $(FILE)
 	$(foreach file, $^,\
-	  ln -sF $(PWD)/$(file) $(HOME)/bin/$(file);)
-
+	  ln -sF $(PWD)/$(file) $(HOME)/.local/bin/$(file);)

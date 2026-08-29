@@ -1,8 +1,8 @@
 "==============================================================================
 " An example for vimrc
 "
-" Maintainer   : Shoji KUMAGAI <shoji.kumagai@mail.rakuten.co.jp>
-" Last updated : Thu Dec 22 20:56:10 JST 2011
+" Maintainer   : Shoji KUMAGAI <take.this.2.your.grave@gmail.com>
+" Last updated : Thu Aug 21 15:15:10 JST 2026
 "
 " To use this, copy to your home directory.
 "==============================================================================
@@ -12,33 +12,23 @@
 "==============================================================================
 
 "----------------------------------------------------------
-" neobundle.vim
+" jetpack.vim
 "----------------------------------------------------------
-" If you don't have neobundle.vim, follow the steps below
+" If you don't have jetpack.vim, follow the steps below
 " to install.
 "
-" mkdir ~/.vim/bundle
-" cd ~/.vim/bundle
-" git git://github.com/Shougo/neobundle.vim.git
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-endif
+" curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
 
-call neobundle#begin(expand('~/.vim/bundle'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" List up below plugins which you wanna use it.
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'groovy.vim'
-
-call neobundle#end()
+packadd vim-jetpack
+call jetpack#begin()
+Jetpack 'tani/vim-jetpack', {'opt': 1} "bootstrap
+Jetpack 'nathanaelkane/vim-indent-guides'
+Jetpack 'altercation/vim-colors-solarized'
+Jetpack 'chriskempson/vim-tomorrow-theme'
+Jetpack 'junegunn/fzf.vim'
+call jetpack#end()
 
 filetype plugin indent on
-
-NeoBundleCheck
 
 
 "----------------------------------------------------------

@@ -1,4 +1,5 @@
 # ~/.zshenv
+# shellcheck shell=zsh
 
 # ignore /etc/profile
 setopt no_global_rcs

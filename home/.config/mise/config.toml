@@ -1,0 +1,162 @@
+[settings]
+dotfiles.root = "~/.dotfiles/home"
+minimum_release_age = "7d"
+
+[bootstrap.hooks.post-defaults]
+run = "killall Dock Finder SystemUIServer 2>/dev/null || true"
+
+[bootstrap.hooks.post-tools]
+run = [
+  "mise exec -- gh auth status || gh auth login",
+  "mise exec -- gcloud auth login",
+  "mise exec -- gcloud auth application-default login",
+  "mise exec -- gcloud auth configure-docker",
+]
+
+[bootstrap.macos.defaults]
+# ref: https://macos-defaults.com/
+
+# dock
+"com.apple.dock" = {
+  # Icon size を36(px)に変更
+  tilesize = 36,
+  # Dock の自動非表示を有効化
+  autohide = true,
+  # Docker 自動非表示化アニメーション時間を0.5(秒)
+  autohide-time-modifier = 0.5,
+  # 最近使ったアプリケーションを Dock に表示しない
+  show-recents = false,
+  # アクティブなアプリケーションのみ表示する
+  static-only = true,
+}
+# screencapture
+"com.apple.screencapture" = {
+  # スクリーンショットの影を無効化
+  disable-shadow = true,
+  # スクリーンショットの保存先を変更
+  location = "~/Documents/Screenshots",
+  # スクリーンショットのサムネイルを無効化
+  show-thumbnail = false,
+}
+# finder
+"com.apple.finder" = {
+  # Finder の拡張子を常に表示
+  AppleShowAllExtensions = true,
+  # Finder の隠しファイルを表示
+  AppleShowAllFiles = true,
+  # Finder のパスバーを表示
+  ShowPathbar = true,
+  # Finder の検索範囲を現在のフォルダに設定
+  FXDefaultSearchScope = "SCcf",
+  # Finder の拡張子変更時の警告を無効化
+  FXEnableExtensionChangeWarning = false,
+  # Finder の新規ウィンドウの表示先をホームに設定
+  NewWindowTarget = "Home",
+  # Finder のステータスバーを表示
+  ShowStatusBar = true,
+}
+# menuextra.clock
+"com.apple.menuextra.clock" = {
+  # 時計の24時間表示を有効化
+  Show24Hour = true,
+}
+# desktopservices
+"com.apple.desktopservices" = {
+  # ネットワークフォルダに .DS_Store を作らない
+  DSDontWriteNetworkStores = true,
+}
+# NSGlobalDomain
+NSGlobalDomain = {
+  # Finder
+  # 全てのファイル拡張子を表示
+  AppleShowAllExtensions = true,
+  # Mouse
+  # マウス軌道の早さを最速化
+  "com.apple.mouse.scalling" = 1.5,
+  # Keyboard
+  # Tab/Shift+Tab でフォーカス移動を有効化
+  AppleKeyboardUIMode = 2,
+  # キーリピートの初期遅延を短くする
+  InitialKeyRepeat = 15,
+  # キーリピートの速度を速くする
+  KeyRepeat = 2,
+  # 自動の大文字変換を無効化
+  NSAutomaticCapitalizationEnabled = false,
+  # スマートダッシュ置換を無効化
+  NSAutomaticDashSubstitutionEnabled = false,
+  # スマートピリオド置換を無効化
+  NSAutomaticPeriodSubstitutionEnabled = false,
+  # スマート引用符置換を無効化
+  NSAutomaticQuoteSubstitutionEnabled = false,
+  # スペル自動修正を無効化
+  NSAutomaticSpellingCorrectionEnabled = false,
+  # スペル自動修正を無効化 (WebView)
+  WebAutomaticSpellingCorrectionEnabled = false,
+}
+# Stage Manager
+"com.apple.WindowManager" = {
+  EnableStandardClickToShowDesktop = false,
+}
+
+[bootstrap.packages]
+# Commands
+"brew:duckdb" = "latest"
+"brew:starship" = "latest"
+# Casks
+"brew-cask:claude-code" = "latest"
+"brew-cask:docker-desktop" = "latest"
+"brew-cask:visual-studio-code" = "latest"
+"brew-cask:zed" = "latest"
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+[dotfiles]
+"~/.config/git" = {}
+"~/.config/mise" = {}
+"~/.config/sheldon" = {}
+"~/.config/starship.toml" = {}
+"~/.config/tmux" = {}
+"~/.config/zed" = {}
+"~/.tmux.d" = {}
+"~/.vim" = {}
+"~/.vimrc" = {}
+"~/.zprofile" = {}
+"~/.zshenv" = {}
+"~/.zshrc" = {}
+"~/.zsh.d" = {}
+
+[tools]
+usage = "latest"
+# Commands
+bat = "latest"
+fzf = "latest"
+"github:peco/peco" = "latest"
+jq = "latest"
+just = "latest"
+rg = "latest"
+yq = "latest"
+# Languages
+go = "latest"
+node = "24"
+# Lint/Check tools
+checkmake = "latest"
+pinact = "latest"
+shellcheck = "latest"
+zizmor = "latest"
+# Network tools
+gcloud = "latest"
+gh = "latest"
+terraform = "latest"
+# Plugin/Package managers
+pdm = "latest"
+sheldon = "latest"
+uv = "latest"
+# Release tools
+goreleaser = "latest"
+
+[tasks.bootstrap]
+run = """
+curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+make -C $HOME/.dotfiles/scripts/shell link
+"""
