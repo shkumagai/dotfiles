@@ -70,9 +70,6 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 # 補完対象から除外するディレクトリを設定する
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
-# 補完候補のディレクトリ名に色を付ける
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
 
 # Default: --
 

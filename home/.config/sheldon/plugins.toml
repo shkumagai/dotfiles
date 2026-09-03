@@ -15,7 +15,7 @@ shell = "zsh"
 [templates]
 defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
 
-[plugins]# 利用する管理ツールに関わらず必ずインストールしてください
+[plugins]
 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
@@ -29,8 +29,10 @@ colors
 [plugins.compinit]
 inline = '''
 autoload -Uz compinit
-mkdir -p "${XDG_CACHE_HOME}/zsh"
-zsh-defer compinit -C -d "${XDG_CACHE_HOME}/zsh/.zcompdump-${ZSH_VERSION}"
+_zcompdump="${XDG_CACHE_HOME}/zsh/.zcompdump-${ZSH_VERSION}"
+mkdir -p "${_zcompdump:h}"
+
+zsh-defer compinit -d "${_zcompdump}"
 '''
 
 [plugins.starship]

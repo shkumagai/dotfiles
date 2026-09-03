@@ -3,11 +3,8 @@
 # Histories
 
 # ヒストリファイルパス
-if [[ -d "${XDG_STATE_HOME}/zsh" ]]; then
-  HISTFILE="${XDG_STATE_HOME}/zsh/history"
-else
-  HISTFILE="${HOME}/.zsh_history"
-fi
+HISTFILE="${XDG_STATE_HOME}/zsh/history"
+mkdir -p "${HISTFILE:h}"
 
 # ヒストリサイズの上限
 HISTSIZE=100000
