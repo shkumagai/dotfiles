@@ -11,7 +11,7 @@ REPO_NAME=${2:-zsh}
 WINDOW_NAME=${3:-$REPO_NAME}
 
 # visasq specific
-WORKSPACE_ROOT=$(cat ${HOME}/.config/visasq/common.json | jq -r '.workspace_path')
+WORKSPACE_ROOT=$(cat "${HOME}/.config/visasq/common.json" | jq -r '.workspace_path')
 
 function find-or-create-venv
 {

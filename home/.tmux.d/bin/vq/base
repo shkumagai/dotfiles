@@ -1,3 +1,4 @@
 #!/bin/bash
 
-TMUX_ROOT=$(cd $PWD/../..; pwd)
+# shellcheck disable=SC2034
+TMUX_ROOT=$(cd "${PWD}/../.." || exit; pwd)

@@ -1,15 +1,40 @@
 #!/bin/bash
 
-PWD=$(cd $(dirname $0); pwd)
-TMUX_ROOT=$(cd $PWD/..; pwd)
+PWD="$(cd "$(dirname "$0" || return)" || exit; pwd)"
+TMUX_ROOT=$(cd "$PWD"/.. || exit; pwd)
 TEMP_PASSWD=/tmp/_passwd
 
 WINDOW_NAME="noname"
 
 
+function usage
+{
+  cat <<_EOT
+Usage: $(basename "$0") -w <window_name> -g <group_name>
+
+  -w  tmux window name (default: noname)
+  -g  host group name (e.g. ap_east, ap_west, lb, log, kvs_sitert, kvs_dynad)
+  -v  show version
+  -h  show this help
+_EOT
+}
+
+function version
+{
+  echo "$(basename "$0") version ${1}"
+}
+
+function get-row-per-pane
+{
+  # shellcheck disable=SC2046
+  set -- $(stty size)
+  rows=${1}
+  echo -n $(( (rows - 6) / 6 ))
+}
+
 function create-new-window
 {
-    tmux new-window -n ${WINDOW_NAME}
+    tmux new-window -n "${WINDOW_NAME}"
 }
 
 function split-window-to-12panes
@@ -18,17 +43,17 @@ function split-window-to-12panes
 
   tmux split-window -h
 
-  tmux select-pane -t 0;  tmux split-window -v -t ${WINDOW_NAME}.0;  tmux resize-pane -t ${WINDOW_NAME}.0 -y ${row_per_host}
-  tmux select-pane -t 1;  tmux split-window -v -t ${WINDOW_NAME}.1;  tmux resize-pane -t ${WINDOW_NAME}.1 -y ${row_per_host}
-  tmux select-pane -t 2;  tmux split-window -v -t ${WINDOW_NAME}.2;  tmux resize-pane -t ${WINDOW_NAME}.2 -y ${row_per_host}
-  tmux select-pane -t 3;  tmux split-window -v -t ${WINDOW_NAME}.3;  tmux resize-pane -t ${WINDOW_NAME}.3 -y ${row_per_host}
-  tmux select-pane -t 4;  tmux split-window -v -t ${WINDOW_NAME}.4;  tmux resize-pane -t ${WINDOW_NAME}.4 -y ${row_per_host}
+  tmux select-pane -t 0;  tmux split-window -v -t "${WINDOW_NAME}".0;  tmux resize-pane -t "${WINDOW_NAME}".0 -y "${row_per_host}"
+  tmux select-pane -t 1;  tmux split-window -v -t "${WINDOW_NAME}".1;  tmux resize-pane -t "${WINDOW_NAME}".1 -y "${row_per_host}"
+  tmux select-pane -t 2;  tmux split-window -v -t "${WINDOW_NAME}".2;  tmux resize-pane -t "${WINDOW_NAME}".2 -y "${row_per_host}"
+  tmux select-pane -t 3;  tmux split-window -v -t "${WINDOW_NAME}".3;  tmux resize-pane -t "${WINDOW_NAME}".3 -y "${row_per_host}"
+  tmux select-pane -t 4;  tmux split-window -v -t "${WINDOW_NAME}".4;  tmux resize-pane -t "${WINDOW_NAME}".4 -y "${row_per_host}"
 
-  tmux select-pane -t 6;  tmux split-window -v -t ${WINDOW_NAME}.6;  tmux resize-pane -t ${WINDOW_NAME}.6 -y ${row_per_host}
-  tmux select-pane -t 7;  tmux split-window -v -t ${WINDOW_NAME}.7;  tmux resize-pane -t ${WINDOW_NAME}.7 -y ${row_per_host}
-  tmux select-pane -t 8;  tmux split-window -v -t ${WINDOW_NAME}.8;  tmux resize-pane -t ${WINDOW_NAME}.8 -y ${row_per_host}
-  tmux select-pane -t 9;  tmux split-window -v -t ${WINDOW_NAME}.9;  tmux resize-pane -t ${WINDOW_NAME}.9 -y ${row_per_host}
-  tmux select-pane -t 10; tmux split-window -v -t ${WINDOW_NAME}.10; tmux resize-pane -t ${WINDOW_NAME}.10 -y ${row_per_host}
+  tmux select-pane -t 6;  tmux split-window -v -t "${WINDOW_NAME}".6;  tmux resize-pane -t "${WINDOW_NAME}".6 -y "${row_per_host}"
+  tmux select-pane -t 7;  tmux split-window -v -t "${WINDOW_NAME}".7;  tmux resize-pane -t "${WINDOW_NAME}".7 -y "${row_per_host}"
+  tmux select-pane -t 8;  tmux split-window -v -t "${WINDOW_NAME}".8;  tmux resize-pane -t "${WINDOW_NAME}".8 -y "${row_per_host}"
+  tmux select-pane -t 9;  tmux split-window -v -t "${WINDOW_NAME}".9;  tmux resize-pane -t "${WINDOW_NAME}".9 -y "${row_per_host}"
+  tmux select-pane -t 10; tmux split-window -v -t "${WINDOW_NAME}".10; tmux resize-pane -t "${WINDOW_NAME}".10 -y "${row_per_host}"
 }
 
 function execute-command-on-pane
@@ -37,13 +62,32 @@ function execute-command-on-pane
   hostname=${2}
   command=${3}
 
-  tmux send-key -t ${WINDOW_NAME}.${pane_name} "$TMUX_ROOT/bin/auto_ssh.sh ${hostname} '${command}'" C-m
+  tmux send-key -t "${WINDOW_NAME}"."${pane_name}" "$TMUX_ROOT/bin/auto_ssh.sh ${hostname} '${command}'" C-m
+}
+
+function split-window-for
+{
+  group_name=${1}
+
+  # TODO: グループごとに異なるレイアウトが必要になったらここに分岐を追加する
+  row_per_host=$(get-row-per-pane)
+  split-window-to-12panes "${row_per_host}"
+}
+
+function execute-command-on-panes-for
+{
+  group_name=${1}
+
+  # TODO: グループ名からホスト一覧を解決するロジックが未実装。
+  # 実装後は、対象ホストごとに以下を呼び出すこと:
+  #   execute-command-on-pane <pane_name> <hostname> <command>
+  echo "execute-command-on-panes-for: host list for group '${group_name}' is not defined yet" >&2
 }
 
 function main
 {
-  read -sp "Enter password for account: " passwd; echo
-  read -sp "Enter passphrase for key: " passphrase; echo
+  read -rsp "Enter password for account: " passwd; echo
+  read -rsp "Enter passphrase for key: " passphrase; echo
 
   cat <<_EOT > $TEMP_PASSWD
 passwd=${passwd}
@@ -51,9 +95,9 @@ passphrase=${passphrase}
 _EOT
 
 
-  create-new-window ${WINDOW_NAME}
-  split-window-for ${GROUP_NAME}
-  execute-command-on-panes-for ${GROUP_NAME}
+  create-new-window "${WINDOW_NAME}"
+  split-window-for "${GROUP_NAME}"
+  execute-command-on-panes-for "${GROUP_NAME}"
 
   sleep 1
   rm $TEMP_PASSWD
@@ -75,6 +119,6 @@ while getopts w:g:hv option; do
     ;;
   esac
 done
-shift $(($OPTIND - 1))
+shift $((OPTIND - 1))
 
 main "$@"

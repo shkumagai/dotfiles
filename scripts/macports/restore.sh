@@ -1,6 +1,6 @@
 #!/bin/bash
 
-readonly green='0;32'
+# readonly green='0;32'
 readonly brown='0;33'
 readonly org='0;0'
 

@@ -1,17 +1,9 @@
 #!/bin/bash
 
 TEMP_PASSWD=/tmp/_passwd
-MARK="\$"
 
-source ${TEMP_PASSWD}
-
-while getopts bz option; do
-  case "$option" in
-    b) MARK="\$" ;;
-    z) MARK="%" ;;
-  esac
-done
-shift $(($OPTIND - 1))
+# shellcheck source=/tmp/_passwd
+source "${TEMP_PASSWD}"
 
 expect -c "
 set timeout 10
