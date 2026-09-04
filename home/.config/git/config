@@ -50,6 +50,9 @@
 	pruneTags = true
 	all = true
 
+[ghq]
+	root = ~/projects
+
 [init]
 	defaultBranch = main
 
@@ -79,5 +82,8 @@
 	name = shkumagai
 	email = "take.this.2.your.grave@gmail.com"
 
-[includeIf "gitdir:~/work/gh/corp/"]
+[includeIf "gitdir:~/projects/github.com/visasq/"]
+	path = ~/.config/git/config.corp
+
+[includeIf "gitdir:~/projects/github.com/shoji-kumagai-visasq/"]
 	path = ~/.config/git/config.corp

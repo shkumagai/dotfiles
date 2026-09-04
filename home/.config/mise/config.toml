@@ -139,6 +139,8 @@ yq = "latest"
 # Languages
 go = "latest"
 node = "24"
+# Repository management tools
+ghq = "latest"
 # Lint/Check tools
 checkmake = "latest"
 pinact = "latest"
