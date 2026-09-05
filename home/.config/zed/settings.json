@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  // 自動インストールする拡張
   "auto_install_extensions": {
     "html": true,
     "oxc": true,
@@ -15,7 +16,16 @@
     "toml": true,
     "vue": true,
   },
+  // 自動保存
+  "autosave": {
+    // 編集操作停止から保存までの遅延時間
+    "after_delay": {
+      "milliseconds": 500
+    }
+  },
+  // CLIから開いた時のデフォルト動作
   "cli_default_open_behavior": "new_window",
+  // パネル設定：agent
   "agent": {
     "dock": "left",
     "default_profile": "ask",
@@ -30,54 +40,69 @@
   },
   "agent_buffer_font_size": 12.5,
   "agent_ui_font_size": 12.5,
+  // パネル設定：collaboration
   "collaboration_panel": {
     "dock": "right",
   },
+  // パネル設定：git
   "git_panel": {
     "dock": "right",
   },
+  // パネル設定：outline
   "outline_panel": {
     "dock": "right",
   },
+  // パネル設定：project
   "project_panel": {
     "dock": "right",
   },
+  // ミニマップ
   "minimap": {
     "show": "auto",
   },
+  // フォント設定：
   "ui_font_size": 16.0, // ディレクトリツリーとかの文字サイズ
   "ui_font_weight": 400,
   "buffer_font_size": 12.5, // エディタとかの文字サイズ
   "buffer_font_weight": 400.0,
   "buffer_font_family": "NotoSansM Nerd Font Mono",
   "buffer_font_fallbacks": ["NOTONOTO", "Noto Sans"],
+  // セッション
   "session": {
     "trust_all_worktrees": true,
   },
+  // 編集予測
   "edit_predictions": {
     "provider": "copilot",
   },
+  // ターミナル
   "terminal": {
     "font_size": 12.5, // ターミナル内の文字サイズ
     "font_family": "NotoSansM Nerd Font Mono",
     "font_fallbacks": ["NOTONOTO", "Noto Sans"],
   },
+  // ファイルタイプ
   "file_types": {
     "terraform": ["*.tf"],
     "dockerfile": ["Dockerfile"],
     "Makefile": ["Makefile", "*.mk"],
   },
+  // ファイル探索の除外対象
   "file_scan_exclusions": [
     "**/.git",
     "**/__pycache__",
   ],
+  // 空白表示設定
   "show_whitespaces": "all",
+  // キーマップ
   "base_keymap": "Emacs",
+  // テーマ
   "theme": {
     "mode": "dark",
     "light": "One Light",
     "dark": "Everforest Dark Medium (material)",
   },
+  // 言語設定
   "languages": {
     "Python": {
       "indent_guides": {
