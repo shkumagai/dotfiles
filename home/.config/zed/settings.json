@@ -7,6 +7,21 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  // パネル設定：agent
+  "agent": {
+    "dock": "left",
+    "default_profile": "ask",
+    "default_model": {
+      "effort": "high",
+      "provider": "copilot_chat",
+      "model": "gpt-5.3-codex",
+      "enable_thinking": false,
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "agent_buffer_font_size": 12.5,
+  "agent_ui_font_size": 12.5,
   // 自動インストールする拡張
   "auto_install_extensions": {
     "html": true,
@@ -25,21 +40,6 @@
   },
   // CLIから開いた時のデフォルト動作
   "cli_default_open_behavior": "new_window",
-  // パネル設定：agent
-  "agent": {
-    "dock": "left",
-    "default_profile": "ask",
-    "default_model": {
-      "effort": "high",
-      "provider": "copilot_chat",
-      "model": "gpt-5.3-codex",
-      "enable_thinking": false,
-    },
-    "favorite_models": [],
-    "model_parameters": [],
-  },
-  "agent_buffer_font_size": 12.5,
-  "agent_ui_font_size": 12.5,
   // パネル設定：collaboration
   "collaboration_panel": {
     "dock": "right",
@@ -69,6 +69,7 @@
   "buffer_font_fallbacks": ["NOTONOTO", "Noto Sans"],
   // セッション
   "session": {
+    "restore_unsaved_buffers": true,
     "trust_all_worktrees": true,
   },
   // 編集予測
