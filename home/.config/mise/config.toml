@@ -112,6 +112,7 @@ NSGlobalDomain = {
 login_shell = "/bin/zsh"
 
 [dotfiles]
+"~/.claude/settings.json" = {}
 "~/.config/git" = {}
 "~/.config/mise" = {}
 "~/.config/sheldon" = {}
