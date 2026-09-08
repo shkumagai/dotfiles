@@ -101,10 +101,15 @@ NSGlobalDomain = {
 [bootstrap.packages]
 # Commands
 "brew:duckdb" = "latest"
+"brew:fzf" = "latest"
+"brew:git" = "latest"
+"brew:ghq" = "latest"
 "brew:starship" = "latest"
+"brew:tmux" = "latest"
 # Casks
 "brew-cask:claude-code" = "latest"
 "brew-cask:docker-desktop" = "latest"
+"brew-cask:gcloud-cli" = "latest"
 "brew-cask:visual-studio-code" = "latest"
 "brew-cask:zed" = "latest"
 
@@ -131,7 +136,6 @@ login_shell = "/bin/zsh"
 usage = "latest"
 # Commands
 bat = "latest"
-fzf = "latest"
 "github:peco/peco" = "latest"
 jq = "latest"
 just = "latest"
@@ -140,15 +144,12 @@ yq = "latest"
 # Languages
 go = "latest"
 node = "24"
-# Repository management tools
-ghq = "latest"
 # Lint/Check tools
 checkmake = "latest"
 pinact = "latest"
 shellcheck = "latest"
 zizmor = "latest"
 # Network tools
-gcloud = "latest"
 gh = "latest"
 terraform = "latest"
 # Plugin/Package managers
