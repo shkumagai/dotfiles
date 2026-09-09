@@ -1,0 +1,5 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Shoji Kumagai"
+email = "take.this.2.your.grave@gmail.com"

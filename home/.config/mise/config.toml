@@ -102,6 +102,7 @@ NSGlobalDomain = {
 # Commands
 "brew:duckdb" = "latest"
 "brew:fzf" = "latest"
+"brew:jj" = "latest"
 "brew:git" = "latest"
 "brew:ghq" = "latest"
 "brew:starship" = "latest"
@@ -119,6 +120,7 @@ login_shell = "/bin/zsh"
 [dotfiles]
 "~/.claude/settings.json" = {}
 "~/.config/git" = {}
+"~/.config/jj" = {}
 "~/.config/mise" = {}
 "~/.config/sheldon" = {}
 "~/.config/starship.toml" = {}
@@ -163,4 +165,6 @@ goreleaser = "latest"
 run = """
 curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
 make -C $HOME/.dotfiles/scripts/shell link
+mise completion zsh > $HOME/.zsh.d/_mise
+jj util completion zsh > $HOME/.zsh.d/_jj
 """
