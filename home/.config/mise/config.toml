@@ -135,7 +135,6 @@ login_shell = "/bin/zsh"
 "~/.zsh.d" = {}
 
 [tools]
-usage = "latest"
 # Commands
 bat = "latest"
 "github:peco/peco" = "latest"
