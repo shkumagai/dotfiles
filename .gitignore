@@ -1,4 +1,5 @@
 home/.config/git/config.*
+home/.config/mise/config.*.toml
 home/.config/zed/prompts
 home/.vim/.*hist
 home/.vim/pack/*
