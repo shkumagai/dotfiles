@@ -28,6 +28,7 @@ colors
 
 [plugins.compinit]
 inline = '''
+fpath=(~/.zsh.d/zfunc ${fpath})
 autoload -Uz compinit
 _zcompdump="${XDG_CACHE_HOME}/zsh/.zcompdump-${ZSH_VERSION}"
 mkdir -p "${_zcompdump:h}"
