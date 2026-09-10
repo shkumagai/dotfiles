@@ -47,7 +47,7 @@ dotfiles: | $(MISE) ## Apply dotfiles to home directory.
 
 .PHONY: force-dotfiles
 force-dotfiles: | $(MISE)
-	$(MISE) bootstrap --force-dotfiles
+	$(MISE) bootstrap --force-dotfiles --yes
 
 $(HOMEBREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
