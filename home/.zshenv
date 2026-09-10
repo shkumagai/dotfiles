@@ -59,6 +59,11 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+# Docker Desktop
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/shoji.kumagai/.docker/bin"
+# End of Docker Desktop section.
+
 path=(
   "${XDG_BIN_HOME}"(N-/)
   "/etc/profiles/per-user/${USER}/bin"(N-/)
