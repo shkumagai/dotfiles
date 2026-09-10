@@ -164,6 +164,6 @@ goreleaser = "latest"
 run = """
 curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
 make -C $HOME/.dotfiles/scripts/shell link
-mise completion zsh > $HOME/.zsh.d/_mise
-jj util completion zsh > $HOME/.zsh.d/_jj
+mise completion zsh > $HOME/.zsh.d/zfunc/_mise
+jj util completion zsh > $HOME/.zsh.d/zfunc/_jj
 """
