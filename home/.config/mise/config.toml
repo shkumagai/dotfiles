@@ -109,7 +109,7 @@ NSGlobalDomain = {
 "brew:tmux" = "latest"
 # Casks
 "brew-cask:claude-code" = "latest"
-"brew-cask:docker-desktop" = "latest"
+# "brew-cask:docker-desktop" = "latest"
 "brew-cask:gcloud-cli" = "latest"
 "brew-cask:visual-studio-code" = "latest"
 "brew-cask:zed" = "latest"
