@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 PWD="$(cd "$(dirname "$0" || return)" || exit; pwd)"
 TMUX_ROOT=$(cd "$PWD"/.. || exit; pwd)
 TEMP_PASSWD=/tmp/_passwd

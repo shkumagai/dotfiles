@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 PROJECT_ROOT=$(cat "$HOME/.config/visasq/common.json" | jq -r '.workspace_path')
 
 function create-3-pane-window {

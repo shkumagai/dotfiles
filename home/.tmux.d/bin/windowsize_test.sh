@@ -4,6 +4,7 @@ set
 
 echo "$@"
 
+# shellcheck disable=SC2046
 set -- $(stty size)
 rows=${1}
 cols=${2}

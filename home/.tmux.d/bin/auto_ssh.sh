@@ -1,9 +1,11 @@
 #!/bin/bash
 
+set -euo pipefail
+
 TEMP_PASSWD=/tmp/_passwd
 MARK="\$"
 
-# shellcheck source=/tmp/_passwd
+# shellcheck source=/tmp/_passwd disable=SC1091
 source "${TEMP_PASSWD}"
 
 while getopts bz option; do
@@ -15,6 +17,7 @@ while getopts bz option; do
 done
 shift $(("${OPTIND}" - 1))
 
+# shellcheck disable=SC2154
 expect -c "
 set timeout 10
 spawn ssh ${1}
