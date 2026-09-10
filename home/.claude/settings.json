@@ -6,10 +6,6 @@
     "sessionUrl": false
   },
   "permissions": {
-    "defaultMode": "auto",
-    "ask": [
-      "Bash(rm -rf *)"
-    ],
     "deny": [
       "Bash(sudo *)",
       "Bash(git push --force*)",
@@ -28,7 +24,11 @@
       "Read(~/.ssh/**)",
       "Edit(//**/.env)",
       "Edit(//**/secrets/**)"
-    ]
+    ],
+    "ask": [
+      "Bash(rm -rf *)"
+    ],
+    "defaultMode": "auto"
   },
   "model": "claude-sonnet-5",
   "language": "Japanese",
