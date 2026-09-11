@@ -7,6 +7,7 @@ SHELL := /bin/bash
 export XDG_BIN_HOME := $(HOME)/.local/bin
 export XDG_CONFIG_HOME := $(HOME)/.config
 export MISE_GLOBAL_CONFIG_FILE := $(abspath home/.config/mise/config.toml)
+export HOMEBRW_BUNDLE_FILE_GLOBAL := $(abspath home/.config/homebrew/Brewfile)
 
 ifeq ($(shell uname -s),Darwin)
 	ifeq ($(shell uname -m),arm64)
@@ -39,29 +40,29 @@ $(MISE):
 
 .PHONY: bootstrap
 bootstrap: | $(MISE) ## Run mise bootstrap whole steps.
-	$(MISE) bootstrap --yes -C $(HOME)/.dotfiles
+	$(MISE) bootstrap --force-dotfiles --yes -C $(HOME)/.dotfiles
 
-.PHONY: dotfiles
-dotfiles: | $(MISE) ## Apply dotfiles to home directory.
+.PHONY: apply-dotfiles
+apply-dotfiles: | $(MISE) ## Apply dotfiles to home directory.
 	$(MISE) bootstrap dotfiles apply
 
-.PHONY: force-dotfiles
-force-dotfiles: | $(MISE)
-	$(MISE) bootstrap --force-dotfiles --yes
+.PHONY: apply-repos
+apply-repos: | $(MISE) ## Clone repository that required.
+	$(MISE) bootstrap repos apply --yes --skip-dirty
 
 $(HOMEBREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 .ONESHELL: bundle
 .PHONY: bundle
-bundle: | $(HOMEBREW) ## Install and upgrade all dependencies based on ~/.config/brewfile/Brewfile.
-	eval "$$($(HOMEBREW) shellenv)"
+bundle: | $(HOMEBREW) ## Install and upgrade all dependencies based on home/.config/homebrew/Brewfile.
+	$(HOMEBREW) bundle install --global
 
 .PHONY: install
-install : bootstrap ## Run install
+install : bundle bootstrap ## Run install
 
-.PHONY: clean
-clean: | $(MISE) ## Clean up dotfiles.
+.PHONY: clean-dotfiles
+clean-dotfiles: | $(MISE) ## Clean up dotfiles.
 	$(MISE) bootstrap dotfiles unapply
 
 .PHONY: test

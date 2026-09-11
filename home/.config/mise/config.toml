@@ -99,32 +99,7 @@ NSGlobalDomain = {
 }
 
 [bootstrap.packages]
-# Command line tools
-"brew:bat" = "latest"
-"brew:checkmake" = "latest"
-"brew:duckdb" = "latest"
-"brew:fzf" = "latest"
-"brew:jj" = "latest"
-"brew:jq" = "latest"
-"brew:just" = "latest"
-"brew:git" = "latest"
-"brew:gh" = "latest"
-"brew:ghq" = "latest"
-"brew:goreleaser" = "latest"
-"brew:peco" = "latest"
-"brew:pinact" = "latest"
-"brew:ripgrep" = "latest"
-"brew:shellcheck" = "latest"
-"brew:sheldon" = "latest"
-"brew:starship" = "latest"
-"brew:tmux" = "latest"
-"brew:yq" = "latest"
-"brew:zizmor" = "latest"
-# Casks
-"brew-cask:claude-code" = "latest"
-"brew-cask:gcloud-cli" = "latest"
-"brew-cask:visual-studio-code" = "latest"
-"brew-cask:zed" = "latest"
+# delegate to Homebrew Brewfile
 
 [bootstrap.user]
 login_shell = "/bin/zsh"
