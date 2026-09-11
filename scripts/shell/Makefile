@@ -2,7 +2,7 @@
 #
 # :author: Shoji KUMAGAI
 
-BASEDIR = $(PWD)
+BASEDIR = $(abspath .)
 FILE = ports_update batt_status batt_percentage get_volume get_ime
 
 .PHONY: help link clean
@@ -14,8 +14,8 @@ help:
 
 clean: $(FILE)
 	$(foreach file, $^,\
-	  rm -rf $(HOME)/bin/$(file);)
+	  rm -f $(HOME)/.local/bin/$(file);)
 
 link: $(FILE)
 	$(foreach file, $^,\
-	  ln -sF $(PWD)/$(file) $(HOME)/.local/bin/$(file);)
+	  ln -sF $(BASEDIR)/$(file) $(HOME)/.local/bin/$(file);)
