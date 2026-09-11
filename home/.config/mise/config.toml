@@ -99,17 +99,29 @@ NSGlobalDomain = {
 }
 
 [bootstrap.packages]
-# Commands
+# Command line tools
+"brew:bat" = "latest"
+"brew:checkmake" = "latest"
 "brew:duckdb" = "latest"
 "brew:fzf" = "latest"
 "brew:jj" = "latest"
+"brew:jq" = "latest"
+"brew:just" = "latest"
 "brew:git" = "latest"
+"brew:gh" = "latest"
 "brew:ghq" = "latest"
+"brew:goreleaser" = "latest"
+"brew:peco" = "latest"
+"brew:pinact" = "latest"
+"brew:ripgrep" = "latest"
+"brew:shellcheck" = "latest"
+"brew:sheldon" = "latest"
 "brew:starship" = "latest"
 "brew:tmux" = "latest"
+"brew:yq" = "latest"
+"brew:zizmor" = "latest"
 # Casks
 "brew-cask:claude-code" = "latest"
-# "brew-cask:docker-desktop" = "latest"
 "brew-cask:gcloud-cli" = "latest"
 "brew-cask:visual-studio-code" = "latest"
 "brew-cask:zed" = "latest"
@@ -137,30 +149,14 @@ login_shell = "/bin/zsh"
 "~/.zsh.d" = {}
 
 [tools]
-# Commands
-bat = "latest"
-"github:peco/peco" = "latest"
-jq = "latest"
-just = "latest"
-rg = "latest"
-yq = "latest"
-# Languages
+# Language
 go = "latest"
 node = "24"
-# Lint/Check tools
-checkmake = "latest"
-pinact = "latest"
-shellcheck = "latest"
-zizmor = "latest"
-# Network tools
-gh = "latest"
+# IaC tool
 terraform = "latest"
-# Plugin/Package managers
+# Package manager for Python
 pdm = "latest"
-sheldon = "latest"
 uv = "latest"
-# Release tools
-goreleaser = "latest"
 
 [tasks.bootstrap]
 run = """
