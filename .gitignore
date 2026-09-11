@@ -1,5 +1,6 @@
 home/.config/git/config.*
 home/.config/homebrew/trust.json*
+home/.config/gh/hosts.yml
 home/.config/mise/config.*.toml
 home/.config/zed/prompts
 home/.vim/.*hist
