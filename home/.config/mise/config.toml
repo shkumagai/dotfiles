@@ -120,6 +120,7 @@ login_shell = "/bin/zsh"
 [dotfiles]
 "~/.claude/settings.json" = {}
 "~/.config/git" = {}
+"~/.config/homebrew" = {}
 "~/.config/jj" = {}
 "~/.config/mise" = {}
 "~/.config/sheldon" = {}
