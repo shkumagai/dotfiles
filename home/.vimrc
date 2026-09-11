@@ -17,7 +17,9 @@
 " If you don't have jetpack.vim, follow the steps below
 " to install.
 "
-" curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+" 1. curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+" 2. put `:JetpackSync` in vim
+
 
 packadd vim-jetpack
 call jetpack#begin()
