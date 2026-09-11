@@ -13,20 +13,21 @@ battery_status () {
 print_icon_status () {
   status=$1
   if [[ $status =~ (charged) || $status =~ (full) ]]; then
-    printf "$icon_status_charged"
+    printf "%s" $icon_status_charged
   elif [[ $status =~ (^charging) || $status =~ (finishing charge) ]]; then
-    printf "$icon_status_charging"
+    printf "%s" $icon_status_charging
   elif [[ $status =~ (^discharging) ]]; then
-    printf "$icon_status_discharging"
+    printf "%s" $icon_status_discharging
   elif [[ $status =~ (attached) ]]; then
-    printf "$icon_status_attached"
+    printf "%s" $icon_status_attached
   else
-    printf "$icon_status_unknown"
+    printf "%s" $icon_status_unknown
   fi
 }
 
 main () {
-  local status=$(battery_status)
+  local status
+  status=$(battery_status)
   print_icon_status "$status"
 }
 

@@ -38,7 +38,7 @@ case "$input_source_kind" in
   fi
   ime_status="${bundle} ${char}" ;;
 'Keyboard Layout')
-  ime_status="\uF179 Ａ" ;;
+  ime_status="\uF179Ａ" ;;
 *) ime_status="" ;;
 esac
 
