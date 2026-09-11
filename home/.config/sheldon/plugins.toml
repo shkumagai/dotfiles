@@ -50,6 +50,13 @@ if command -v fzf &> /dev/null; then
 fi
 '''
 
+[plugins.gcloud]
+inline = '''
+if command -v brew &> /dev/null && [[ -d "$(brew --prefix)/share/google-cloud-sdk" ]]; then
+  source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+fi
+'''
+
 [plugins.fzf-git]
 github = "junegunn/fzf-git.sh"
 use = ["fzf-git.sh"]
