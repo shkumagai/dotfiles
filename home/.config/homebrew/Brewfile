@@ -32,6 +32,6 @@ brew "mutagen-io/mutagen/mutagen"
 brew "mutagen-io/mutagen/mutagen-compose"
 
 # Optional
-# cask "claude-code"
-# cask "visual-studio-code"
-# cask "zed"
+cask "claude-code"
+cask "visual-studio-code"
+cask "zed"
