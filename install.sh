@@ -5,7 +5,7 @@ set -eu -o pipefail
 
 DOTFILES="${HOME}/.dotfiles"
 
-make_targets=(clean all)
+make_targets=(clean apply-dotfiles)
 
 for arg in "$@"; do
   case "$arg" in

@@ -59,11 +59,14 @@ bundle: | $(HOMEBREW) ## Install and upgrade all dependencies based on home/.con
 	$(HOMEBREW) bundle install --global
 
 .PHONY: install
-install : bundle bootstrap ## Run install
+install : bundle apply-dotfiles ## Run install
 
 .PHONY: clean-dotfiles
 clean-dotfiles: | $(MISE) ## Clean up dotfiles.
 	$(MISE) bootstrap dotfiles unapply
+
+.PHONY: clean
+clean: clean-dotfiles
 
 .PHONY: test
 test: ## Run checkmake.
