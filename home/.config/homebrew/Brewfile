@@ -25,11 +25,11 @@ cask "font-noto-nerd-font"
 cask "gcloud-cli", postinstall: "${HOMEBREW_PREFIX}/bin/gcloud components update"
 
 # Obsoleted
-brew "nodenv"
-brew "pyenv"
-tap "mutagen-io/mutagen", trusted: true
-brew "mutagen-io/mutagen/mutagen"
-brew "mutagen-io/mutagen/mutagen-compose"
+# brew "nodenv"
+# brew "pyenv"
+# tap "mutagen-io/mutagen", trusted: true
+# brew "mutagen-io/mutagen/mutagen"
+# brew "mutagen-io/mutagen/mutagen-compose"
 
 # Optional
 cask "claude-code"
