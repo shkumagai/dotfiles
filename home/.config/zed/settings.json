@@ -66,7 +66,7 @@
   "buffer_font_size": 12.5, // エディタとかの文字サイズ
   "buffer_font_weight": 400.0,
   "buffer_font_family": "NotoSansM Nerd Font Mono",
-  "buffer_font_fallbacks": ["NOTONOTO", "Noto Sans"],
+  "buffer_font_fallbacks": ["NotoSans Nerd Font", "Noto Sans"],
   // セッション
   "session": {
     "restore_unsaved_buffers": true,
@@ -80,7 +80,7 @@
   "terminal": {
     "font_size": 12.5, // ターミナル内の文字サイズ
     "font_family": "NotoSansM Nerd Font Mono",
-    "font_fallbacks": ["NOTONOTO", "Noto Sans"],
+    "font_fallbacks": ["NotoSans Nerd Font", "Noto Sans"],
   },
   // ファイルタイプ
   "file_types": {
