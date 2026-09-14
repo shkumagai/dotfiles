@@ -22,7 +22,9 @@ brew "yq"
 brew "zizmor"
 cask "docker-desktop"
 cask "font-noto-nerd-font"
-cask "gcloud-cli", postinstall: "${HOMEBREW_PREFIX}/bin/gcloud components update"
+cask "gcloud-cli"
+cask "claude-code"
+cask "zed"
 
 # Obsoleted
 # brew "nodenv"
@@ -32,6 +34,4 @@ cask "gcloud-cli", postinstall: "${HOMEBREW_PREFIX}/bin/gcloud components update
 # brew "mutagen-io/mutagen/mutagen-compose"
 
 # Optional
-cask "claude-code"
-cask "visual-studio-code"
-cask "zed"
+# cask "visual-studio-code"
