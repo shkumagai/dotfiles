@@ -7,7 +7,7 @@ SHELL := /bin/bash
 export XDG_BIN_HOME := $(HOME)/.local/bin
 export XDG_CONFIG_HOME := $(HOME)/.config
 export MISE_GLOBAL_CONFIG_FILE := $(abspath home/.config/mise/config.toml)
-export HOMEBRW_BUNDLE_FILE_GLOBAL := $(abspath home/.config/homebrew/Brewfile)
+export HOMEBREW_BUNDLE_FILE_GLOBAL := $(abspath home/.config/homebrew/Brewfile)
 
 ifeq ($(shell uname -s),Darwin)
 	ifeq ($(shell uname -m),arm64)
