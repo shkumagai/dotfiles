@@ -39,15 +39,23 @@ $(MISE):
 	curl -fsSL https://mise.run | sh
 
 .PHONY: bootstrap
-bootstrap: | $(MISE) ## Run mise bootstrap whole steps.
+bootstrap: | $(MISE) ## Run mise bootstrap whole steps at once.
 	$(MISE) bootstrap --force-dotfiles --yes -C $(HOME)/.dotfiles
 
-.PHONY: apply-dotfiles
-apply-dotfiles: | $(MISE) ## Apply dotfiles to home directory.
+.PHONY: macos-defaults
+macos-defaults: | $(MISE) ## Apply MacOS Defaults configuration.
+	$(MISE) bootstrap macos defaults
+
+.PHONY: packages
+packages: | $(MISE) ## Apply dotfiles to home directory.
+	$(MISE) bootstrap packages apply
+
+.PHONY: dotfiles
+dotfiles: | $(MISE) ## Apply dotfiles to home directory.
 	$(MISE) bootstrap dotfiles apply
 
-.PHONY: apply-repos
-apply-repos: | $(MISE) ## Clone repository that required.
+.PHONY: repos
+repos: | $(MISE) ## Clone repository that required.
 	$(MISE) bootstrap repos apply --yes --skip-dirty
 
 $(HOMEBREW):
@@ -55,11 +63,11 @@ $(HOMEBREW):
 
 .ONESHELL: bundle
 .PHONY: bundle
-bundle: | $(HOMEBREW) ## Install and upgrade all dependencies based on home/.config/homebrew/Brewfile.
+bundle: | $(HOMEBREW) ## Install and upgrade all dependencies.
 	$(HOMEBREW) bundle install --global
 
 .PHONY: install
-install : bundle apply-dotfiles ## Run install
+install : bootstrap ## Run install
 
 .PHONY: clean-dotfiles
 clean-dotfiles: | $(MISE) ## Clean up dotfiles.
