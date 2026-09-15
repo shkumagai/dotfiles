@@ -3,9 +3,14 @@
 ```
 📁 home/
     📁 .config/                  # Root of XDG_CONFIG_HOME
+        📁 gh/                   # gh configuration directory
         📁 git/                  # git configuration directory
             📃 config
             📃 ignore
+        📁 homebrew/             # homebrew configuration directory
+            📃 Brewfile
+        📁 jj/                   # jj configuration directory
+            📃 config.toml
         📁 mise/                 # mise configuration directory
             📃 config.toml
         📁 sheldon/              # sheldon configuration directory
