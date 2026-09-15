@@ -82,3 +82,9 @@
 [user]
 	name = shkumagai
 	email = "take.this.2.your.grave@gmail.com"
+
+[includeIf "gitdir:~/projects/github.com/visasq/"]
+	path = ~/.config/git/config.corp
+
+[includeIf "gitdir:~/projects/github.com/shoji-kumagai-visasq/"]
+	path = ~/.config/git/config.corp
