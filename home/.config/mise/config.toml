@@ -106,6 +106,7 @@ NSGlobalDomain = {
 "brew:gh" = "latest"
 "brew:ghq" = "latest"
 "brew:git" = "latest"
+"brew:herdr" = "latest"
 "brew:jj" = "latest"
 "brew:jq" = "latest"
 "brew:just" = "latest"

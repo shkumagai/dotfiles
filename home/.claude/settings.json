@@ -5,6 +5,20 @@
     "pr": "",
     "sessionUrl": false
   },
+  "hooks": {
+    "SessionStart":[
+      {
+        "matcher":"*",
+        "hooks":[
+          {
+            "type":"command",
+            "command":"bash '/Users/shoji.kumagai/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout":10
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "deny": [
       "Bash(sudo *)",
