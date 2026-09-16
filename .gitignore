@@ -1,3 +1,5 @@
+.DS_Store
+
 home/.config/git/config.*
 home/.config/homebrew/trust.json*
 home/.config/herdr/.plugins.lock
