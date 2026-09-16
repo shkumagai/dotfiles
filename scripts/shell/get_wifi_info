@@ -1,0 +1,49 @@
+#!/bin/zsh
+# shellcheck disable=SC1071
+#
+# - 󰖩 : \Uf05a9
+# - 󰖪 : \Uf05aa
+
+wifi_device=$(networksetup -listallhardwareports | awk '/Hardware Port: Wi-Fi/{getline; print $2}')
+
+if [ -z "$wifi_device" ]; then
+  echo "󰖪: no_wifi" 1>&2
+  exit 1
+fi
+
+rssi=$(system_profiler SPAirPortDataType | awk -v dev="$wifi_device" '
+  $0 ~ "^        " dev ":$" { in_dev=1; next }
+  in_dev && /^        [A-Za-z0-9]+:$/ { in_dev=0 }
+  in_dev && /Current Network Information:/ { f=1; next }
+  in_dev && f && /Signal \/ Noise:/ {
+    line=$0
+    sub(/.*Signal \/ Noise: /, "", line)
+    sub(/ dBm.*/, "", line)
+    print line
+    exit
+  }
+')
+
+if [ -z "$rssi" ]; then
+  echo "󰖪: no_wifi"
+  exit 1
+fi
+
+ssid=$(networksetup -listpreferredwirelessnetworks "$wifi_device" | sed -n '2p' | sed 's/^[[:space:]]*//')
+
+if [ -z "$ssid" ]; then
+  echo "󰖪: no_wifi"
+  exit 1
+fi
+
+if [ "$rssi" -gt -60 ]; then
+  signal="Excellent"
+elif [ "$rssi" -gt -70 ]; then
+  signal="Better"
+elif [ "$rssi" -gt -80 ]; then
+  signal="Good"
+else
+  signal="No good"
+fi
+
+echo ": ${ssid} (${signal})"

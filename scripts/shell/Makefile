@@ -3,7 +3,7 @@
 # :author: Shoji KUMAGAI
 
 BASEDIR = $(abspath .)
-FILE = ports_update batt_status batt_percentage get_volume get_ime
+FILE = ports_update batt_status batt_percentage get_volume get_ime get_wifi_info
 
 .PHONY: help link clean
 
