@@ -2,17 +2,6 @@
 dotfiles.root = "~/.dotfiles/home"
 minimum_release_age = "7d"
 
-[bootstrap.hooks.post-defaults]
-run = "killall Dock Finder SystemUIServer 2>/dev/null || true"
-
-[bootstrap.hooks.post-tools]
-run = [
-  "mise exec -- gh auth status || gh auth login",
-  "mise exec -- gcloud auth login",
-  "mise exec -- gcloud auth application-default login",
-  "mise exec -- gcloud auth configure-docker",
-]
-
 [bootstrap.macos.defaults]
 # ref: https://macos-defaults.com/
 
@@ -160,10 +149,28 @@ terraform = "latest"
 pdm = "latest"
 uv = "latest"
 
+[bootstrap.hooks.post-defaults]
+run = "killall Dock Finder SystemUIServer 2>/dev/null || true"
+
+[bootstrap.hooks.post-dotfiles]
+run = [
+  # Login github via gh command
+  "mise exec -- gh auth status || gh auth login",
+  # Download jetpack.vim
+  "curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim",
+  # Dump complition scripts to fpath
+  "mise completion zsh > $HOME/.zsh.d/zfunc/_mise",
+  "jj util completion zsh > $HOME/.zsh.d/zfunc/_jj",
+  # Make symlinks for shell scripts
+  "make -C $HOME/.dotfiles/scripts/shell link",
+]
+
+[bootstrap.hooks.post-tools]
+run = [
+  "mise exec -- gcloud auth login",
+  "mise exec -- gcloud auth application-default login",
+  "mise exec -- gcloud auth configure-docker",
+]
+
 [tasks.bootstrap]
-run = """
-curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
-make -C $HOME/.dotfiles/scripts/shell link
-mise completion zsh > $HOME/.zsh.d/zfunc/_mise
-jj util completion zsh > $HOME/.zsh.d/zfunc/_jj
-"""
+run = "printf \"\\033[31m%s\\033[0m\\n\" \"Bootstrap processes are finished. please restart the OS.\""
