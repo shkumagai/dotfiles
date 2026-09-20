@@ -3,11 +3,13 @@
 home/.config/git/config.*
 home/.config/homebrew/trust.json*
 home/.config/herdr/.plugins.lock
+home/.config/herdr/release-notes.json
 home/.config/herdr/*.log
 home/.config/herdr/session.json
 home/.config/gh/hosts.yml
 home/.config/mise/config.*.toml
 home/.config/zed/prompts
+home/.config/zed/keymap.json
 home/.vim/.*hist
 home/.vim/pack/*
 home/.zsh.d/src/*
