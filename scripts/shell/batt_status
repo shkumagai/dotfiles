@@ -1,34 +1,43 @@
 #!/usr/bin/env bash
+#
+# - 󰚥 : \Uf06a5
+# - 󰁹 : \Uf0079
+# - 󰂂 : \Uf0081
+# - 󰂄 : \Uf0084
+# - 󰂑 : \Uf0091
+# - 󱈑 : \Uf1211
 
-icon_status_charged='🔌'
-icon_status_charging='🔌'
-icon_status_discharging='🔋'
-icon_status_attached='😕'
-icon_status_unknown='🧐'
-
-battery_status () {
-  pmset -g batt | awk -F'; *' 'NR==2{ print $2 }'
-}
+status_plugged='󰚥'
+status_batt_finishing_charge='󰁹'
+status_batt_charging='󰂄'
+status_batt_dischargeing='󰂂'
+status_batt_attached='󱈑'
+status_batt_unknown='󰂑'
 
 print_icon_status () {
-  status=$1
-  if [[ $status =~ (charged) || $status =~ (full) ]]; then
-    printf "%s" $icon_status_charged
-  elif [[ $status =~ (^charging) || $status =~ (finishing charge) ]]; then
-    printf "%s" $icon_status_charging
-  elif [[ $status =~ (^discharging) ]]; then
-    printf "%s" $icon_status_discharging
-  elif [[ $status =~ (attached) ]]; then
-    printf "%s" $icon_status_attached
+  _stat=$(pmset -g batt)
+  power_supply=$(cat <<< "$_stat" | head -1 | sed -e "s/Now drawing from '\(.*\)'/\1/g")
+  batt_status=$(cat <<< "$_stat" | awk -F'; *' 'NR==2{ print $2 }')
+
+  if [[ $power_supply =~ (AC Power) ]]; then
+    _plug="$status_plugged "
+  fi
+
+  if [[ $batt_status =~ (finishing charge) || $batt_status =~ (charged) ]]; then
+    printf "%s%s" "$_plug" "$status_batt_finishing_charge"
+  elif [[ $batt_status =~ (^charging) ]]; then
+    printf "%s%s" "$_plug" "$status_batt_charging"
+  elif [[ $batt_status =~ (^discharging) ]]; then
+    printf "%s%s" "$_plug" "$status_batt_dischargeing"
+  elif [[ $batt_status =~ (attached) ]]; then
+    printf "%s%s" "$_plug" "$status_batt_attached"
   else
-    printf "%s" $icon_status_unknown
+    printf "%s" $status_batt_unknown
   fi
 }
 
 main () {
-  local status
-  status=$(battery_status)
-  print_icon_status "$status"
+  print_icon_status
 }
 
 main

@@ -37,13 +37,13 @@ if [ -z "$ssid" ]; then
 fi
 
 if [ "$rssi" -gt -60 ]; then
-  signal="Excellent"
+  signal="🟢"
 elif [ "$rssi" -gt -70 ]; then
-  signal="Better"
+  signal="🟡"
 elif [ "$rssi" -gt -80 ]; then
-  signal="Good"
+  signal="🟠"
 else
-  signal="No good"
+  signal="🔴"
 fi
 
-echo ": ${ssid} (${signal})"
+echo ":${ssid}${signal}"
