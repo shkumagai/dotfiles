@@ -161,6 +161,7 @@ run = [
   # Dump complition scripts to fpath
   "mise completion zsh > $HOME/.zsh.d/zfunc/_mise",
   "jj util completion zsh > $HOME/.zsh.d/zfunc/_jj",
+  "herdr completion zsh > $HOME/.zsh.d/zfunc/_herdr",
   # Make symlinks for shell scripts
   "make -C $HOME/.dotfiles/scripts/shell link",
 ]
