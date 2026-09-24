@@ -106,6 +106,7 @@ NSGlobalDomain = {
 "brew:tmux" = "latest"
 "brew:yq" = "latest"
 "brew:zizmor" = "latest"
+"brew:zoxide" = "latest"
 # Linters
 "brew:checkmake" = "latest"
 "brew:shellcheck" = "latest"

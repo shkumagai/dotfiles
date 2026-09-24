@@ -77,6 +77,13 @@ export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
 export GOPATH="${XDG_DATA_HOME}/go"
 '''
 
+[plugins.zoxide]
+inline = '''
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+'''
+
 [plugins.kumagai]
 local = "~/.zsh.d"
 use = ["*.zsh"]
