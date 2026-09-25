@@ -1,7 +1,7 @@
 #!/bin/zsh
 # shellcheck disable=SC1071
 #
-# -  : \Uefcf
+# -  : \uf028
 
 SOUND_INFO=$(osascript -e "get volume settings")
 if [ -n "${SOUND_INFO}" ]; then
@@ -22,5 +22,5 @@ if [ -n "${SOUND_INFO}" ]; then
     done
     volume="${str}"
   fi
-  echo ":#[bold]${volume}#[default]"
+  echo "\uf028:#[bold]${volume}#[default]"
 fi

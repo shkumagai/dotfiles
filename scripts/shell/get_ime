@@ -36,9 +36,9 @@ case "$input_source_kind" in
   elif [ "$bundle_id" = "com.google.inputmethod.Japanese" ]; then
     bundle="\uF1A0"  # google icon font
   fi
-  ime_status="${bundle}${char}" ;;
+  ime_status="${bundle} ${char}" ;;
 'Keyboard Layout')
-  ime_status="\uF179Ａ" ;;
+  ime_status="\uF179 Ａ" ;;
 *) ime_status="" ;;
 esac
 

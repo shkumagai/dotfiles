@@ -46,4 +46,4 @@ else
   signal="🔴"
 fi
 
-echo ":${ssid}${signal}"
+echo " :${ssid}${signal}"
