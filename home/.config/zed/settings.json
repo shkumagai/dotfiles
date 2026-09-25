@@ -20,8 +20,8 @@
     "favorite_models": [],
     "model_parameters": [],
   },
-  "agent_buffer_font_size": 12.5,
-  "agent_ui_font_size": 12.5,
+  "agent_buffer_font_size": 13.5,
+  "agent_ui_font_size": 13.5,
   // 自動インストールする拡張
   "auto_install_extensions": {
     "html": true,
@@ -63,10 +63,10 @@
   // フォント設定：
   "ui_font_size": 16.0, // ディレクトリツリーとかの文字サイズ
   "ui_font_weight": 400,
-  "buffer_font_size": 12.5, // エディタとかの文字サイズ
+  "buffer_font_size": 13.5, // エディタとかの文字サイズ
   "buffer_font_weight": 400.0,
-  "buffer_font_family": "NotoSansM Nerd Font Mono",
-  "buffer_font_fallbacks": ["NotoSans Nerd Font", "Noto Sans"],
+  "buffer_font_family": "Cica",
+  "buffer_font_fallbacks": ["Cica", "NotoSansM Nerd Font Mono"],
   // セッション
   "session": {
     "restore_unsaved_buffers": true,
@@ -78,9 +78,9 @@
   },
   // ターミナル
   "terminal": {
-    "font_size": 12.5, // ターミナル内の文字サイズ
-    "font_family": "NotoSansM Nerd Font Mono",
-    "font_fallbacks": ["NotoSans Nerd Font", "Noto Sans"],
+    "font_size": 13.5, // ターミナル内の文字サイズ
+    "font_family": "Cica",
+    "font_fallbacks": ["Cica", "NotoSansM Nerd Font Mono"],
   },
   // ファイルタイプ
   "file_types": {
