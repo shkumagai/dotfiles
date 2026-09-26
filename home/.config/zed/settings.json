@@ -67,6 +67,7 @@
   "buffer_font_weight": 400.0,
   "buffer_font_family": "Cica",
   "buffer_font_fallbacks": ["Cica", "NotoSansM Nerd Font Mono"],
+  "buffer_line_height": "standard",
   // セッション
   "session": {
     "restore_unsaved_buffers": true,
@@ -102,6 +103,11 @@
     "mode": "dark",
     "light": "One Light",
     "dark": "Everforest Dark Medium (material)",
+  },
+  // キーバインド補助
+  "which_key": {
+    "delay_ms": 750,
+    "enabled": true
   },
   // 言語設定
   "languages": {
