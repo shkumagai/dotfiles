@@ -117,7 +117,9 @@ NSGlobalDomain = {
 # Cask: CLI Applications
 "brew-cask:claude-code" = "latest"
 # Cask: Fonts
+"brew-cask:font-cica" = "latest"
 "brew-cask:font-noto-nerd-font" = "latest"
+"brew-cask:font-symbols-only-nerd-font" = "latest"
 
 [bootstrap.user]
 login_shell = "/bin/zsh"
