@@ -1,11 +1,11 @@
+# Commands
 # brew "bat"
-# brew "checkmake"
 # brew "duckdb"
 # brew "fzf"
 # brew "gh"
 # brew "ghq"
 # brew "git"
-# brew "goreleaser"
+# brew "herdr"
 # brew "jj"
 # brew "jq"
 # brew "just"
@@ -14,24 +14,35 @@
 # brew "pinact"
 # brew "pkgconf"
 # brew "ripgrep"
-# brew "sheldon"
-# brew "shellcheck"
-# brew "starship"
 # brew "tmux"
 # brew "yq"
 # brew "zizmor"
-cask "docker-desktop"
-cask "font-noto-nerd-font"
+# brew "zoxide"
+
+# Linters
+# brew "checkmake"
+# brew "shellcheck"
+
+# Shell extensions
+# brew "sheldon"
+# brew "starship"
+
+# Cask: CLI Applications
 cask "gcloud-cli"
 # cask "claude-code"
+
+# Cask: GUI Applications
+cask "docker-desktop"
+# cask "visual-studio-code"
 # cask "zed"
 
-# Obsoleted
+# Cask: Fonts
+# cask "font-cica"
+# cask "font-noto-nerd-font"
+
+# Optional: Obsoleted tools
 # brew "nodenv"
 # brew "pyenv"
 # tap "mutagen-io/mutagen", trusted: true
-# brew "mutagen-io/mutagen/mutagen"
-# brew "mutagen-io/mutagen/mutagen-compose"
-
-# Optional
-# cask "visual-studio-code"
+# brew "mutagen-io/mutagen/mutagen", trusted: true
+# brew "mutagen-io/mutagen/mutagen-compose", trusted: true
