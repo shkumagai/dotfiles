@@ -20,6 +20,7 @@
       "Read(~/.config/gcloud/**)",
       "Read(~/.ssh/**)",
       "Edit(//**/.env)",
+      "Edit(//**/.env.*)",
       "Edit(//**/secrets/**)"
     ],
     "ask": [
