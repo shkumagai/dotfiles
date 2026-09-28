@@ -36,9 +36,10 @@ us-central1 = 'uc1'
 asia-northeast1 = 'ans1'
 
 [gcloud.project_aliases]
-service-vis-asq-v2-prod = 'prod'
+service-vis-asq-v2-prod = 'prd'
 service-vis-asq-v2-stg = 'stg'
 service-vis-asq-v2-uat = 'uat'
+service-vis-asq-v2-sandbox = 'sbx'
 private-shoji-kumagai-01 = 'dev'
 
 [git_branch]
