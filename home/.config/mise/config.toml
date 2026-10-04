@@ -111,7 +111,9 @@ NSGlobalDomain = {
 "brew:checkmake" = "latest"
 "brew:shellcheck" = "latest"
 # Cask: GUI Applications
+"brew-cask:1password-cli" = "latest"
 "brew-cask:emacs-app" = "latest"
+"brew-cask:git-credential-manager" = "latest"
 "brew-cask:google-chrome" = "latest"
 "brew-cask:zed" = "latest"
 # Cask: CLI Applications
