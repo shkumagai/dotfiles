@@ -17,6 +17,8 @@ minimum_release_age = "7d"
   show-recents = false,
   # アクティブなアプリケーションのみ表示する
   static-only = true,
+  # 使用状況に基づいた操作スペースの並べ替え
+  mru-spaces = false,
 }
 # screencapture
 "com.apple.screencapture" = {
