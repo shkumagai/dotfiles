@@ -10,6 +10,7 @@ home/.config/herdr/session.json
 home/.config/herdr/session-snapshots/
 home/.config/gh/hosts.yml
 home/.config/mise/config.*.toml
+home/.config/mise/conf.d/
 home/.config/zed/prompts
 home/.config/zed/keymap.json
 home/.vim/.*hist
