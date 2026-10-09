@@ -13,6 +13,7 @@
       "Bash(git reset --hard *)",
       "Bash(git clean -f*)",
       "Bash(docker system prune*)",
+      "Bash(rm -rf *)",
       "Bash(wget *)",
       "Read(//**/.env)",
       "Read(//**/.env.*)",
@@ -24,7 +25,7 @@
       "Edit(//**/secrets/**)"
     ],
     "ask": [
-      "Bash(rm -rf *)"
+      "Bash(rm -rf /private/tmp/claude-501/*)"
     ],
     "defaultMode": "auto"
   },
