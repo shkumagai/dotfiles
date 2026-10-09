@@ -37,6 +37,7 @@
 
 [credential]
 	helper = osxkeychain
+	helper =
 	helper = /usr/local/share/gcm-core/git-credential-manager
 
 [diff]
@@ -89,3 +90,6 @@
 
 [includeIf "gitdir:~/projects/github.com/shoji-kumagai-visasq/"]
 	path = ~/.config/git/config.corp
+
+[credential "https://dev.azure.com"]
+	useHttpPath = true
