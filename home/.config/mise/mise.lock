@@ -70,7 +70,7 @@ url = "https://nodejs.org/dist/v24.21.0/node-v24.21.0-win-x64.zip"
 
 [[tools.pdm]]
 version = "2.29.2"
-backend = "pipx:pdm"
+backend = "pypi:pdm"
 specifiers = ["latest"]
 
 [[tools.terraform]]

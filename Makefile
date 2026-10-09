@@ -76,6 +76,14 @@ clean-dotfiles: | $(MISE) ## Clean up dotfiles.
 .PHONY: clean
 clean: clean-dotfiles
 
+.PHONY: check
+check: ## Verify changed files (static / consistency / runtime / security).
+	scripts/check.sh
+
+.PHONY: check-all
+check-all: ## Verify every tracked file.
+	scripts/check.sh --all
+
 .PHONY: test
 test: ## Run checkmake.
 	checkmake Makefile
