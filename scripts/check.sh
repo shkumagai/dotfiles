@@ -497,7 +497,7 @@ layer_security() {
     git grep -n -I -e '' -- . ':!deprecated' > "${added}" 2>/dev/null
   else
     {
-      git diff -U0 HEAD 2>/dev/null | awk '/^\+\+\+ b\//{f=substr($0,7)} /^@@/{split($3,a,/[,+]/); n=a[2]; next} /^\+/ && !/^\+\+\+/{print f":"n": "substr($0,2); n++}'
+      git diff --no-color --no-ext-diff --src-prefix=a/ --dst-prefix=b/ -U0 HEAD 2>/dev/null | awk '/^\+\+\+ b\//{f=substr($0,7)} /^@@/{split($3,a,/[,+]/); n=a[2]; next} /^\+/ && !/^\+\+\+/{print f":"n": "substr($0,2); n++}'
       git ls-files --others --exclude-standard -z | xargs -0 -I{} grep -n -I -H -e '' {} 2>/dev/null
     } > "${added}"
   fi
@@ -517,6 +517,7 @@ layer_security() {
   out="$(grep -iE '(password|passwd|secret|token|api[_-]?key)[[:space:]]*[=:][[:space:]]*["'\'']?[A-Za-z0-9/+_.-]{8,}' "${added}" \
     | grep -vE '^[^:]+:[0-9]+:[[:space:]]*(#|//|")' \
     | grep -viE '[=:][[:space:]]*["'"'"']?([/~$]|password["'"'"']?$)' \
+    | grep -vE '[=:][[:space:]]*[A-Za-z_][A-Za-z0-9_]*[[:space:]]*[/(.+*-]' \
     | grep -viE '(op://|<|example|dummy|placeholder|getenv|keychain)' | cut -c1-160)"
   if [ -n "${out}" ]; then
     report WARN "credential-like assignments (review manually)" "${out}"
