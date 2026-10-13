@@ -4,7 +4,8 @@ set -euo pipefail
 
 PWD="$(cd "$(dirname "$0" || return)" || exit; pwd)"
 TMUX_ROOT=$(cd "$PWD"/.. || exit; pwd)
-TEMP_PASSWD=/tmp/_passwd
+# shellcheck source=./utils
+source "${PWD}/utils"
 
 WINDOW_NAME="noname"
 
@@ -86,23 +87,19 @@ function execute-command-on-panes-for
   echo "execute-command-on-panes-for: host list for group '${group_name}' is not defined yet" >&2
 }
 
+# shellcheck disable=SC2034 # passwd / passphrase are used by save-passwds
 function main
 {
   read -rsp "Enter password for account: " passwd; echo
   read -rsp "Enter passphrase for key: " passphrase; echo
-
-  cat <<_EOT > $TEMP_PASSWD
-passwd=${passwd}
-passphrase=${passphrase}
-_EOT
-
+  save-passwds
 
   create-new-window "${WINDOW_NAME}"
   split-window-for "${GROUP_NAME}"
   execute-command-on-panes-for "${GROUP_NAME}"
 
   sleep 1
-  rm $TEMP_PASSWD
+  rm -f "${TEMP_PASSWD}"
 }
 
 while getopts w:g:hv option; do

@@ -2,22 +2,40 @@
 
 set -euo pipefail
 
-TEMP_PASSWD=/tmp/_passwd
+# Secrets are cached in the per-user temporary directory (mode 600) so that
+# other users cannot read them. On macOS ${TMPDIR} is private to the user.
+TEMP_PASSWD="${TMPDIR:-/tmp}"
+TEMP_PASSWD="${TEMP_PASSWD%/}/tmux.d-passwd"
 # shellcheck disable=SC2034
 WINDOW_NAME=$(basename "$0")
 
+# save-passwds: write ${passwd} and ${passphrase} to ${TEMP_PASSWD} (mode 600)
+function save-passwds ()
+{
+  rm -f "${TEMP_PASSWD}"
+  # %q quotes the values so that sourcing the file never executes them
+  (umask 077; printf 'passwd=%q\npassphrase=%q\n' "${passwd}" "${passphrase}" > "${TEMP_PASSWD}")
+}
+
+# load-passwds: read ${passwd} and ${passphrase} from ${TEMP_PASSWD}
+function load-passwds ()
+{
+  if [ ! -O "${TEMP_PASSWD}" ]; then
+    echo "${TEMP_PASSWD}: not found or not owned by $(id -un)" >&2
+    return 1
+  fi
+  # shellcheck disable=SC1090
+  source "${TEMP_PASSWD}"
+}
+
 function get-passwds ()
 {
-  if [ ! -f ${TEMP_PASSWD} ]; then
+  if [ ! -f "${TEMP_PASSWD}" ]; then
     read -rsp "Enter password for account: " passwd; echo
     read -rsp "Enter passphrase for key: " passphrase; echo
-    cat <<_EOT > $TEMP_PASSWD
-passwd=${passwd}
-passphrase=${passphrase}
-_EOT
+    save-passwds
   else
-    # shellcheck disable=SC1090
-    source "${TEMP_PASSWD}"
+    load-passwds
   fi
 }
 
