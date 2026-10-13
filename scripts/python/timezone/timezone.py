@@ -12,9 +12,12 @@ TzMap: TypeAlias = dict[TzOffset, set[tuple[str, str]]]
 def _dump(tz_map: TzMap) -> None:
     for offset in sorted(tz_map.keys()):
         # print(f"{offset}")
-        h = offset // 3600.0
-        m = (offset % 3600.0) / 60
-        print(f"UTC{h:-3.0f}:{m:02.0f}")
+        # split the absolute value; floor division on negative offsets
+        # would turn -09:30 into -10:30
+        h, rem = divmod(abs(offset), 3600.0)
+        m = rem / 60
+        sign = "-" if offset < 0 else ""
+        print(f"UTC{sign + f'{h:.0f}':>3}:{m:02.0f}")
         for zone, timestamp in sorted(tz_map[offset]):
             print(f"\t{zone:<32} {timestamp:<30}")
 
