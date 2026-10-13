@@ -2,11 +2,15 @@
 
 ```
 📁 home/
+    📁 .claude/                  # Claude Code configuration directory
+        📃 settings.json
     📁 .config/                  # Root of XDG_CONFIG_HOME
         📁 gh/                   # gh configuration directory
         📁 git/                  # git configuration directory
             📃 config
             📃 ignore
+        📁 herdr/                # herdr configuration directory
+            📃 config.toml
         📁 homebrew/             # homebrew configuration directory
             📃 Brewfile
         📁 jj/                   # jj configuration directory
@@ -22,7 +26,7 @@
         📁 zed/                  # Zed configuration directory
             📁 themes/
             📃 settings.json
-        📁 starship.toml         # Starship configuration
+        📃 starship.toml         # Starship configuration
     📁 .ssh/
         📃 config
     📁 .tmux.d/

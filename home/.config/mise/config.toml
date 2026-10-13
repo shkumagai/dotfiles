@@ -133,6 +133,7 @@ login_shell = "/bin/zsh"
 "~/.claude/settings.json" = {}
 "~/.config/git" = {}
 "~/.config/gh" = {}
+"~/.config/herdr/config.toml" = {}
 "~/.config/homebrew" = {}
 "~/.config/jj" = {}
 "~/.config/mise" = {}
