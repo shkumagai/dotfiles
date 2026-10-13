@@ -27,52 +27,73 @@ function print_bold_ln_r() { print_bold_ln_ "${1}" 31; }
 function print_bold_ln_g() { print_bold_ln_ "${1}" 32; }
 function print_bold_ln_y() { print_bold_ln_ "${1}" 33; }
 function distro() {
-  printf "%s" "$(cat /etc/os-release | grep -E \^ID | cut -d= -f2)"
+  # ID= line only (not ID_LIKE=), without surrounding quotes
+  # shellcheck source=/dev/null
+  (. /etc/os-release && printf "%s" "${ID}")
 }
 
-SUDO=$([ "$(id -u)" ] && echo "" || echo "sudo")
+# NOTE: functions below use `case` / `if` instead of `[ ... ] && cmd`,
+# whose non-zero status at the end of a function aborts the script under `set -e`.
+
+if [ "$(id -u)" -eq 0 ]; then SUDO=""; else SUDO="sudo"; fi
 
 function _apt() {
-  ${SUDO} apt-get update -y && ${SUDO} apt-get install -y "${*}"
+  ${SUDO} apt-get update -y
+  ${SUDO} apt-get install -y "$@"
 }
 
 function _pacman() {
-  ${SUDO} pacman -Sy --noconfirm "${*}"
+  ${SUDO} pacman -Sy --noconfirm "$@"
 }
 
 function _jq() {
-  [ "$(distro)" = "debian" ] && _apt jq
-  [ "$(distro)" = "arch" ] && _pacman jq
+  case "$(distro)" in
+    debian) _apt jq ;;
+    arch) _pacman jq ;;
+  esac
 }
 
 function _yq() {
-  [ "$(distro)" = "debian" ] && ${SUDO} apt-get update -y && \
-    ${SUDO} curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 && \
-    ${SUDO} chmod +x /usr/local/bin/yq
-  [ "$(distro)" = "arch" ] && _pacman go-yq
+  case "$(distro)" in
+    debian)
+      ${SUDO} curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+      ${SUDO} chmod +x /usr/local/bin/yq
+      ;;
+    arch) _pacman go-yq ;;
+  esac
 }
 
 function _pkgconfig() {
-  [ "$(distro)" = "debian" ] && _apt pkg-config
-  [ "$(distro)" = "arch" ] && _pacman pkg-config
+  case "$(distro)" in
+    debian) _apt pkg-config ;;
+    arch) _pacman pkg-config ;;
+  esac
 }
 
 function _peco() {
-  [ "$(distro)" = "debian" ] && _apt peco
-  [ "$(distro)" = "arch" ] && _pacman peco
+  case "$(distro)" in
+    debian) _apt peco ;;
+    arch) _pacman peco ;;
+  esac
 }
 
 function _pipx() {
-  [ "$(distro)" = "debian" ] && _apt pipx
-  [ "$(distro)" = "arch" ] && _pacman python-pipx
+  case "$(distro)" in
+    debian) _apt pipx ;;
+    arch) _pacman python-pipx ;;
+  esac
 }
 
 function _pyenv() {
   curl https://pyenv.run | bash
-  [ "$(distro)" = "debian" ] && _apt build-essential libssl-dev \
-    zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-  [ "$(distro)" = "arch" ] && _pacman --needed base-devel openssl zlib xz tk
+  case "$(distro)" in
+    debian)
+      _apt build-essential libssl-dev \
+        zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl git \
+        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+      ;;
+    arch) _pacman --needed base-devel openssl zlib xz tk ;;
+  esac
 }
 
 function _gcloud() {
@@ -84,22 +105,34 @@ function _gcloud() {
 }
 
 function prerequisites() {
-  if [ "$(distro)" = "debian" ]; then
-    [ -z "$(command -v curl)" ] && _apt curl
-    [ -z "$(command -v git)" ] && _apt git
-  elif [ "$(distro)" = "arch" ]; then
-    [ -z "$(command -v curl)" ] && _pacman curl
-    [ -z "$(command -v git)" ] && _pacman git
-  fi
+  local installer pkg
+  case "$(distro)" in
+    debian) installer=_apt ;;
+    arch) installer=_pacman ;;
+    *) return 0 ;;
+  esac
+  for pkg in curl git; do
+    if ! command -v "${pkg}" >/dev/null 2>&1; then
+      "${installer}" "${pkg}"
+    fi
+  done
 }
 
 function main() {
   cmd=${1:-}
-  [ "${cmd}" = "" ] && print_bold_ln_r "Command name are not specified." && exit 1
+  if [ "${cmd}" = "" ]; then
+    print_bold_ln_r "Command name are not specified."
+    exit 1
+  fi
+  if ! declare -F "_${cmd}" >/dev/null; then
+    abort "Unknown command: ${cmd}"
+  fi
   prerequisites
   ("_${cmd}")
   echo "..."
-  [ -z "$(command -v "${cmd}")" ] && abort "Installing ${cmd} on this OS is not supported by this script."
+  if ! command -v "${cmd}" >/dev/null 2>&1; then
+    abort "Installing ${cmd} on this OS is not supported by this script."
+  fi
 }
 
 main "$@"
