@@ -13,7 +13,11 @@ if [[ "$TERM" != 'dumb' ]]; then
 fi
 
 # Environment variables
-export TERM=xterm-256color
+# Fall back to xterm-256color only when the terminfo for $TERM is missing
+# (e.g. xterm-ghostty on a remote host); keep "dumb" terminals as they are.
+if [[ "$TERM" != 'dumb' ]] && ! infocmp "$TERM" >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
 
 # Aliases
 alias ls='ls -G'
