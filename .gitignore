@@ -21,3 +21,6 @@ home/.zsh.d/zfunc/*
 **/*.db
 **/pullrequests
 **/gh_prs
+
+# Python bytecode
+__pycache__/
