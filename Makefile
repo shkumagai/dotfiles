@@ -7,17 +7,6 @@ SHELL := /bin/bash
 export XDG_BIN_HOME := $(HOME)/.local/bin
 export XDG_CONFIG_HOME := $(HOME)/.config
 export MISE_GLOBAL_CONFIG_FILE := $(abspath home/.config/mise/config.toml)
-export HOMEBREW_BUNDLE_FILE_GLOBAL := $(abspath home/.config/homebrew/Brewfile)
-
-ifeq ($(shell uname -s),Darwin)
-	ifeq ($(shell uname -m),arm64)
-		HOMEBREW := /opt/homebrew/bin/brew
-	else
-		HOMEBREW := /usr/local/bin/brew
-	endif
-else
-	HOMEBREW := /home/linuxbrew/.linuxbrew/bin/brew
-endif
 
 MISE := $(shell command -v mise 2>/dev/null || echo "$(HOME)/.local/bin/mise")
 
@@ -51,13 +40,6 @@ dotfiles: | $(MISE) ## Apply dotfiles to home directory.
 .PHONY: repos
 repos: | $(MISE) ## Clone repository that required.
 	$(MISE) bootstrap repos apply --yes --skip-dirty
-
-$(HOMEBREW):
-	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-.PHONY: bundle
-bundle: | $(HOMEBREW) ## Install and upgrade all dependencies.
-	$(HOMEBREW) bundle install --global
 
 .PHONY: install
 install : bootstrap ## Run install

@@ -11,8 +11,6 @@
             📃 ignore
         📁 herdr/                # herdr configuration directory
             📃 config.toml
-        📁 homebrew/             # homebrew configuration directory
-            📃 Brewfile
         📁 jj/                   # jj configuration directory
             📃 config.toml
         📁 mise/                 # mise configuration directory

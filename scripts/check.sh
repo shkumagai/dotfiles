@@ -109,7 +109,7 @@ fi
 grep -v '^deprecated/' "${TARGETS}" | while IFS= read -r f; do [ -f "$f" ] && printf '%s\n' "$f"; done > "${TARGETS}.tmp"
 mv "${TARGETS}.tmp" "${TARGETS}"
 
-# file_kind PATH -> zsh | bash | sh | toml-mise | toml | json | jsonc | yaml | gitconfig | tmux | ssh | brewfile | vim | makefile | python | other
+# file_kind PATH -> zsh | bash | sh | toml-mise | toml | json | jsonc | yaml | gitconfig | tmux | ssh | vim | makefile | python | other
 file_kind() {
   local f="$1" shebang
   case "$f" in
@@ -122,7 +122,6 @@ file_kind() {
     home/.config/git/config) echo gitconfig; return ;;
     home/.config/tmux/*.conf) echo tmux; return ;;
     home/.ssh/config) echo ssh; return ;;
-    */Brewfile) echo brewfile; return ;;
     *.vim|*/.vimrc) echo vim; return ;;
     Makefile|*/Makefile) echo makefile; return ;;
     *.py) echo python; return ;;
@@ -182,7 +181,6 @@ check_syntax() {
     gitconfig) out="$(git config -f "$f" --list 2>&1 >/dev/null)" ;;
     tmux) out="$(tmux -L "${TMUX_SOCKET}" -f /dev/null new-session -d \; source-file -n "$f" 2>&1)" ;;
     ssh) out="$(ssh -G -F "$f" dotfiles-check.invalid 2>&1 >/dev/null | grep -v 'Pseudo-terminal' || true)" ;;
-    brewfile) out="$(ruby -c "$f" 2>&1 >/dev/null)" ;;
     python) out="$(python3 -c 'import ast,sys
 try: ast.parse(open(sys.argv[1]).read(), sys.argv[1])
 except SyntaxError as e: sys.exit(f"line {e.lineno}: {e.msg}")' "$f" 2>&1)" ;;
@@ -338,7 +336,7 @@ layer_consistency() {
   local cfg="home/.config/mise/config.toml" dir pkg undeclared=()
   for dir in home/.config/*/ home/.config/*.toml; do
     pkg="$(basename "${dir%/}" .toml)"
-    case "${pkg}" in mise|homebrew) continue ;; esac
+    case "${pkg}" in mise) continue ;; esac
     grep -qE "^\"brew(-cask)?:${pkg}\"" "${cfg}" || undeclared+=("${pkg} (config: ${dir%/})")
   done
   if [ ${#undeclared[@]} -gt 0 ]; then
