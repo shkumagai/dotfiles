@@ -46,17 +46,11 @@ elif [[ -f /usr/local/bin/brew ]]; then
 elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 fi
-[[ -f $(brew --prefix)/etc/brew-wrap ]] && source "$(brew --prefix)/etc/brew-wrap"
 
 # Macports
 if [[ -f /opt/local/bin/port ]]; then
   export PATH="/opt/local/bin:/opt/local/sbin:${PATH}"
   export MANPATH="/opt/local/share/man:/opt/local/man:${MANPATH}"
-fi
-
-# Mise
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
 fi
 
 # Docker Desktop
@@ -70,3 +64,9 @@ path=(
   /run/current-system/sw/bin(N-/)
   ${path}
 )
+
+# Mise: shims only (PATH is inherited by child shells).
+# Interactive shells are fully activated in ~/.zshrc.
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh --shims)"
+fi
