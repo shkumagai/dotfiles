@@ -1,7 +1,3 @@
-# The following lines were added by Docker Desktop to add commands to your PATH.
-export PATH="$PATH:/Users/shoji.kumagai/.docker/bin"
-# End of Docker Desktop section.
-
 # -*- encoding: utf-8 -*-
 # shellcheck shell=zsh
 

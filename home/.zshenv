@@ -53,16 +53,13 @@ if [[ -f /opt/local/bin/port ]]; then
   export MANPATH="/opt/local/share/man:/opt/local/man:${MANPATH}"
 fi
 
-# Docker Desktop
-# The following lines were added by Docker Desktop to add commands to your PATH.
-export PATH="$PATH:/Users/shoji.kumagai/.docker/bin"
-# End of Docker Desktop section.
-
 path=(
   "${XDG_BIN_HOME}"(N-/)
   "/etc/profiles/per-user/${USER}/bin"(N-/)
   /run/current-system/sw/bin(N-/)
   ${path}
+  # Docker Desktop CLI tools when installed per user (lowest priority)
+  "${HOME}/.docker/bin"(N-/)
 )
 
 # Mise: shims only (PATH is inherited by child shells).
