@@ -3,7 +3,7 @@
 
 # Inserts a black line between shell prompts
 add_newline = false
-format = """$username(@hostname) $character"""
+format = """$username$hostname $character"""
 right_format = """$all"""
 # command_timeout = 1500
 continuation_prompt = '[❯❯❯](fg:white)'
@@ -14,6 +14,13 @@ continuation_prompt = '[❯❯❯](fg:white)'
 success_symbol = '[❯](fg:#00d7ff)[❯](fg:#5f87ff)[❯](fg:#5f5fd7)'
 # Ansi: 225,170,164
 error_symbol = '[❯](fg:#ffd7ff)[❯](fg:#d75fd7)[❯](fg:#d700d7)'
+
+# user@host on the left (both are shown only over SSH or as root by default)
+[username]
+format = '[$user]($style)'
+
+[hostname]
+format = '[@$hostname]($style)'
 
 [package]
 disabled = true
