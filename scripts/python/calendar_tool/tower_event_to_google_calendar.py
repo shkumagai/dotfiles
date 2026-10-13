@@ -1,59 +1,38 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import datetime
-import gdata.calendar.service
-import gdata.calendar
-import atom
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "google-api-python-client",
+#     "google-auth-oauthlib",
+#     "lxml",
+# ]
+# ///
+"""Post TOWER RECORDS instore events to Google Calendar."""
 
-# google account email address
-google_email = 'account.of.yourself@gmail.com'
-# google account password
-google_password = 'password'
+import os
 
-# calendar
-# cal_url = ''
-cal_url = 'http://www.google.com/calendar/feeds/account.of.yourself%40gmail.com/private/full'
+from gcalendar import GoogleCalendar
+from TowerInstoreEvent import TowerInstoreEvent
+
+# calendar ID ('primary' or 'xxxx@group.calendar.google.com'); list them by running gcalendar.py
+CALENDAR_ID = os.environ.get('TOWER_CALENDAR_ID', 'primary')
 # title prefix
-title_prefix = unicode('[タワレコ]', 'utf-8')
+TITLE_PREFIX = '[タワレコ]'
 
-def post(event_dt, title, store, type, calendar_url):
-    """post TOWER RECORDS insotre event to Google Calendar"""
-    
-    if calendar_url == '':
-        calendar_url = '/calendar/feeds/default/private/full'
 
-    # considering timezone (JST -> UTC)
-    dt_start = event_dt + datetime.timedelta(hours=-9)
-    dt_end   = dt_start + datetime.timedelta(hours=1)
+def main():
+    calendar = GoogleCalendar(prefix=TITLE_PREFIX)
+    for e in TowerInstoreEvent().get_events():
+        calendar.post(e.get('event_dt'),
+                      e.get('title'),
+                      e.get('store'),
+                      e.get('type'),
+                      CALENDAR_ID)
+        print('Registered : %s : %s (%s) @ %s' % (e.get('event_dt'),
+                                                 e.get('title'),
+                                                 e.get('type'),
+                                                 e.get('store')))
 
-    event = gdata.calendar.CalendarEventEntry()
-    event.title = atom.Title(text=title_prefix + title)
-    event.where.append(gdata.calendar.Where(value_string=store))
-    event.content = atom.Content(text=type)
-    event.when.append(gdata.calendar.When(
-        start_time=dt_start.isoformat() + '.000Z'),
-        ent_time = dt_end.isoformat() + '.000Z'))
-    new_event = cal_client.InsertEvent(event, calendar_url)
 
-# create gcalendar-service instance
-cal_client = gdata.calendar.service.CalendarService()
-cal_client.email = google_email
-cal_client.password = google_password
-cal_client.ProgrammaticLogin()
-
-# create TowerInstoreEvent instance
-te = TowerInstoreEvent()
-tower_events = te.get_events()
-
-for e in tower_events:
-    post(e.get('event_dt'),
-         e.get('title'),
-         e.get('store'),
-         e.get('type'),
-         cal_url)
-    print 'Registered : %s : %s (%s) @ %s' % (e.get('event_dt'),
-                                              e.get('title'),
-                                              e.get('type'),
-                                              e.get('store'))
-
-# __EOF__
+if __name__ == '__main__':
+    main()

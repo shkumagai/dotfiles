@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
     modulesetup - setup script for python module skelton
@@ -39,7 +39,6 @@ import os
 import json
 import re
 import sys
-import types
 
 from datetime import datetime
 from pprint import pformat as pf
@@ -49,18 +48,18 @@ class ValidatorError(Exception):
     """Raised for validation errors."""
 
 
-class ModuleSetup(object):
+class ModuleSetup:
 
     content_setup_py = """\
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, fild_packages
+from setuptools import setup, find_packages
 import os
 
 version = '0.1.0'
 
-long_description = '\n'.join([
+long_description = '\\n'.join([
     open(os.path.join('src', 'README.rst')).read(),
     open(os.path.join('src', 'AUTHORS.rst')).read(),
     open(os.path.join('src', 'HISTORY.rst')).read(),
@@ -150,7 +149,7 @@ Using like as below ::
 REQUIREMENT
 ===========
 
-* Python 2.6.x or later (not support 3.x)
+* Python 3.x
 * [[ others ]]
 
 
@@ -234,20 +233,19 @@ sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
         self.modname = module
         self.package = self.modname.split('.')
 
-        try:
-            self.term_input = raw_input
-        except NameError:
-            self.term_input = input
+        self.term_input = input
 
         self.save = 0
+        self.author = self.email = self.workdir = None
         self.setuprc = os.path.join(os.environ.get('HOME'), '.pymodsetuprc')
         try:
-            d = json.loads(open(self.setuprc).read())
+            with open(self.setuprc) as fp:
+                d = json.load(fp)
             self.author = d['author']
             self.email = d['email']
             self.workdir = d['workdir']
-        except:
-            print "%s is not exists." % self.setuprc
+        except (OSError, ValueError, KeyError):
+            print("%s is not exists." % self.setuprc)
 
     def _is_path(self, x):
         """ check whether argument string is valid as path or not. """
@@ -274,8 +272,8 @@ sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
                 x = default
             try:
                 x = getattr(self, validator)(x)
-            except ValidatorError, e:
-                print '* ' + str(e)
+            except ValidatorError as e:
+                print('* ' + str(e))
                 continue
             break
         setattr(self, key, x)
@@ -294,15 +292,14 @@ sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
 
     def _make_file(self, path, content):
         """ make named file with given content. """
-        fp = open(path, 'w')
-        fp.write(content)
-        fp.close()
-        print "file: %s is created." % path
+        with open(path, 'w') as fp:
+            fp.write(content)
+        print("file: %s is created." % path)
 
     def _make_directory(self, name, path):
         os.makedirs(path)
         setattr(self, name, path)
-        print "path: %s is created." % path
+        print("path: %s is created." % path)
 
     def make_module_dir(self):
         """ make module root directory. """
@@ -429,8 +426,8 @@ sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
             self.make_initial_test()
             self.make_run_py()
 
-        except Exception, e:
-            print e
+        except Exception as e:
+            print(e)
 
         finally:
             if self.save:
@@ -441,12 +438,10 @@ sys.path.insert(0, path.join(path.dirname(__file__), path.pardir))
 
 def dump(obj, options):
     if options.verbose:
-        if type(obj) is types.StringType:
-            print 'DEBUG: %s' % obj
-        elif type(obj) is types.UnicodeType:
-            print 'DEBUG: %s' % obj.encode('utf-8')
+        if isinstance(obj, str):
+            print('DEBUG: %s' % obj)
         else:
-            print 'DEBUG: %s' % pf(obj)
+            print('DEBUG: %s' % pf(obj))
 
 
 def main():
@@ -470,7 +465,7 @@ Copyright: 2013, Shoji KUMAGAI. All rights reserved. '''
             sys.exit('Too few or many arguments.')
         mod = ModuleSetup(args[0])
         mod.run(options)
-    except Exception, e:
+    except Exception as e:
         sys.exit(e)
 
 

@@ -1,53 +1,39 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "google-api-python-client",
+#     "google-auth-oauthlib",
+# ]
+# ///
+"""Post Boy Scout events to Google Calendar."""
 
-import os, sys, re, codecs
-from gdata.calendar.service import CalendarService
-from gdata.calendar import CalendarEventEntry, When, Where
-import atom
-from datetime import datetime, timedelta
+import os
+from datetime import datetime
 
-class BoyScout(object):
+from gcalendar import GoogleCalendar
+
+
+class BoyScout:
     """ """
-    def __init__(self, cal_client):
+    def __init__(self, calendar=None):
         """ """
-        self.google_email  = 'account.of.yourself@gmail.com'
-        self.google_passwd = 'password'
-        self.prefix  = '[BS]'
-        self.client = cal_client
+        self.prefix = '[BS]'
+        self.calendar = calendar or GoogleCalendar(prefix=self.prefix)
 
-    def post(self, dt, title, place, type, url):
+    def post(self, dt, title, place, event_type, calendar_id):
         """ """
-        if url == '':
-            url = '/calendar/feeds/default/private/full'
+        return self.calendar.post(dt, title, place, event_type, calendar_id)
 
-        dt_start = dt + timedelta(hours=-9)
-        dt_end   = dt_start + timedelta(hours=1)
 
-        event = CalendarEventEntry()
-        event.title = atom.Title(text=self.prefix + title)
-        event.where.append(Where(value_string=place))
-        event.content = atom.Content(text=type)
-        event.when.append(When(
-            start_time=dt_start.isoformat() + '.000Z',
-            end_time=dt_end.isoformat() + '.000Z'))
-        self.client.InsertEvent(event, url)
-
-if __name__=='__main__':
-    cal_url = 'http://www.google.com/calendar/feeds/random_string%40group.calendar.google.com/private/full'
-    client = CalendarService()
-    bs5 = BoyScout(client)
-
-    client.email = bs5.google_email
-    client.password = bs5.google_passwd
-    client.ProgrammaticLogin()
+if __name__ == '__main__':
+    calendar_id = os.environ.get('BOYSCOUT_CALENDAR_ID', 'random_string@group.calendar.google.com')
+    bs5 = BoyScout()
 
     dt = datetime(2009, 1, 20, 15, 00, 00)
 
     bs5.post(dt,
-             u'隊集会テスト',
-             u'大田ふれあいセンター',
-             u'ハイキング',
-             cal_url)
-
-# __EOF__
+             '隊集会テスト',
+             '大田ふれあいセンター',
+             'ハイキング',
+             calendar_id)
