@@ -11,25 +11,43 @@ if [ -z "$wifi_device" ]; then
   exit 1
 fi
 
-rssi=$(system_profiler SPAirPortDataType | awk -v dev="$wifi_device" '
+# line 1: RSSI, line 2: SSID of the current network
+current=$(system_profiler SPAirPortDataType | awk -v dev="$wifi_device" '
   $0 ~ "^        " dev ":$" { in_dev=1; next }
   in_dev && /^        [A-Za-z0-9]+:$/ { in_dev=0 }
-  in_dev && /Current Network Information:/ { f=1; next }
+  in_dev && /Current Network Information:/ {
+    f=1
+    getline ssid
+    sub(/^[[:space:]]+/, "", ssid)
+    sub(/:$/, "", ssid)
+    next
+  }
   in_dev && f && /Signal \/ Noise:/ {
     line=$0
     sub(/.*Signal \/ Noise: /, "", line)
     sub(/ dBm.*/, "", line)
     print line
+    print ssid
     exit
   }
 ')
+rssi=$(printf '%s\n' "$current" | sed -n '1p')
+ssid=$(printf '%s\n' "$current" | sed -n '2p')
 
 if [ -z "$rssi" ]; then
   echo "󰖪: no_wifi"
   exit 1
 fi
 
-ssid=$(networksetup -listpreferredwirelessnetworks "$wifi_device" | sed -n '2p' | sed 's/^[[:space:]]*//')
+case "$ssid" in
+  ""|*redacted*)
+    # macOS redacts the current SSID without Location Services permission.
+    # Fall back to the first preferred network, marked with "?" because it
+    # may differ from the network actually connected.
+    ssid=$(networksetup -listpreferredwirelessnetworks "$wifi_device" | sed -n '2p' | sed 's/^[[:space:]]*//')
+    [ -n "$ssid" ] && ssid="${ssid}?"
+    ;;
+esac
 
 if [ -z "$ssid" ]; then
   echo "󰖪: no_wifi"
