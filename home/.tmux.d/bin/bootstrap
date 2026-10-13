@@ -8,6 +8,7 @@ TMUX_ROOT=$(cd "$PWD"/.. || exit; pwd)
 source "${PWD}/utils"
 
 WINDOW_NAME="noname"
+GROUP_NAME=""
 
 
 function usage
@@ -110,8 +111,11 @@ while getopts w:g:hv option; do
   g)
     GROUP_NAME=$OPTARG
     ;;
-  h|\?)
+  h)
     usage; exit 0
+    ;;
+  \?)
+    usage >&2; exit 1
     ;;
   v)
     version '0.1'; exit 0
@@ -119,5 +123,12 @@ while getopts w:g:hv option; do
   esac
 done
 shift $((OPTIND - 1))
+
+# check before prompting for passwords
+if [ -z "${GROUP_NAME}" ]; then
+  echo "$(basename "$0"): -g <group_name> is required" >&2
+  usage >&2
+  exit 1
+fi
 
 main "$@"
