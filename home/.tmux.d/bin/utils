@@ -43,19 +43,22 @@ function get-row-per-host ()
 {
   num=${1}
 
-  set -- "$(stty size)"
+  # word splitting is intended: "rows cols" -> $1 $2
+  # shellcheck disable=SC2046
+  set -- $(stty size)
   rows=${1}
   cols=${2}
-  echo -n $(((rows - "${num}") / "${num}"))
+  echo -n $(( (rows - num) / num ))
 }
 
 function get-cols-per-host ()
 {
   num=${1}
 
+  # word splitting is intended: "rows cols" -> $1 $2
   # shellcheck disable=SC2046
-  set -- "$(stty size)"
+  set -- $(stty size)
   rows=${1}
   cols=${2}
-  echo -n $((cols / "${num}"))
+  echo -n $(( cols / num ))
 }
