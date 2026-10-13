@@ -17,7 +17,10 @@ function find-or-create-venv
 {
   BASE=${1}
 
-  [ ! -d "${BASE}/.venv" ] && cd "${BASE}" && python3.13 -m venv .venv
+  # `[ ... ] && ...` would return 1 when .venv exists and abort under `set -e`
+  if [ ! -d "${BASE}/.venv" ]; then
+    (cd "${BASE}" && "${PYTHON:-python3}" -m venv .venv)
+  fi
 }
 
 function main
