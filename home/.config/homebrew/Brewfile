@@ -28,7 +28,7 @@
 # brew "starship"
 
 # Cask: CLI Applications
-cask "gcloud-cli"
+# cask "gcloud-cli"
 # cask "claude-code"
 
 # Cask: GUI Applications

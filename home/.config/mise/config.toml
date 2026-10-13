@@ -120,6 +120,7 @@ NSGlobalDomain = {
 "brew-cask:zed" = "latest"
 # Cask: CLI Applications
 "brew-cask:claude-code" = "latest"
+"brew-cask:gcloud-cli" = "latest"
 # Cask: Fonts
 "brew-cask:font-cica" = "latest"
 "brew-cask:font-noto-nerd-font" = "latest"
