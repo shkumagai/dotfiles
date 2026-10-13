@@ -151,15 +151,21 @@ def retrieve_pull_requests_by_repositories(
     Returns:
         なし
     """
+    # retrieve repositories before removing the previous dump
+    sorted_repos = sorted(get_repositories())
+    if not sorted_repos:
+        _console(f"No repositories found; skip {since}\n")
+        return
+
     dest_path = Path(f"{DUMP_DEST_DIR_ROOT}/{since.replace('-', '/')}")
     if dest_path.exists():
         shutil.rmtree(dest_path)
     os.makedirs(dest_path, exist_ok=True)
 
     summary = []
-    sorted_repos = sorted(get_repositories())
-    while True:
-        repo = sorted_repos.pop(0)
+    for i, repo in enumerate(sorted_repos):
+        if i > 0:
+            sleep(request_interval_sec)
         _pr_count = retrieve_pull_requests_per_day(
             since,
             before,
@@ -168,10 +174,6 @@ def retrieve_pull_requests_by_repositories(
         )
         _console("." if _pr_count > 0 else "0")
         summary.append(dict(repo=repo, pr_count=_pr_count))
-
-        if len(sorted_repos) == 0:
-            break
-        sleep(request_interval_sec)
     _console("\n")
 
     with open(dest_path / "summary.json", "w") as f:

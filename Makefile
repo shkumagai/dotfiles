@@ -29,12 +29,6 @@ help:
 .PHONY: all
 all: install
 
-$(XDG_BIN_HOME):
-	mkdir -p $@
-
-$(XDG_CONFIG_HOME):
-	mkdir -p $@
-
 $(MISE):
 	curl -fsSL https://mise.run | sh
 
@@ -47,7 +41,7 @@ macos-defaults: | $(MISE) ## Apply MacOS Defaults configuration.
 	$(MISE) bootstrap macos defaults
 
 .PHONY: packages
-packages: | $(MISE) ## Apply dotfiles to home directory.
+packages: | $(MISE) ## Install packages from [bootstrap.packages].
 	$(MISE) bootstrap packages apply
 
 .PHONY: dotfiles
@@ -61,7 +55,6 @@ repos: | $(MISE) ## Clone repository that required.
 $(HOMEBREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-.ONESHELL: bundle
 .PHONY: bundle
 bundle: | $(HOMEBREW) ## Install and upgrade all dependencies.
 	$(HOMEBREW) bundle install --global
