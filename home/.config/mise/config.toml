@@ -11,7 +11,7 @@ minimum_release_age = "3d"
   tilesize = 36,
   # Dock の自動非表示を有効化
   autohide = true,
-  # Docker 自動非表示化アニメーション時間を0.5(秒)
+  # Dock 自動非表示化アニメーション時間を0.5(秒)
   autohide-time-modifier = 0.5,
   # 最近使ったアプリケーションを Dock に表示しない
   show-recents = false,
@@ -31,8 +31,6 @@ minimum_release_age = "3d"
 }
 # finder
 "com.apple.finder" = {
-  # Finder の拡張子を常に表示
-  AppleShowAllExtensions = true,
   # Finder の隠しファイルを表示
   AppleShowAllFiles = true,
   # Finder のパスバーを表示
@@ -63,7 +61,7 @@ NSGlobalDomain = {
   AppleShowAllExtensions = true,
   # Mouse
   # マウス軌道の早さを最速化
-  "com.apple.mouse.scalling" = 1.5,
+  "com.apple.mouse.scaling" = 1.5,
   # Keyboard
   # Tab/Shift+Tab でフォーカス移動を有効化
   AppleKeyboardUIMode = 2,
@@ -142,6 +140,7 @@ login_shell = "/bin/zsh"
 "~/.config/starship.toml" = {}
 "~/.config/tmux" = {}
 "~/.config/zed" = {}
+"~/.ssh/config" = {}
 "~/.tmux.d" = {}
 "~/.vim" = {}
 "~/.vimrc" = {}
