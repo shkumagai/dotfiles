@@ -162,10 +162,26 @@ uv = "latest"
 [bootstrap.hooks.post-defaults]
 run = "killall Dock Finder SystemUIServer 2>/dev/null || true"
 
+# Login github via gh command (before cloning the private repository)
+[bootstrap.hooks.pre-repos]
+run = "gh auth status || gh auth login"
+
+# Work-specific dotfiles from the private repository, skipped where it is not
+# accessible. This runs after repos rather than after dotfiles, because its
+# `make install` runs `mise dotfiles apply`, which fires post-dotfiles again.
+[bootstrap.hooks.post-repos]
+run = """
+P="$HOME/projects/github.com/shkumagai/dotfiles-private"
+if gh repo view shkumagai/dotfiles-private >/dev/null 2>&1; then
+  [ -d "$P" ] || gh repo clone shkumagai/dotfiles-private "$P"
+  make -C "$P" install
+else
+  echo "skip dotfiles-private: repository is not accessible"
+fi
+"""
+
 [bootstrap.hooks.post-dotfiles]
 run = [
-  # Login github via gh command
-  "gh auth status || gh auth login",
   # Download jetpack.vim
   "curl -fLo ~/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim",
   # Dump complition scripts to fpath
