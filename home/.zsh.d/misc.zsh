@@ -28,4 +28,7 @@ limit coredumpsize 102400
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # ディレクトリ移動時に自動的にlsを実行する
-function chpwd() { ls }
+# chpwd() を直接定義すると他のフックを上書きするので add-zsh-hook で登録する
+autoload -Uz add-zsh-hook
+_ls_on_chpwd() { ls }
+add-zsh-hook chpwd _ls_on_chpwd

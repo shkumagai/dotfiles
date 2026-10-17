@@ -59,7 +59,8 @@ zstyle ':completion:*:*files' ignored-patterns '*?.o' '*?~' '*\#'
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 # キャッシュを有効にする
-zstyle ':completion:*:' use-cache on
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/zcompcache"
 
 # 変数の添字を補完する
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
