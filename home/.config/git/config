@@ -33,7 +33,6 @@
 	whitespace = trailing-space,space-before-tab
 	ignorecase = false
 	editor = /usr/bin/vim -i NONE -c \"set fenc=utf-8\"
-	sshCommand = "ssh -i ${HOME}/.ssh/id_ed25519"
 
 [credential]
 	helper =
