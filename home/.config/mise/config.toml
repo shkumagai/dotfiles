@@ -188,6 +188,9 @@ run = [
   "mise completion zsh > $HOME/.zsh.d/zfunc/_mise",
   "jj util completion zsh > $HOME/.zsh.d/zfunc/_jj",
   "herdr completion zsh > $HOME/.zsh.d/zfunc/_herdr",
+  # Generate the herdr hook for Claude Code (~/.claude/hooks/herdr-agent-state.sh).
+  # herdr owns the script and its entry in ~/.claude/settings.json; it is idempotent.
+  "herdr integration install claude",
   # Make symlinks for shell scripts
   "make -C $HOME/.dotfiles/scripts/shell link",
 ]
