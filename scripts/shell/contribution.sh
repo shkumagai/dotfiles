@@ -20,23 +20,19 @@ function print_bold_l_() { printf "$(tty_make_bold "${2}")%s${tty_reset}\n" "${1
 function print_l_c() { print_l_ "${1}" 36; }
 function print_bold_l_c() { print_bold_l_ "${1}" 36; }
 
-# 構成ファイル
-CONFIG_VISASQ_DIR="${HOME}/.config/visasq"
-CONFIG_FILE_PATH="${CONFIG_VISASQ_DIR}/config.json"
-COMMON_FILE_PATH="${CONFIG_VISASQ_DIR}/common.json"
-
-WORKSPACE_ROOT=$(jq -r '.workspace_path' "${COMMON_FILE_PATH}")
+# 集計対象の GitHub organization
+GH_ORG="${GH_ORG:?set GH_ORG to the GitHub organization (e.g. GH_ORG=my-org $0)}"
 
 
 function dump_pull_requests() {
-  REPOS=$(gh repo list visasq --limit 999 --json name --jq '.[]|.name' | sort)
+  REPOS=$(gh repo list "${GH_ORG}" --limit 999 --json name --jq '.[]|.name' | sort)
   mkdir -p pullrequests
   for repo in ${REPOS}; do
     gh pr list \
         --author "@me" \
         --state "all" \
         --limit 999 \
-        --repo visasq/"${repo}" \
+        --repo "${GH_ORG}/${repo}" \
         --json number,title,state,createdAt,closedAt,additions,deletions \
         --jq "[.[] | .repo = \"${repo}\"]" \
     > "pullrequests/${repo}.json" &

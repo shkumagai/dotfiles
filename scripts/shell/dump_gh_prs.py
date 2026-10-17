@@ -51,14 +51,8 @@ REPO_FIELDS: Final = [
 ]
 """GitHub の repository のフィールド。"""
 
-query_repositories: Final = shlex.split(
-    "gh repo list visasq"
-    " --limit 999"
-    " --no-archived"
-    f" --json {','.join(REPO_FIELDS)}"
-    " --jq '.[]|.name'",
-)
-"""GitHub の repository 一覧を取得するためのコマンド。"""
+org: str = os.environ.get("GH_ORG", "")
+"""PR を取得する GitHub の organization (--org または環境変数 GH_ORG)。"""
 
 repositories: list[str] = []
 """GitHub の repository 一覧。"""
@@ -74,6 +68,13 @@ def get_repositories():
 
     if not repositories:
         try:
+            query_repositories = shlex.split(
+                f"gh repo list {org}"
+                " --limit 999"
+                " --no-archived"
+                f" --json {','.join(REPO_FIELDS)}"
+                " --jq '.[]|.name'",
+            )
             repositories = check_output(query_repositories).decode("utf-8").splitlines()
         except Exception as e:
             _console(f"Error retrieving repositories: {e}\n")
@@ -118,7 +119,7 @@ def retrieve_pull_requests_per_day(
         " --state all"
         " --limit 999"
         f" --search \"merged:>={since} merged:<{before}\""
-        f" --repo visasq/{repo}"
+        f" --repo {org}/{repo}"
         f" --json {fields}"
         f" --jq '[.[] | .repository = \"{repo}\"]'",
     )
@@ -237,6 +238,12 @@ if __name__ == "__main__":
 
     parser = ArgumentParser()
     parser.add_argument(
+        "--org",
+        help="PR を取得する GitHub の organization (既定: 環境変数 GH_ORG)",
+        default=os.environ.get("GH_ORG"),
+        required=not os.environ.get("GH_ORG"),
+    )
+    parser.add_argument(
         "-s",
         "--start_at",
         type=date_type,
@@ -267,6 +274,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+    org = args.org
 
     retrieve_pull_requests_by_ymd(
         start_at=args.start_at,

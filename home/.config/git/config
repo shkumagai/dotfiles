@@ -84,11 +84,10 @@
 	name = shkumagai
 	email = "take.this.2.your.grave@gmail.com"
 
-[includeIf "gitdir:~/projects/github.com/visasq/"]
-	path = ~/.config/git/config.corp
-
-[includeIf "gitdir:~/projects/github.com/shoji-kumagai-visasq/"]
-	path = ~/.config/git/config.corp
+# Machine/work specific settings (e.g. includeIf for work repositories).
+# Missing files are ignored by git.
+[include]
+	path = ~/.config/git-local/config
 
 [credential "https://dev.azure.com"]
 	useHttpPath = true
