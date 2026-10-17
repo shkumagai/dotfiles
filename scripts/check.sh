@@ -289,9 +289,12 @@ layer_consistency() {
   if ! has mise; then report SKIP "mise checks" "mise not installed"; return; fi
 
   # 1. every [dotfiles] entry is applied
-  mise dotfiles status > "${status_file}" 2>&1
+  mise dotfiles status --verbose > "${status_file}" 2>&1
   out="$(awk '$1 ~ /^~\// && $NF != "applied"' "${status_file}")"
-  if [ -n "${out}" ]; then
+  # Guard against output format changes silently turning this into a PASS.
+  if ! grep -q '^~/' "${status_file}"; then
+    report FAIL "mise dotfiles status: no entries parsed (output format changed?)" "$(head -5 "${status_file}")"
+  elif [ -n "${out}" ]; then
     report FAIL "mise dotfiles: entries not applied (run: make dotfiles)" "${out}"
   else
     report PASS "mise dotfiles: all entries applied"
@@ -539,10 +542,20 @@ layer_security() {
     report PASS "no sensitive file names"
   fi
 
-  # .ssh/config is published with the repository
+  # .ssh/config is published with the repository: warn only when connection
+  # details (hosts, users, keys, jump hosts) are newly added.
   if grep -qx 'home/.ssh/config' "${TARGETS}"; then
-    report WARN "home/.ssh/config changed: host names/users become public" \
-      "$(git diff -U0 HEAD -- home/.ssh/config | grep -E '^\+[[:space:]]*(Host|HostName|User|IdentityFile|ProxyJump)[[:space:]]' | cut -c1-160)"
+    local ssh_pattern='^[[:space:]]*(Host|HostName|User|IdentityFile|ProxyJump)[[:space:]]'
+    if git ls-files --error-unmatch home/.ssh/config >/dev/null 2>&1; then
+      out="$(git diff -U0 HEAD -- home/.ssh/config | sed -n 's/^+\([^+]\)/\1/p' | grep -E "${ssh_pattern}" | cut -c1-160)"
+    else
+      out="$(grep -E "${ssh_pattern}" home/.ssh/config | cut -c1-160)"
+    fi
+    if [ -n "${out}" ]; then
+      report WARN "home/.ssh/config: new connection details become public" "${out}"
+    else
+      report PASS "home/.ssh/config: no new host/user/key entries"
+    fi
   fi
 
   # Claude Code permission rules
