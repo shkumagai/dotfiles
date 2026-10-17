@@ -5,6 +5,7 @@ set -eu -o pipefail
 
 DOTFILES="${HOME}/.dotfiles"
 
+# Unapply the deployed dotfiles first, then re-run the whole bootstrap (reset on re-run)
 make_targets=(clean install)
 
 for arg in "$@"; do
