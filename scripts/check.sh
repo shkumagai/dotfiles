@@ -105,8 +105,8 @@ else
     git ls-files --others --exclude-standard
   } | sort -u > "${TARGETS}"
 fi
-# drop deleted files and archived configs
-grep -v '^deprecated/' "${TARGETS}" | while IFS= read -r f; do [ -f "$f" ] && printf '%s\n' "$f"; done > "${TARGETS}.tmp"
+# drop deleted files
+while IFS= read -r f; do [ -f "$f" ] && printf '%s\n' "$f"; done < "${TARGETS}" > "${TARGETS}.tmp"
 mv "${TARGETS}.tmp" "${TARGETS}"
 
 # file_kind PATH -> zsh | bash | sh | toml-mise | toml | json | jsonc | yaml | gitconfig | tmux | ssh | vim | makefile | python | other
@@ -495,7 +495,7 @@ layer_security() {
 
   # content to scan: added lines in the diff + untracked files (or every file with --all)
   if [ "${MODE}" = all ]; then
-    git grep -n -I -e '' -- . ':!deprecated' > "${added}" 2>/dev/null
+    git grep -n -I -e '' > "${added}" 2>/dev/null
   else
     {
       git diff --no-color --no-ext-diff --src-prefix=a/ --dst-prefix=b/ -U0 HEAD 2>/dev/null | awk '/^\+\+\+ b\//{f=substr($0,7)} /^@@/{split($3,a,/[,+]/); n=a[2]; next} /^\+/ && !/^\+\+\+/{print f":"n": "substr($0,2); n++}'
