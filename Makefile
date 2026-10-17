@@ -27,7 +27,7 @@ bootstrap: | $(MISE) ## Run mise bootstrap whole steps at once.
 
 .PHONY: macos-defaults
 macos-defaults: | $(MISE) ## Apply MacOS Defaults configuration.
-	$(MISE) bootstrap macos defaults
+	$(MISE) bootstrap macos defaults apply
 
 .PHONY: packages
 packages: | $(MISE) ## Install packages from [bootstrap.packages].
@@ -38,8 +38,8 @@ dotfiles: | $(MISE) ## Apply dotfiles to home directory.
 	$(MISE) bootstrap dotfiles apply
 
 .PHONY: repos
-repos: | $(MISE) ## Clone repository that required.
-	$(MISE) bootstrap repos apply --yes --skip-dirty
+repos: | $(MISE) ## Clone required repositories (incl. dotfiles-private via repos hooks).
+	$(MISE) bootstrap --only repos --yes --skip-dirty
 
 .PHONY: install
 install : bootstrap ## Run install
