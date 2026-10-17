@@ -60,6 +60,5 @@ check-all: ## Verify every tracked file.
 	scripts/check.sh --all
 
 .PHONY: test
-test: ## Run checkmake.
-	checkmake Makefile
-	shellcheck install.sh
+test: ## Lint every tracked file without touching the environment (static / security).
+	scripts/check.sh --all --layer static,security
