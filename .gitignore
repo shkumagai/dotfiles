@@ -1,12 +1,6 @@
 .DS_Store
 
 home/.config/git/config.*
-home/.config/herdr/.plugins.lock
-home/.config/herdr/release-notes.json
-home/.config/herdr/*.log
-home/.config/herdr/herdr.sock.agent
-home/.config/herdr/session.json
-home/.config/herdr/session-snapshots/
 home/.config/gh/hosts.yml
 home/.config/mise/config.*.toml
 home/.config/mise/conf.d/
