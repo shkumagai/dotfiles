@@ -36,37 +36,37 @@ checksum = "sha256:1314008898bd40df77af4b014f777f08873dbdfbcd3d92308728ee03304fe
 url = "https://dl.google.com/go/go1.27.2.windows-amd64.zip"
 
 [[tools.node]]
-version = "26.11.1"
+version = "26.12.0"
 backend = "core:node"
 specifiers = ["latest"]
 
 [tools.node."platforms.linux-arm64"]
-checksum = "sha256:170454fb022f5e9b5f6cc76c25fa32ef5100895be44eb04e92f9780591491bbf"
-url = "https://nodejs.org/dist/v26.11.1/node-v26.11.1-linux-arm64.tar.gz"
+checksum = "sha256:ec53c915c3fdd8786c5685abd25ae3fe9fba0692307f9811d7caaadea1bcaf03"
+url = "https://nodejs.org/dist/v26.12.0/node-v26.12.0-linux-arm64.tar.gz"
 
 [tools.node."platforms.linux-arm64-musl"]
-checksum = "sha256:5ac42d71176924d34be570c85567c729cc9283294d3fd710011851510b30c9d1"
-url = "https://unofficial-builds.nodejs.org/download/release/v26.11.1/node-v26.11.1-linux-arm64-musl.tar.gz"
+checksum = "sha256:2e70b6d5adbae94546c4d7e01de7b64c50bf8d3dbfaad2bb0774942e9da902b8"
+url = "https://unofficial-builds.nodejs.org/download/release/v26.12.0/node-v26.12.0-linux-arm64-musl.tar.gz"
 
 [tools.node."platforms.linux-x64"]
-checksum = "sha256:15fc043a51a5783f2f4b634561091658f5a7f0e3db03f997dca3a8033a33e45b"
-url = "https://nodejs.org/dist/v26.11.1/node-v26.11.1-linux-x64.tar.gz"
+checksum = "sha256:d9f88af72ad34f7ddf8e67289829f1698f54b6254f7d4f54b7453117ff1a3d2c"
+url = "https://nodejs.org/dist/v26.12.0/node-v26.12.0-linux-x64.tar.gz"
 
 [tools.node."platforms.linux-x64-musl"]
-checksum = "sha256:dc822f43a55877e060b9e16702019c91deb9684310fa47ea4e9bdab0f2146366"
-url = "https://unofficial-builds.nodejs.org/download/release/v26.11.1/node-v26.11.1-linux-x64-musl.tar.gz"
+checksum = "sha256:48ba1cdf21e684f13f38b6295f43bfea951f1ffd008b4cf93361c966b33f6938"
+url = "https://unofficial-builds.nodejs.org/download/release/v26.12.0/node-v26.12.0-linux-x64-musl.tar.gz"
 
 [tools.node."platforms.macos-arm64"]
-checksum = "sha256:d916511b55965e91be7a88e17f88d895b6793ceaba3e6c9b194aefe51c2c65ac"
-url = "https://nodejs.org/dist/v26.11.1/node-v26.11.1-darwin-arm64.tar.gz"
+checksum = "sha256:2a154d4a5458930e0a2d6a1ecf64eddf5a2b3e1c13636b609c2ecb042e8c4553"
+url = "https://nodejs.org/dist/v26.12.0/node-v26.12.0-darwin-arm64.tar.gz"
 
 [tools.node."platforms.macos-x64"]
-checksum = "sha256:9a8129bd9ab08039793dd1143a7aedee6b5d60ac06592ad938d8bddf36142f3a"
-url = "https://nodejs.org/dist/v26.11.1/node-v26.11.1-darwin-x64.tar.gz"
+checksum = "sha256:878ecede191c7abc1bff01d3fb81f7ed81aa1161040dba18776b8ff8593614b1"
+url = "https://nodejs.org/dist/v26.12.0/node-v26.12.0-darwin-x64.tar.gz"
 
 [tools.node."platforms.windows-x64"]
-checksum = "sha256:97f36a8a9684ff0d3e35758b4610fef5b628a5880e96f2ccc11240e5daf9934e"
-url = "https://nodejs.org/dist/v26.11.1/node-v26.11.1-win-x64.zip"
+checksum = "sha256:50efaf01a08c520b4bbe499c09a8c5a5c370002c419c0d9da2c6815d3066a453"
+url = "https://nodejs.org/dist/v26.12.0/node-v26.12.0-win-x64.zip"
 
 [[tools.pdm]]
 version = "2.29.2"
@@ -79,81 +79,81 @@ backend = "vfox:jdx/vfox-poetry"
 specifiers = ["latest"]
 
 [[tools.terraform]]
-version = "1.16.5"
+version = "1.16.6"
 backend = "aqua:hashicorp/terraform"
 specifiers = ["latest"]
 
 [tools.terraform."platforms.linux-arm64"]
-checksum = "sha256:61a50b00485ee4810cf20581ef080fc54d34d666e175c58d9a10501c65c1ccde"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_linux_arm64.zip"
+checksum = "sha256:a750b5a11038f165846b2658c40c88cd7070aa67a61bab431a14ba27928ea9ea"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_linux_arm64.zip"
 
 [tools.terraform."platforms.linux-arm64-musl"]
-checksum = "sha256:61a50b00485ee4810cf20581ef080fc54d34d666e175c58d9a10501c65c1ccde"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_linux_arm64.zip"
+checksum = "sha256:a750b5a11038f165846b2658c40c88cd7070aa67a61bab431a14ba27928ea9ea"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_linux_arm64.zip"
 
 [tools.terraform."platforms.linux-x64"]
-checksum = "sha256:2bc2fcfff033265c9e02ca0351f01794eb122f62a9b2a49a3294b9e49eaab5e4"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_linux_amd64.zip"
+checksum = "sha256:38034b38d03096399a7a1264a14561a8029b2b496fd1f169452656e53968f1b7"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_linux_amd64.zip"
 
 [tools.terraform."platforms.linux-x64-musl"]
-checksum = "sha256:2bc2fcfff033265c9e02ca0351f01794eb122f62a9b2a49a3294b9e49eaab5e4"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_linux_amd64.zip"
+checksum = "sha256:38034b38d03096399a7a1264a14561a8029b2b496fd1f169452656e53968f1b7"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_linux_amd64.zip"
 
 [tools.terraform."platforms.macos-arm64"]
-checksum = "sha256:ecdef65e24193d627f27c39baeda31295f08c938d8a3d4764f442fb916d4b7dc"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_darwin_arm64.zip"
+checksum = "sha256:85e1bc78ab45bdc5f82a7bac3929e37d072834a584d22583a2498dc67bb624cd"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_darwin_arm64.zip"
 
 [tools.terraform."platforms.macos-x64"]
-checksum = "sha256:9809158e481cf2d3a8433e59179f397b8edb5172397711bd98f6bb32edcaf53b"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_darwin_amd64.zip"
+checksum = "sha256:794a36c3f7ebf6c58f2089c226068a539d1705ba358a5679b51671c8dc7ebc7b"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_darwin_amd64.zip"
 
 [tools.terraform."platforms.windows-x64"]
-checksum = "sha256:01700102b7291f95c0ab61394b55bfd5f57a12ac65632c2c1958691c8cf438ef"
-url = "https://releases.hashicorp.com/terraform/1.16.5/terraform_1.16.5_windows_amd64.zip"
+checksum = "sha256:6ea2c186e0e76a113af30fbcdcf7a4b4c70756317994a04929e5c90b9e94b1df"
+url = "https://releases.hashicorp.com/terraform/1.16.6/terraform_1.16.6_windows_amd64.zip"
 
 [[tools.uv]]
-version = "0.13.0"
+version = "0.13.1"
 backend = "aqua:astral-sh/uv"
 specifiers = ["latest"]
 
 [tools.uv."platforms.linux-arm64"]
-checksum = "sha256:3ccfb6af6e242433eb552f7d9676abd5412c6595c497e990d9c8cb7b5bd4d2c3"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003012"
+checksum = "sha256:9041c73c99fdc5892cf128140beb354eca9231d502068cc36e6cb53a8e59ad14"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639312990"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-arm64-musl"]
-checksum = "sha256:281ca6cf43f4e26e35474839ad4861be86de42af2682f74134460f5b2071b96d"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003041"
+checksum = "sha256:345a8308e4d1835cdfaadf692836fd3137a6d45864773f05ad7bf59442b1ba16"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639313013"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:1468ebd5a5541121837c5a2817b9972ba6090fa6caa3d142620850a47fb75154"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003332"
+checksum = "sha256:eadd9d27c134ab5ac1ffd4473b97a741407f3ea238288f03121fc4deddf90220"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639313223"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64-musl"]
-checksum = "sha256:b0828fc4cdc47d65951e94b5f0a15a5364420e8dcd88723f3b21e7a2eb30bbc3"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003353"
+checksum = "sha256:6c86040a8f045ab9adc9e3ec4cdafa03fd00e9a988ed2bf28971c7fc2d0debd0"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639313248"
 provenance = "github-attestations"
 
 [tools.uv."platforms.macos-arm64"]
-checksum = "sha256:a9c1b29002cf3c83f07fa9cd8a887a3be0107d90e23189721221e7257db8e3d6"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626002972"
+checksum = "sha256:cfe454573412ff7380d15fc7dae5997ab53ffce72fce0a78e91ddbc84001acd2"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639312976"
 provenance = "github-attestations"
 
 [tools.uv."platforms.macos-x64"]
-checksum = "sha256:5f44dcbde809b632f47c36fadb241cb4d6f9af71d0c8f172b5d2026d3dde742c"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003261"
+checksum = "sha256:bb7b805bdcf3d0bc8c74ceb94569e6b3e8aa35bd492acdbb9d46bf46d9d4ff6b"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639313196"
 provenance = "github-attestations"
 
 [tools.uv."platforms.windows-x64"]
-checksum = "sha256:088962f9e7b7bd9ea740c04c650b2a21c8928c345bd99ac24350dc924dba656c"
-url = "https://github.com/astral-sh/uv/releases/download/0.13.0/uv-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/626003295"
+checksum = "sha256:3b2661a463a5baea7f5076ea2b25ab71d77f36a6c0d809e5350651792f80a672"
+url = "https://github.com/astral-sh/uv/releases/download/0.13.1/uv-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/639313211"
 provenance = "github-attestations"
