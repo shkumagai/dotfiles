@@ -51,6 +51,10 @@ clean-dotfiles: | $(MISE) ## Clean up dotfiles.
 .PHONY: clean
 clean: clean-dotfiles
 
+.PHONY: doctor
+doctor: | $(MISE) ## Check machine prerequisites (gh login, SSH keys, private dotfiles).
+	$(MISE) doctor project
+
 .PHONY: check
 check: ## Verify changed files (static / consistency / runtime / security).
 	scripts/check.sh

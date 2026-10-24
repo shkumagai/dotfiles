@@ -202,5 +202,27 @@ run = [
   "mise exec -- gcloud auth configure-docker",
 ]
 
+# Machine prerequisites that bootstrap cannot set up by itself.
+# Run with `mise doctor project` (or `make doctor`).
+[doctor.checks."gh:auth"]
+description = "gh is logged in to github.com"
+run = "gh auth status --hostname github.com"
+hint = "Run `gh auth login`."
+
+[doctor.checks."ssh:key"]
+description = "The SSH key for GitHub exists"
+run = "test -f ~/.ssh/id_ed25519"
+hint = "Copy the key to ~/.ssh/id_ed25519, or create one with `ssh-keygen -t ed25519`."
+
+[doctor.checks."ssh:github"]
+description = "SSH authentication to github.com works"
+run = "test -f ~/.ssh/id_ed25519 && ssh -T -o BatchMode=yes git@github.com 2>&1 | grep -q 'successfully authenticated'"
+hint = "Fix ssh:key first if it fails, then register ~/.ssh/id_ed25519.pub at https://github.com/settings/keys."
+
+[doctor.checks."dotfiles-private"]
+description = "The private dotfiles are registered with mise"
+run = "test -L ~/.config/mise/conf.d/private.toml"
+hint = "Run `make -C ~/.dotfiles repos` (needs a gh account that can see shkumagai/dotfiles-private)."
+
 [tasks.bootstrap]
 run = "printf \"\\033[31m%s\\033[0m\\n\" \"Bootstrap processes are finished. please restart the OS.\""
