@@ -131,6 +131,9 @@ login_shell = "/bin/zsh"
 
 [dotfiles]
 "~/.claude/settings.json" = {}
+"~/.claude/agents/tracker-sync.md" = {}
+"~/.claude/agents/wiki-writer.md" = {}
+"~/.claude/skills/chief-of-ai-staff" = {}
 "~/.config/git" = {}
 "~/.config/gh" = {}
 "~/.config/herdr/config.toml" = {}
