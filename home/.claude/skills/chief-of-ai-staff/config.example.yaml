@@ -1,0 +1,71 @@
+# chief-of-ai-staff skill の設定のひな形。
+# このファイルを同じディレクトリに config.yaml としてコピーし、自分の値に書き換える。
+# 手順は SKILL.md にある。ここには、人や環境によって変わる値だけを置く。
+
+# サブエージェントを動かす TUI ツール。
+# この skill のディレクトリの backends/<backend>.md に、そのツールでの操作の手順がある。
+# 使いたいツールのファイルが無ければ、backends/TEMPLATE.md をもとに作る。
+backend: herdr
+
+# メインのセッション（自分）の作業場所の表示名。
+# 起動直後に、自分の作業場所がこの表示名になっているかを確かめる。
+self_display_name: chief-of-ai-staff
+
+# 固定のサブエージェントと、cwd を指定しないタスクの既定の作業ディレクトリ。
+default_cwd: ~/projects
+
+# 役割 → 固定のサブエージェント。
+# ここに書いた役割の作業（外部への書き込み）は、この固定のエージェントにだけ任せる。
+#   name:         エージェント名（「エージェントを起動する」「プロンプトを送る」で使う名前）
+#   display_name: 作業場所の表示名
+#   definition:   エージェント定義の名前。~/.claude/agents/<definition>.md を用意し、--agent に渡す
+#   default_service: 指示書でサービスを指定しないときに書くサービス。services のキーのどれか
+#   services:     サービス → そのサービスに書く手順をまとめた skill の名前。
+#                 固定のエージェントは、書く前にこの skill を Skill ツールで読む。
+#                 ここに無いサービスを指定されたら、エージェントは書かずに止めて報告する。
+#                 複数のサービスを使うなら、行を足す（例: github-issues: github-issues-writing）。
+# 役割を使わないなら、その行ごと消してよい。
+fixed_agents:
+  tracker:   # 課題管理への書き込みすべて（ステータス遷移、説明・担当・コメントの更新、起票など）
+    name: tracker-sync
+    display_name: tracker-sync
+    definition: tracker-sync
+    default_service: jira
+    services:
+      jira: jira-writing
+  wiki:      # wiki への記録すべて（ページの作成と更新）
+    name: wiki-writer
+    display_name: wiki-writer
+    definition: wiki-writer
+    default_service: confluence
+    services:
+      confluence: confluence-writing
+
+# 固定のサブエージェントの、以前の表示名。
+# 自分の作業場所にこれらや fixed_agents の表示名が付いていたら、self_display_name に付け直す。
+# 無ければ空のリストでよい。
+legacy_display_names: []
+
+# 指示書の「守ること」に足す、自分の環境の決まり。
+# SKILL.md の「共通の制約」に加えて、すべての指示書に貼る。
+# メインのセッションにも効かせたい決まりは、ここではなく ~/.claude/CLAUDE.md に書く（サブエージェントも読むので、指示書に貼らなくても届く）。
+constraints:
+  - "本番環境のリポジトリ（例: infra-prod）では、デプロイや apply のコマンドを実行しない。"
+  - PR は Draft で作り、レビュアーは付けない（指示があれば別）。
+
+# 定型の作業。trigger のように頼まれたら、指示書を書かずに prompt を渡す。
+#   name:          作業の名前
+#   trigger:       頼まれ方の例
+#   skill:         手順が書いてある skill
+#   fixed:         true なら fixed_agents のどれかに任せる。false ならタスクごとのエージェントを作り、
+#                  終わってユーザーが確かめたら閉じる
+#   name_example:  タスクごとのエージェントの名前・表示名の例
+#   prompt:        渡す文。{date} は YYYY-MM-DD、{report} は報告の絶対パスに置き換える
+# 無ければ空のリストでよい。
+routines:
+  - name: 日報を書く
+    trigger: 今日の日報を作って
+    skill: daily-report
+    fixed: false
+    name_example: daily-report-0101
+    prompt: "`daily-report` skill に従って、{date} の日報を書いてください。報告は {report} に書いてください。"
