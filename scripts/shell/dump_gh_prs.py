@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import json
 import os
@@ -9,7 +9,7 @@ from datetime import date
 from pathlib import Path
 from subprocess import CalledProcessError, check_output
 from time import sleep
-from typing import Final
+from typing import Final, Optional
 
 
 DUMP_DEST_DIR_ROOT: Final = "gh_prs"
@@ -57,9 +57,41 @@ org: str = os.environ.get("GH_ORG", "")
 repositories: list[str] = []
 """GitHub の repository 一覧。"""
 
+target_repositories: Optional[list[str]] = None
+"""PR を取得する repository 名の一覧 (--repos-file)。None のときは全 repository (--all)。"""
 
-def get_repositories():
+exclude_archived: bool = False
+"""全 repository (--all) のとき、アーカイブ済みの repository を除くかどうか (--no-archived)。"""
+
+
+def load_repository_names(path: Path) -> list[str]:
+    """repository 名の一覧をファイルから読み込む。
+
+    1 行に 1 つの repository 名 (organization なし) を書く。
+    `#` から後ろはコメントとして無視し、前後の空白を取り除き、空行は飛ばす。
+    重複は最初の 1 つだけを残す。
+
+    Args:
+        path: Path 一覧のファイルのパス
+    Returns:
+        list[str] repository 名の一覧 (ファイルに書かれた順)
+    Raises:
+        OSError: ファイルを読めない場合
+    """
+    names: list[str] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        name = line.split("#", 1)[0].strip()
+        if name and name not in names:
+            names.append(name)
+    return names
+
+
+def get_repositories() -> list[str]:
     """GitHub の repository 一覧を取得する。
+
+    target_repositories が指定されているときは、その中で organization にある
+    ものだけに絞る (アーカイブ済みも含む)。無いものは警告を出して飛ばす。
+    指定されていないときは全 repository で、exclude_archived が真ならアーカイブ済みを除く。
 
     Returns:
         list[str] GitHub の repository 一覧
@@ -71,30 +103,49 @@ def get_repositories():
             query_repositories = shlex.split(
                 f"gh repo list {org}"
                 " --limit 999"
-                " --no-archived"
                 f" --json {','.join(REPO_FIELDS)}"
-                " --jq '.[]|.name'",
+                " --jq '.[]|[.name, .archivedAt // \"\"]|@tsv'",
             )
-            repositories = check_output(query_repositories).decode("utf-8").splitlines()
+            rows = [
+                line.split("\t")
+                for line in check_output(query_repositories).decode("utf-8").splitlines()
+            ]
+            repositories = [
+                name for name, archived_at in rows
+                if not (exclude_archived and archived_at)
+            ]
         except Exception as e:
-            _console(f"Error retrieving repositories: {e}\n")
+            _console(f"Error retrieving repositories: {e}\n", stderr=True)
+            return repositories
+
+        if target_repositories is not None:
+            available = set(repositories)
+            for name in target_repositories:
+                if name not in available:
+                    _console(
+                        f"Warning: repository not found; skip: {org}/{name}\n",
+                        stderr=True,
+                    )
+            repositories = [r for r in target_repositories if r in available]
 
     return repositories
 
 
-def _console(message: str, newline: bool = False) -> None:
+def _console(message: str, newline: bool = False, *, stderr: bool = False) -> None:
     """コンソールにメッセージを出力する。
 
     Args:
         message: str 出力するメッセージ
         newline: bool メッセージの後に改行を追加するかどうか
+        stderr: bool 標準エラー出力に出すかどうか (警告やエラーのとき)
     Returns:
         なし
     """
     if newline:
         message += "\n"
-    sys.stdout.write(message)
-    sys.stdout.flush()
+    stream = sys.stderr if stderr else sys.stdout
+    stream.write(message)
+    stream.flush()
 
 
 def retrieve_pull_requests_per_day(
@@ -133,7 +184,7 @@ def retrieve_pull_requests_per_day(
             f.write(prs)
         return len(content)
     except CalledProcessError as e:
-        _console(f"Error retrieving PRs for {repo}: {e}\n")
+        _console(f"Error retrieving PRs for {repo}: {e}\n", stderr=True)
         return 0
 
 
@@ -155,7 +206,7 @@ def retrieve_pull_requests_by_repositories(
     # retrieve repositories before removing the previous dump
     sorted_repos = sorted(get_repositories())
     if not sorted_repos:
-        _console(f"No repositories found; skip {since}\n")
+        _console(f"No repositories found; skip {since}\n", stderr=True)
         return
 
     dest_path = Path(f"{DUMP_DEST_DIR_ROOT}/{since.replace('-', '/')}")
@@ -243,6 +294,29 @@ if __name__ == "__main__":
         default=os.environ.get("GH_ORG"),
         required=not os.environ.get("GH_ORG"),
     )
+    repos_group = parser.add_mutually_exclusive_group()
+    repos_group.add_argument(
+        "--repos-file",
+        type=lambda p: Path(p).expanduser(),
+        help=(
+            "PR を取得する repository 名の一覧のファイル。1 行に 1 つ、"
+            "# から後ろはコメント (既定: 環境変数 GH_PR_REPOS_FILE)"
+        ),
+        default=os.environ.get("GH_PR_REPOS_FILE") or None,
+    )
+    repos_group.add_argument(
+        "--all",
+        action="store_true",
+        help=(
+            "organization の全 repository の PR を取得する"
+            " (既定ではアーカイブ済みの repository も含む)"
+        ),
+    )
+    parser.add_argument(
+        "--no-archived",
+        action="store_true",
+        help="--all のとき、アーカイブ済みの repository を除く (--all と一緒のときだけ使える)",
+    )
     parser.add_argument(
         "-s",
         "--start_at",
@@ -275,6 +349,26 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     org = args.org
+    exclude_archived = args.no_archived
+
+    if args.no_archived and not args.all:
+        parser.error("--no-archived は --all と一緒のときだけ使えます")
+    if not args.all:
+        if args.repos_file is None:
+            parser.error(
+                "repository の一覧のファイルを --repos-file か環境変数 GH_PR_REPOS_FILE で"
+                "指定してください (全 repository を取得するときは --all)",
+            )
+        try:
+            target_repositories = load_repository_names(args.repos_file)
+        except OSError as e:
+            parser.error(f"repository の一覧のファイルを読めません: {e}")
+        if not target_repositories:
+            parser.error(f"repository の一覧のファイルが空です: {args.repos_file}")
+        if not get_repositories():
+            parser.error(
+                f"一覧のどの repository も {org} に見つかりません: {args.repos_file}",
+            )
 
     retrieve_pull_requests_by_ymd(
         start_at=args.start_at,
