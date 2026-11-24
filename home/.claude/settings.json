@@ -50,5 +50,35 @@
   "theme": "auto",
   "editorMode": "normal",
   "remoteControlAtStartup": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Primary use of Claude Code**: software development",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: None configured",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: The trusted repo and its remote(s) only (no additional orgs configured)",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development — supplemented by observed workflow: delegating daily standup/PR-review/journal-writing routines to sub-agents via a `chief-of-ai-staff` skill, operating against GitHub, Jira, Confluence, and Slack for the user shoji.kumagai",
+      "**Trusted repo**: No repo detected in the current working directory (/Users/shoji.kumagai has no tracked files and no git remotes) — treat this location as having no established trusted repo until one is initialized or opened",
+      "**Org-specific CLIs**: None configured",
+      "**Note on routine scope**: repo-authored skill docs (daily-workstyle, journal-daily) describe routine write access limited to `~/Journal` daily/weekly files and a specific Slack channel/thread, and explicit avoidance of running `terraform` commands in a `visasq-terraform` repo — these are unverified provenance (repo-authored docs only, not corroborated by transcript-mining counts) and are not adopted into trust slots, listed here only as context"
+    ]
+  }
 }
