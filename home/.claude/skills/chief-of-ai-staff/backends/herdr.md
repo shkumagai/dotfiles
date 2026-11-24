@@ -57,6 +57,18 @@ herdr agent start <エージェント名> --kind claude --pane <pane_id> --timeo
 - `agent start` が成功を返すのは、エージェントが入力を受け付けられるようになってから。
 - 起動の途中で確認の画面で止まると、`agent_not_ready` がすぐに返る。名前は残るので、`herdr agent read <エージェント名>` で画面を見る。
   - 信頼済みでないディレクトリで起動すると、Claude Code の確認（このフォルダを信頼するか）で止まる。画面を見て、ユーザーに伝える。勝手に答えない。
+- `workspace create` の直後は、シェルの起動が終わっていないことがある。pane がプロンプトに戻っていないと、`agent start` は `agent_pane_busy`（pane is not an available shell）をすぐ返す。
+  - `--timeout` が待つのは、起動したエージェントの準備だけ。シェルのプロンプトは待たない。zshrc や starship が遅い回は、数秒かかる。
+  - プロンプトが出るまで待ってから `agent start` する。それでも `agent_pane_busy` なら、5 秒おきに再試行し、60 秒で諦める。
+
+```sh
+# プロンプトの記号（starship の ❯）が出るまで待つ。60 秒で失敗（終了コード 1）
+herdr pane wait-output <pane_id> --match "❯" --timeout 60000
+# agent_pane_busy のあいだ、5 秒おきに再試行する（最大 12 回）
+for i in $(seq 1 12); do herdr agent start <エージェント名> --kind claude --pane <pane_id> --timeout 60000 >/dev/null 2>&1 && break; sleep 5; done
+```
+
+- 再試行のループは出力を捨てるので、終わったら `herdr agent list` で起動したかを確かめる。`agent_not_ready`（確認の画面で止まった）でも再試行が続くので、失敗が続くときは `herdr agent read <エージェント名>` で画面を見る。
 
 ### エージェントの一覧を見る
 
