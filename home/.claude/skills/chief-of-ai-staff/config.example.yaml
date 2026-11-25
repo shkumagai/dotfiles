@@ -69,3 +69,10 @@ routines:
     fixed: false
     name_example: daily-report-0101
     prompt: "`daily-report` skill に従って、{date} の日報を書いてください。報告は {report} に書いてください。"
+  - name: ここ一ヶ月の仕掛りを洗い出す
+    trigger: ここ一ヶ月の仕掛り中の作業を整理して
+    skill: look-back-in-a-month
+    fixed: false
+    name_example: look-back-0101
+    # {report} は ~/.claude/skills/look-back-in-a-month/state/look-back-YYYYMMDD-HHMM.md（JST）の絶対パスにする（skill の「使い方」）
+    prompt: "`look-back-in-a-month` skill に従って、{date} 時点の仕掛り作業を洗い出してください。報告は {report} に書いてください。"
