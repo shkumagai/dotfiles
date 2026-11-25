@@ -52,8 +52,9 @@ fi
 
 [plugins.gcloud]
 inline = '''
-if command -v brew &> /dev/null && [[ -d "$(brew --prefix)/share/google-cloud-sdk" ]]; then
-  source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+# 起動ごとに `brew --prefix` を 2 回呼ぶと遅いため、.zshenv の `brew shellenv` が設定する HOMEBREW_PREFIX を使う（2026-11-25）
+if [[ -n "${HOMEBREW_PREFIX}" && -d "${HOMEBREW_PREFIX}/share/google-cloud-sdk" ]]; then
+  source "${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc"
 fi
 '''
 
