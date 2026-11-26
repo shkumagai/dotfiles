@@ -4,7 +4,24 @@
 # Inserts a black line between shell prompts
 add_newline = false
 format = """$username$hostname $character"""
-right_format = """$all"""
+# `$all` だと使わない言語・クラウドのモジュールまでプロンプトごとに動き、外部コマンドの待ちで遅くなるため、使うものだけを `$all` と同じ順に並べる（2026-11-25）
+right_format = """\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$package\
+$golang\
+$nodejs\
+$python\
+$rust\
+$terraform\
+$gcloud\
+$mise\
+$cmd_duration\
+$jobs\
+"""
 # command_timeout = 1500
 continuation_prompt = '[❯❯❯](fg:white)'
 
@@ -60,5 +77,7 @@ disabled = true
 format = '[$symbol($version)]($style) '
 
 [python]
+# 既定の python → python3 → python2 を順に試すと、mise の shim 経由で 3 回実行して遅いため、python3 だけにする（2026-11-25）
+python_binary = ['python3']
 symbol = ' '
 format = '[${symbol}${pyenv_prefix}(${version})( \(${virtualenv}\))]($style) '

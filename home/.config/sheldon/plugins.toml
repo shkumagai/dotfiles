@@ -13,7 +13,8 @@
 shell = "zsh"
 
 [templates]
-defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+# -m -p: 読み込むたびに precmd のフック（mise の hook-env など）とプロンプトの描き直し（starship）が走らないようにする（2026-11-25）
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer -mp source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
 
 [plugins]
 
@@ -43,10 +44,12 @@ if command -v starship &> /dev/null; then
 fi
 '''
 
+# 起動ごとの外部コマンドがときどき止まるため、fzf・gcloud・fzf-git・zoxide の初期化はプロンプトを出したあとに zsh-defer で行う（2026-11-25）
+# zsh-defer は登録した順に実行するので、compinit → fzf → gcloud → fzf-git → zoxide の順になる
 [plugins.fzf]
 inline = '''
 if command -v fzf &> /dev/null; then
-  source <(fzf --zsh)
+  zsh-defer -mp -c 'source <(fzf --zsh)'
 fi
 '''
 
@@ -54,13 +57,14 @@ fi
 inline = '''
 # 起動ごとに `brew --prefix` を 2 回呼ぶと遅いため、.zshenv の `brew shellenv` が設定する HOMEBREW_PREFIX を使う（2026-11-25）
 if [[ -n "${HOMEBREW_PREFIX}" && -d "${HOMEBREW_PREFIX}/share/google-cloud-sdk" ]]; then
-  source "${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc"
+  zsh-defer -mp source "${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc"
 fi
 '''
 
 [plugins.fzf-git]
 github = "junegunn/fzf-git.sh"
 use = ["fzf-git.sh"]
+apply = ["defer"]
 
 [plugins.cargo]
 inline = '''
@@ -81,7 +85,7 @@ export GOPATH="${XDG_DATA_HOME}/go"
 [plugins.zoxide]
 inline = '''
 if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"
+  zsh-defer -mp -c 'eval "$(zoxide init zsh)"'
 fi
 '''
 
