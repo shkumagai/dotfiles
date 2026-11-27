@@ -34,7 +34,7 @@ herdr workspace list
 herdr workspace rename <workspace_id> <新しい表示名>
 ```
 
-- 端末を再起動したあと、herdr が前の workspace を label ごと残すことがある。その中でメインのセッションが起動すると、固定のサブエージェントの label が自分の workspace に付いたままになる。SKILL.md の「起動した直後の確認」は、これに備えたもの。
+- 端末を再起動したあと、herdr が前の workspace を label ごと残すことがある。その中でメインのセッションが起動すると、固定のセッションの label が自分の workspace に付いたままになる。SKILL.md の「起動した直後の確認」は、これに備えたもの。
 
 ### 作業場所を作る
 
