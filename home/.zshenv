@@ -91,6 +91,6 @@ path=(
 
 # Mise: shims only (PATH is inherited by child shells).
 # Interactive shells are fully activated in ~/.zshrc.
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh --shims)"
-fi
+# Prepend the shims directory directly instead of `eval "$(mise activate zsh --shims)"`,
+# which exec'd mise on every shell startup only to print this PATH.
+path=("${XDG_DATA_HOME}/mise/shims"(N-/) ${path})
