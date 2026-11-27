@@ -39,12 +39,39 @@ if [[ -x /usr/libexec/path_helper ]]; then
 fi
 
 # Homebrew
+# Cache the output of `brew shellenv` so that brew is not exec'd on every shell startup.
+# The cache is regenerated only when it is missing or older than brew (checked without exec).
+# To regenerate it (e.g. brew moved or its shellenv output changed), delete the cache file.
 if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+  __brew=/opt/homebrew/bin/brew
 elif [[ -f /usr/local/bin/brew ]]; then
-  eval "$(/usr/local/bin/brew shellenv zsh)"
+  __brew=/usr/local/bin/brew
 elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+  __brew=/home/linuxbrew/.linuxbrew/bin/brew
+fi
+if [[ -n "${__brew-}" ]]; then
+  __brew_cache="${XDG_CACHE_HOME}/zsh/brew-shellenv.zsh"
+  if [[ ! -f "${__brew_cache}" || "${__brew}" -nt "${__brew_cache}" ]]; then
+    # Write to a temporary file and rename it, so that an interrupted write never leaves a broken cache.
+    # zsh/files provides builtin mkdir/mv/rm (as zf_*), which avoids extra exec.
+    if zmodload -F zsh/files b:zf_mkdir b:zf_mv b:zf_rm 2>/dev/null \
+      && { [[ -d "${__brew_cache:h}" ]] || zf_mkdir -p "${__brew_cache:h}"; } 2>/dev/null \
+      && "${__brew}" shellenv zsh >| "${__brew_cache}.$$" 2>/dev/null \
+      && [[ -s "${__brew_cache}.$$" ]] \
+      && zf_mv -f "${__brew_cache}.$$" "${__brew_cache}" 2>/dev/null; then
+      :
+    else
+      zf_rm -f "${__brew_cache}.$$" 2>/dev/null
+      __brew_cache=
+    fi
+  fi
+  if [[ -n "${__brew_cache}" ]]; then
+    source "${__brew_cache}"
+  else
+    # Fall back to the uncached way if the cache could not be written.
+    eval "$("${__brew}" shellenv zsh)"
+  fi
+  unset __brew __brew_cache
 fi
 
 # Macports
