@@ -38,7 +38,9 @@ zsh-defer compinit -d "${_zcompdump}"
 '''
 
 # 起動ごとに starship を exec すると止まることがあるため、`starship init zsh` の出力を ${XDG_CACHE_HOME}/zsh/starship-init.zsh にキャッシュして読む（2026-11-27）
-# 作り直すのは、キャッシュが無いとき、starship の実体（Homebrew はボトルの mtime を保つので、実体のパスを 1 行目に記録して比べる）が変わったとき、実体がキャッシュより新しいときだけ。作り直したいときは、キャッシュのファイルを消す
+# 作り直すのは、キャッシュが無いとき、starship の実体（Homebrew はボトルの mtime を保つので、実体のパスを 1 行目に記録して比べる）が変わったとき、実体か starship.toml がキャッシュより新しいときだけ。作り直したいときは、キャッシュのファイルを消す
+# init の出力の `PROMPT2="$(starship prompt --continuation)"` も起動ごとに starship を exec するため、書き出すときにその場で 1 回実行して値の代入に置き換える。値は starship.toml の continuation_prompt で決まるので、starship.toml を変えたら作り直す（2026-11-27）
+# 置き換える行が見つからない（starship の版が変わって出力の形が変わったなど）か、値を取れなかったときは、置き換えずにそのまま書き出す
 # 一時ファイルに書いてから zf_mv で置き換え、書き出しに失敗したら今までどおり eval する（.zshenv の Homebrew、.zshrc の sheldon と同じ形）
 [plugins.starship]
 inline = '''
@@ -48,10 +50,26 @@ if command -v starship &> /dev/null; then
   __starship_cache="${XDG_CACHE_HOME}/zsh/starship-init.zsh"
   __starship_head=
   [[ -r "${__starship_cache}" ]] && IFS= read -r __starship_head < "${__starship_cache}"
-  if [[ "${__starship_head}" != "# ${__starship_real}" || "${__starship_real}" -nt "${__starship_cache}" ]]; then
-    if zmodload -F zsh/files b:zf_mkdir b:zf_mv b:zf_rm 2>/dev/null \
+  # starship は XDG_CONFIG_HOME を見ず、STARSHIP_CONFIG か ~/.config/starship.toml を読む
+  if [[ "${__starship_head}" != "# ${__starship_real}" \
+    || "${__starship_real}" -nt "${__starship_cache}" \
+    || "${STARSHIP_CONFIG:-${HOME}/.config/starship.toml}" -nt "${__starship_cache}" ]]; then
+    __starship_lines=()
+    if __starship_init="$("${__starship}" init zsh 2>/dev/null)"; then
+      __starship_lines=("${(@f)__starship_init}")
+      for (( __starship_i = 1; __starship_i <= $#__starship_lines; __starship_i++ )); do
+        [[ "${__starship_lines[__starship_i]}" == 'PROMPT2="$('*' prompt --continuation)"' ]] || continue
+        # source したときは init の中で STARSHIP_SHELL=zsh になっている。エスケープを zsh のプロンプト用の印で囲ませるため、ここでも渡す
+        if __starship_prompt2="$(STARSHIP_SHELL=zsh "${__starship}" prompt --continuation 2>/dev/null)"; then
+          __starship_lines[__starship_i]="PROMPT2=${(q+)__starship_prompt2}"
+        fi
+        break
+      done
+    fi
+    if (( $#__starship_lines )) \
+      && zmodload -F zsh/files b:zf_mkdir b:zf_mv b:zf_rm 2>/dev/null \
       && { [[ -d "${__starship_cache:h}" ]] || zf_mkdir -p "${__starship_cache:h}"; } 2>/dev/null \
-      && { print -r -- "# ${__starship_real}" && "${__starship}" init zsh; } >| "${__starship_cache}.$$" 2>/dev/null \
+      && print -rl -- "# ${__starship_real}" "${__starship_lines[@]}" >| "${__starship_cache}.$$" 2>/dev/null \
       && zf_mv -f "${__starship_cache}.$$" "${__starship_cache}" 2>/dev/null; then
       :
     else
@@ -64,7 +82,7 @@ if command -v starship &> /dev/null; then
   else
     eval "$(starship init zsh)"
   fi
-  unset __starship __starship_real __starship_cache __starship_head
+  unset __starship __starship_real __starship_cache __starship_head __starship_init __starship_lines __starship_i __starship_prompt2
 fi
 '''
 
