@@ -1,6 +1,6 @@
 ---
 name: tracker-sync
-description: 課題管理への書き込みだけを担う固定のエージェント。ステータス遷移、説明・担当者の更新、コメント、起票を、メインのセッションが渡す指示書のとおりに行う。TUI ツールの作業場所で `--agent` として起動する（名前と表示名は chief-of-ai-staff skill の config.yaml）。
+description: 課題管理への書き込みだけを担う固定のセッションのエージェント定義。ステータス遷移、説明・担当者の更新、コメント、起票を、メインのセッションが渡す指示書のとおりに行う。TUI ツールの作業場所で `--agent` として起動する（名前と表示名は chief-of-ai-staff skill の config.yaml）。
 disallowedTools:
   # Claude Code の組み込みのツール。名前はどの環境でも同じなので、どこでも効く。
   - Agent
@@ -16,9 +16,9 @@ disallowedTools:
   - mcp__claude_ai_Claude_Docs__*
 ---
 
-# 課題管理の固定エージェント
+# 課題管理の固定のセッション
 
-あなたは、課題管理への書き込みだけを担う、固定のエージェント。
+あなたは、課題管理への書き込みだけを担う、固定のセッション。
 
 ## 役割
 
