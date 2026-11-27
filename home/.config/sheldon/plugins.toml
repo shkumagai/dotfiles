@@ -37,10 +37,34 @@ mkdir -p "${_zcompdump:h}"
 zsh-defer compinit -d "${_zcompdump}"
 '''
 
+# 起動ごとに starship を exec すると止まることがあるため、`starship init zsh` の出力を ${XDG_CACHE_HOME}/zsh/starship-init.zsh にキャッシュして読む（2026-11-27）
+# 作り直すのは、キャッシュが無いとき、starship の実体（Homebrew はボトルの mtime を保つので、実体のパスを 1 行目に記録して比べる）が変わったとき、実体がキャッシュより新しいときだけ。作り直したいときは、キャッシュのファイルを消す
+# 一時ファイルに書いてから zf_mv で置き換え、書き出しに失敗したら今までどおり eval する（.zshenv の Homebrew、.zshrc の sheldon と同じ形）
 [plugins.starship]
 inline = '''
 if command -v starship &> /dev/null; then
-  eval "$(starship init zsh)"
+  __starship="${commands[starship]}"
+  __starship_real="${__starship:A}"
+  __starship_cache="${XDG_CACHE_HOME}/zsh/starship-init.zsh"
+  __starship_head=
+  [[ -r "${__starship_cache}" ]] && IFS= read -r __starship_head < "${__starship_cache}"
+  if [[ "${__starship_head}" != "# ${__starship_real}" || "${__starship_real}" -nt "${__starship_cache}" ]]; then
+    if zmodload -F zsh/files b:zf_mkdir b:zf_mv b:zf_rm 2>/dev/null \
+      && { [[ -d "${__starship_cache:h}" ]] || zf_mkdir -p "${__starship_cache:h}"; } 2>/dev/null \
+      && { print -r -- "# ${__starship_real}" && "${__starship}" init zsh; } >| "${__starship_cache}.$$" 2>/dev/null \
+      && zf_mv -f "${__starship_cache}.$$" "${__starship_cache}" 2>/dev/null; then
+      :
+    else
+      zf_rm -f "${__starship_cache}.$$" 2>/dev/null
+      __starship_cache=
+    fi
+  fi
+  if [[ -n "${__starship_cache}" ]]; then
+    source "${__starship_cache}"
+  else
+    eval "$(starship init zsh)"
+  fi
+  unset __starship __starship_real __starship_cache __starship_head
 fi
 '''
 
